@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        button{
+            background-color:#FFF;
+            border:1px solid #bbb;
+            color:#000;
+            border-radius: 3px;
+        }
+        button:hover{
+            color:#FFF;
+            background-color:#2aabd2;
+        }
+        #box{
+            width:9999px;
+            height:30px;
+            //border:1px solid #ddd;
+        }
+        .num{
+            display:inline-block;
+            padding:10px;
+            margin:3px;
+            text-align: center;
+            color:#FFF;
+            background-color:red;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <input type="text" id="ipt"/>
+        <button id="usft">左侧入</button>
+        <button id="psh">右侧入</button>
+        <button id="sft">左侧出</button>
+        <button id="pop">右侧出</button>
+    </form>
+    <div id="box"></div>
+    <script>
+        var arr = [];
+        window.onload = function(){
+            var ipt=document.getElementById('ipt');
+            var uft = document.getElementById('usft');
+            uft.onclick = function(){
+                usft(ipt);
+                return false;
+            }
+            var pus = document.getElementById('psh');
+            pus.onclick = function(){
+                psh(ipt);
+                return false;
+            }
+           var sf = document.getElementById('sft');
+            sf.onclick = function(){
+                sft();
+                return false;
+            }
+            var po = document.getElementById('pop');
+            po.onclick = function(){
+                pop();
+                return false;
+            }
+        }
+
+        function usft(ipt){
+            var str = ipt.value;
+            var reg = /^([1-9])([\d]*)$/;
+            if( reg.test(str) ){
+                arr.unshift(str);
+            }
+            render();
+        }
+        function psh(ipt){
+            var str = ipt.value;
+            var reg = /^([1-9])([\d]*)$/;
+            if(  reg.test(str) ){
+                arr.push(str);
+            }
+            render();
+        }
+        function sft(){
+            if(arr.length){
+                console.log(arr.length)
+                arr.splice(0,1);
+            }
+            render();
+        }
+        function pop(){
+            if(arr.length){
+                arr.splice(arr.length-1,1);
+            }
+            render();
+        }
+        function render(){
+            var box = document.getElementById('box');
+            box.innerHTML = '';
+            if(arr.length){
+                for( var i=0; i<arr.length; i++ ){
+                    var num = document.createElement('div');
+                    num.innerHTML = arr[i];
+                    num.setAttribute('class','num');
+                    box.appendChild(num);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

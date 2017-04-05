@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>听指令的小方块（三）</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .box{
+            width:560px;
+            height:560px;
+            position:relative;
+            margin:10px auto;
+        }
+        canvas{
+            position:absolute;
+            top:0;
+            left:0;
+        }
+        #canBck{
+            z-index:1;
+        }
+        #canRect{
+            z-index:2;
+        }
+        form{
+            width:560px;
+            height:300px;
+            margin:0 auto;
+            padding-left:30px
+        }
+        #ipt{
+            font-size:20px;
+            resize: none;
+        }
+        #btn{
+            margin-top:15px;
+            width:45px;
+            height:30px;
+        }
+        .err{
+            background-color:red !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <canvas id="canBck" width="560px" height="560px" ></canvas>
+        <canvas id="canRect"  width="560px" height="560px" ></canvas>
+    </div>
+    <form>
+        <textarea  id="ipt" rows="10" cols="50">TRA LEF 2
+MOV LEF 2
+MOV TOP 2</textarea>
+        <input type="button" id="btn" value="执行"/>
+    </form>
+
+    <script src="areaNum.js" type="text/javascript" ></script>
+    <script src="bck.js" type="text/javascript" ></script>
+    <script src="rect.js" type="text/javascript" ></script>
+    <script src="wall.js" type="text/javascript" ></script>
+    <script>
+        window.onload = function(){
+            //textarea添加行号
+            var textarea = document.getElementById('ipt');
+            var nArea = new area(textarea);
+
+            //测试浏览器支持canvas
+            var canBck = document.getElementById('canBck');
+            if(canBck.getContext){
+                bckCtx = canBck.getContext('2d');
+
+                //创建网格背景
+                var nBck = new bck(bckCtx);
+
+                //画出方块
+                rectCtx = document.getElementById('canRect').getContext('2d');
+                var nRect = new rect(rectCtx);
+
+                //提交事件
+                document.getElementById('btn').onclick = function(){
+                    nArea.clearErr();
+
+                    var ipt = document.getElementById('ipt');
+                    var value = ipt.value;
+
+                    //去掉空行
+                    var reg = /([^\n]*)+/g;
+                    value = value.match(reg);
+                    ipt.value = '';
+                    var aStr = [];
+                    value.forEach(function(str){
+                        if(str!=''){
+                            ipt.value+=str+'\n';
+                            aStr.push(str);
+                        }
+                    })
+
+                    //逐行检查
+                    reg2 = /([^ ]+)+/g;
+                    aStr.forEach(function(str,i){
+                        aStr[i] = aStr[i].match(reg2);
+                        //console.log(aStr[i])
+                        var ret = nRect.command(aStr[i]);
+                        if(ret){
+                            nArea.setErr(i);
+                            ret = 0;
+                        }
+                    })
+                    nRect.move();
+                }
+            }else{
+                alert('该浏览器不支持canvas 请更换浏览器尝试');
+            }
+        }
+    </script>
+</body>
+</html>

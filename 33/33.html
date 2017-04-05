@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>听指令的小方块（一）</title>
+</head>
+<body>
+    <canvas id="canvas" width="560px" height="560px;"></canvas>
+    <form>
+        <input type="text" id="ipt" value="TUN BAC"/>
+        <input type="button" value="执行" id="btn" />
+    </form>
+
+
+
+    <script src="33-1.js" type="text/javascript"></script>
+    <script src="33-2.js" type="text/javascript"></script>
+    <script>
+        window.onload  = function() {
+            var cen = new center(document.getElementById('canvas'));
+            document.getElementById('btn').onclick = function(){
+                var txt = document.getElementById('ipt').value;
+                reg = /([A-Z]+)+/g;
+                var arr = txt.match(reg);
+                var aRep = [];
+                arr.forEach(function(str){
+                    if(str!=''){
+                        aRep.push(str);
+                    }
+                })
+                cen.command(aRep);
+                cen.move();
+            }
+        }
+
+    </script>
+</body>
+</html>

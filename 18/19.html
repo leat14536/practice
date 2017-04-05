@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        button{
+            background-color:#FFF;
+            border:1px solid #bbb;
+            color:#000;
+            border-radius: 3px;
+        }
+        button:hover{
+            color:#FFF;
+            background-color:#2aabd2;
+        }
+        #box{
+            width:1550px;
+            height:340px;
+            border:1px solid #ddd;
+            position: relative;
+        }
+        #box div{
+            position: absolute;
+            width:20px;
+            bottom:20px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <input type="text" id="ipt"/>
+    <button id="usft">左侧入</button>
+    <button id="psh">右侧入</button>
+    <button id="sft">左侧出</button>
+    <button id="pop">右侧出</button>
+    <button id="sort1">冒泡排序</button>
+</form>
+<div id="box"></div>
+<script>
+    //存储数据
+    var arr = [];
+    window.onload = function(){
+        var ipt=document.getElementById('ipt');
+        document.getElementById('usft').onclick = function(){
+            if(arr.length>60){
+                alert('数据已超过60个');
+                return false;
+            }
+            usft(ipt);
+            return false;
+        }
+        document.getElementById('psh').onclick = function(){
+            if(arr.length>60){
+                alert('数据已超过60个');
+                return false;
+            }
+            psh(ipt);
+            return false;
+        }
+        document.getElementById('sft').onclick = function(){
+            sft();
+            return false;
+        }
+        document.getElementById('pop').onclick = function(){
+            pop();
+            return false;
+        }
+        document.getElementById('sort1').onclick = function(){
+            if(arr.length>1){
+                sort1();
+            }
+            return false;
+        }
+    }
+
+    function usft(ipt){
+        var str = ipt.value;
+        var reg = /^([1-9])([\d]*)$/;
+        if( reg.test(str) ){
+            if(str>100||str<10){
+                alert('请输入大于等于10且小于等于100的数字')
+                return;
+            }
+            arr.unshift(str);
+        }
+        ipt.value = '';
+        render();
+    }
+    function psh(ipt){
+        var str = ipt.value;
+        var reg = /^([1-9])([\d]*)$/;
+        if(  reg.test(str) ){
+            if(str>100||str<10){
+                alert('请输入大于等于10且小于等于100的数字')
+                return;
+            }
+            arr.push(str);
+        }
+        ipt.value = '';
+        render();
+    }
+    function sft(){
+        if(arr.length){
+            console.log(arr.length)
+            arr.splice(0,1);
+            console.log(arr.length)
+            console.log(arr);
+        }
+        render();
+    }
+    function pop(){
+        if(arr.length){
+            arr.splice(arr.length-1,1);
+        }
+        render();
+    }
+    function render(){
+        var box = document.getElementById('box');
+        box.innerHTML = '';
+        var sta = 15,leg = 25;
+        if(arr.length){
+            for( var i=0; i<arr.length; i++ ){
+                var num = document.createElement('div');
+                num.setAttribute('title',arr[i]);
+                num.setAttribute('class','num');
+                num.setAttribute('style','left:'+(sta+leg*i)+'px;height:'+3*arr[i]+'px');
+                box.appendChild(num);
+            }
+        }
+    }
+    function sort1(){
+        var flag;
+        var i=0,max = arr.length-1,t;
+        var timer = setInterval(function(){
+            if(arr[i]>arr[i+1]){
+                t = arr[i];
+                arr[i] = arr[i+1];
+                arr[i+1] = t;
+                flag = 1;
+                render();
+            }
+            if(i==max){
+                max--;
+                i = -1;
+                if(!flag)max = 0;
+                flag = 0;
+            }
+            if(!max){
+                alert('完成');
+                clearInterval(timer);
+            }
+            i++;
+        },300);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .ipt{
+            border-color:#DDD;
+            border-width: 1px;
+            height:20px;
+        }
+        .err{
+            border-color:red;
+        }
+        .suc{
+            border-color:greenyellow;
+        }
+        .btn{
+            height:25px;
+            margin-left:15px;
+        }
+        .box{
+            color:#666;
+            font-size:12px;
+        }
+        .box.error{
+            color:indianred;
+        }
+        .box.success{
+            color:greenyellow;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <input type="text" class='ipt' /><input type="button" class="btn" value="验证" />
+        <div class="box">必填,长度为4~16个字符</div>
+    </div>
+    <script>
+        window.onload = function(){
+            var box = document.getElementsByClassName('box')[0];
+            var ipt = document.getElementsByClassName('ipt')[0];
+            document.getElementsByClassName('btn')[0].onclick = function(){
+                str = ipt.value;
+                leg = getLength(str);
+                if(leg==0){
+                    box.innerHTML = '名称不能为空';
+                    ipt.setAttribute('class','ipt err');
+                    box.setAttribute('class','box error');
+                }else if(leg<4||leg>16){
+                    box.innerHTML = '字符数应为4~16位';
+                    ipt.setAttribute('class','ipt err');
+                    box.setAttribute('class','box error');
+                }else{
+                    box.innerHTML = '名称格式正确';
+                    ipt.setAttribute('class','ipt suc');
+                    box.setAttribute('class','box success');
+                }
+            }
+            ipt.onfocus = function(){
+                ipt.setAttribute('class','ipt');
+                box.innerHTML = '必填,长度为4~16个字符'
+                box.setAttribute('class','box');
+            }
+        }
+        function getLength(str){
+            var num = 0;
+            for( var i=0; i<str.length; i++ ){
+                var code = str.charCodeAt(i);
+                if(code<=128&&code>=0){
+                    num++;
+                }else{
+                    num+=2;
+                }
+            }
+            return num;
+        }
+    </script>
+</body>
+</html>

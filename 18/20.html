@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        button{
+            background-color:#FFF;
+            border:1px solid #bbb;
+            color:#000;
+            border-radius: 3px;
+        }
+        button:hover{
+            color:#FFF;
+            background-color:#2aabd2;
+        }
+        #box{
+            width:9999px;
+        }
+        .num{
+            display:inline-block;
+            padding:10px;
+            margin:3px;
+            text-align: center;
+            color:#FFF;
+            background-color:red;
+        }
+        .num span{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <textarea id="ipt"></textarea>
+    <button id="usft">左侧入</button>
+    <button id="psh">右侧入</button>
+    <button id="sft">左侧出</button>
+    <button id="pop">右侧出</button>
+    <input type="text" id="search" />
+    <button id="sech">搜索</button>
+</form>
+<div id="box"></div>
+<script>
+    var arr = [];
+    window.onload = function(){
+        var ipt=document.getElementById('ipt');
+        document.getElementById('usft').onclick = function(){
+            usft(ipt);
+            return false;
+        }
+        document.getElementById('psh').onclick = function(){
+            psh(ipt);
+            return false;
+        }
+         document.getElementById('sft').onclick = function(){
+            sft();
+            return false;
+        }
+        document.getElementById('pop').onclick = function(){
+            pop();
+            return false;
+        }
+        document.getElementById('sech').onclick = function(){
+            search();
+            return false;
+        }
+    }
+
+    function usft(ipt){
+        var str = ipt.value;
+        var reg = /([0-9a-z\u4e00-\u9fa5]+)*/gi;
+        var data = str.match(reg);
+        for( i=0; i<data.length; i++ ){
+            if(data[i]!==''){
+                arr.unshift(data[i]);
+            }
+        }
+        ipt.value = '';
+        render();
+    }
+    function psh(ipt){
+        var str = ipt.value;
+        var reg = /([0-9a-z\u4e00-\u9fa5]+)*/gi;
+        var data = str.match(reg);
+        for( i=0; i<data.length; i++ ){
+            if(data[i]!==''){
+                arr.push(data[i]);
+            }
+        }
+        ipt.value = '';
+        render();
+    }
+    function sft(){
+        if(arr.length){
+            console.log(arr.length)
+            arr.splice(0,1);
+        }
+        render();
+    }
+    function pop(){
+        if(arr.length){
+            arr.splice(arr.length-1,1);
+        }
+        render();
+    }
+    function render(){
+        var box = document.getElementById('box');
+        box.innerHTML = '';
+        if(arr.length){
+            for( var i=0; i<arr.length; i++ ){
+                var num = document.createElement('div');
+                num.innerHTML = arr[i];
+                num.setAttribute('class','num');
+                box.appendChild(num);
+            }
+        }
+    }
+    function search(){
+        render();
+        var str = document.getElementById('search').value;
+        if(str=='')return;
+        var nums = document.getElementsByClassName('num');
+        for( var i=0; i<nums.length; i++ ){
+            nums[i].innerHTML = nums[i].firstChild.nodeValue.replace(str,'<span>'+str+'</span>');
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        button{
+            background-color:#FFF;
+            border:1px solid #bbb;
+            color:#000;
+            border-radius: 3px;
+        }
+        button:hover{
+            color:#FFF;
+            background-color:#2aabd2;
+        }
+       #tag1,#tag2{
+           min-height:50px;
+           margin: 15px 0;
+       }
+        #tag1 span,#tag2 span{
+            display:inline-block;
+            margin:5px;
+            padding:10px;
+            border-radius: 20px;
+            color: #FFF;
+            background-color: cornflowerblue;
+        }
+        #tag1 span:hover,#tag2 span:hover{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        Tag:<input type="text" id="ipt" />
+        <button id="btn">确定</button>
+    </form>
+    <div id="tag1"></div>
+    <textarea id="txt" cols="50" rows="5"></textarea>
+    <button id="sure">确认兴趣爱好</button>
+    <div id="tag2"></div>
+<script>
+    //存储第一
+    var arr1 = [];
+    var arr2 = [];
+    window.onload = function(){
+        var ipt =  document.getElementById('ipt');
+        document.getElementById('btn').onclick = function(){
+            var str = ipt.value.trim();
+            if(str=='') return false;
+            for( var i=0; i<arr1.length; i++ ){
+                if(arr1[i]==str){
+                    return false;
+                }
+            }
+            arr1.push(str);
+            while(arr1.length>10){
+                arr1.splice(0,1);
+            }
+            ipt.value = '';
+            render1();
+            return false;
+        }
+        document.getElementById('tag1').addEventListener('mouseover',function(ev){
+            ev = ev||window.event;
+            var target = ev.target||ev.srcElement;
+            //console.log(target)
+            if(target.className=='tag'){
+                target.innerHTML = '点击删除 '+ target.innerHTML;
+                target.onmouseout = function(){
+                    render1();
+                }
+                target.onclick = function(){
+                    arr1.splice(target.data,1);
+                    render1();
+                }
+            }
+        })
+        document.getElementById('sure').onclick = function(){
+            var reg = /([0-9a-z\u4e00-\u9fa5]+)*/ig;
+            var vals = document.getElementById('txt').value.match(reg);
+            arr2 = [];
+            //console.log(vals);
+            for( var i=0; i<vals.length; i++ ){
+                if(vals[i]!=''){
+                    var flag = 0;
+                    for( var j=0; j<arr2.length; j++ ){
+                        if(arr2[j]==vals[i]){
+                            flag = 1;
+                            break;
+                        }
+                    }
+                    if(!flag) {
+                        arr2.push(vals[i]);
+                        while (arr2.length > 10) {
+                            arr2.splice(0, 1);
+                        }
+                    }
+                }
+            }
+            render2();
+        }
+        document.getElementById('tag2').addEventListener('mouseover',function(ev){
+            ev = ev||window.event;
+            var target = ev.target||ev.srcElement;
+            //console.log(target)
+            if(target.className=='tag'){
+                target.innerHTML = '点击删除 '+ target.innerHTML;
+                target.onmouseout = function(){
+                    render2();
+                }
+                target.onclick = function(){
+                    arr2.splice(target.data,1);
+                    render2();
+                }
+            }
+        })
+    }
+    function render2(){
+        var box = document.getElementById('tag2');
+        box.innerHTML = '';
+        for( var i=0; i<arr2.length; i++ ){
+            var tag = document.createElement('span');
+            tag.setAttribute('class','tag');
+            tag.setAttribute('data',i);
+            tag.innerHTML = arr2[i];
+            box.appendChild(tag);
+        }
+    }
+
+    function render1(){
+        var box = document.getElementById('tag1');
+        box.innerHTML = '';
+        for( var i=0; i<arr1.length; i++ ){
+            var tag = document.createElement('span');
+            tag.setAttribute('class','tag');
+            tag.setAttribute('data',i);
+            tag.innerHTML = arr1[i];
+            box.appendChild(tag);
+        }
+    }
+
+</script>
+</body>
+</html>

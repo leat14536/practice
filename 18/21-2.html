@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        button{
+            background-color:#FFF;
+            border:1px solid #bbb;
+            color:#000;
+            border-radius: 3px;
+        }
+        button:hover{
+            color:#FFF;
+            background-color:#2aabd2;
+        }
+        #tag1,#tag2{
+            min-height:50px;
+            margin: 15px 0;
+        }
+        #tag1>span,#tag2>span{
+            display:inline-block;
+            margin:5px;
+            padding:10px;
+            border-radius: 20px;
+            color: #FFF;
+            background-color: cornflowerblue;
+        }
+        #tag1 span:hover,#tag2 span:hover{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<form>
+    Tag:<input type="text" id="ipt" />
+    <button id="btn">确定</button>
+</form>
+<div id="tag1"></div>
+<textarea id="txt" cols="50" rows="5"></textarea>
+<button id="sure">确认兴趣爱好</button>
+<div id="tag2"></div>
+<script src="21-2.js" type="text/javascript"></script>
+<script>
+    window.onload = function(){
+        var tagbox1 = document.getElementById('tag1');
+        var aniTag1 = new aniTag(tagbox1,10,'点击删除: ');//aniTag(tag存储的父节点,数量不能超过10,鼠标移入tag时添加的字符串)
+        document.getElementById('btn').onclick = function(){
+            //存储数据
+            aniTag1.pushStr(document.getElementById('ipt').value);
+            //渲染
+            aniTag1.render();
+            //阻止默认事件
+            return false;
+        }
+        var tagbox2 = document.getElementById('tag2');
+        var aniTag2 = new aniTag(tagbox2,10,'点击删除: ');//aniTag(tag存储的父节点,数量不能超过10,鼠标移入tag时添加的字符串)
+        var reg = /([0-9a-z\u4e00-\u9fa5]+)*/ig;
+        document.getElementById('sure').onclick = function(){
+            //清除数据
+            aniTag2.clear();
+            var aStr = document.getElementById('txt').value.match(reg);
+            //存储数据
+            aStr.forEach(function(str){
+                aniTag2.pushStr(str);
+            })
+            //渲染
+            aniTag2.render();
+            return false;
+        }
+    }
+</script>
+</body>
+</html>

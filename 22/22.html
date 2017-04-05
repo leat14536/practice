@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        div{
+            background-color: #FFF;
+        }
+        .fm{
+            width:80%;
+            margin:10px auto;
+        }
+        .fm button{
+            float:left;
+            clear:left;
+            margin-top:20px;
+        }
+        .parent{
+            display:flex;
+            width:80%;
+            height:300px;
+            border:1px solid #999;
+            justify-content:space-around;
+            margin:20px auto;
+        }
+        .child1{
+            display:flex;
+            width:40%;
+            height:260px;
+            margin-top:20px;
+            border:1px solid #999;
+            justify-content:space-around;
+        }
+        .child2{
+            display:flex;
+            width:40%;
+            height:220px;
+            margin-top:20px;
+            border:1px solid #999;
+            justify-content:space-around;
+        }
+        .child3{
+            display:flex;
+            width:40%;
+            height:180px;
+            margin-top:20px;
+            border:1px solid #999;
+            justify-content:space-around;
+        }
+    </style>
+</head>
+<body>
+    <div class="parent">
+        <div class="child1">
+            <div class="child2">
+                <div class="child3"></div>
+                <div class="child3"></div>
+            </div>
+            <div class="child2">
+                <div class="child3"></div>
+                <div class="child3"></div>
+            </div>
+        </div>
+        <div class="child1">
+            <div class="child2">
+                <div class="child3"></div>
+                <div class="child3"></div>
+            </div>
+            <div class="child2">
+                <div class="child3"></div>
+                <div class="child3"></div>
+            </div>
+        </div>
+    </div>
+    <div class="fm">
+        <button id="first">先序遍历</button>
+        <button id="second">中序遍历</button>
+        <button id="last">后序遍历</button>
+    </div>
+    <script>
+        //遍历队列
+        var arr = [];
+        window.onload = function() {
+            addEv();
+        }
+        function addEv() {
+            document.getElementById('first').addEventListener('click',eachFirst);
+            document.getElementById('second').addEventListener('click',eachSecond);
+            document.getElementById('last').addEventListener('click',eachLast);
+        }
+        function removeEv(){
+            document.getElementById('first').removeEventListener('click',eachFirst);
+            document.getElementById('second').removeEventListener('click',eachSecond);
+            document.getElementById('last').removeEventListener('click',eachLast);
+        }
+        function eachFirst(){
+            var par = document.getElementsByClassName('parent')[0];
+            clear();
+            eachNodeF(par);
+            showArr();
+        }
+        function eachSecond(){
+            var par = document.getElementsByClassName('parent')[0];
+            clear();
+            eachNodeS(par);
+            showArr();
+        }
+        function eachLast(){
+            var par = document.getElementsByClassName('parent')[0];
+            clear();
+            eachNodeL(par);
+            showArr();
+        }
+        function eachNodeF(node){
+            var children  = node.children;
+            arr.push(node);
+            if(children.length){
+                for( var i=0; i<children.length; i++ ){
+                    eachNodeF(children[i]);
+                }
+            }
+        }
+
+        function eachNodeS(node){
+            var children  = node.children;
+            if(children.length){
+                for( var i=0; i<children.length; i++ ){
+                    if(i==children.length-1){
+                        arr.push(node);
+                    }
+                    eachNodeS(children[i]);
+                }
+            }else{
+                arr.push(node);
+            }
+        }
+
+        function eachNodeL(node){
+            var children  = node.children;
+            if(children.length){
+                for( var i=0; i<children.length; i++ ){
+                    eachNodeL(children[i]);
+                    if(i==children.length-1){
+                        arr.push(node);
+                    }
+                }
+            }else{
+                arr.push(node);
+            }
+        }
+        function showArr(){
+            //console.log(arr);
+            if(!arr.length){return;}
+            var i=0,timer;
+            arr[0].style.backgroundColor = 'blue';
+            timer = setInterval(function(){
+                i++;
+                arr[i-1].style.backgroundColor = '#FFF';
+                if(i==arr.length){
+                    addEv();
+                    clearInterval(timer);
+                }
+                if(i<arr.length) {
+                    arr[i].style.backgroundColor = 'blue';
+                }
+            },500);
+        }
+        function clear(){
+            arr = [];
+            removeEv();
+        }
+    </script>
+</body>
+</html>
