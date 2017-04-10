@@ -186,7 +186,7 @@
                         clearInterval(timer);
                     }
                     i++;
-                }, 15);
+                }, 10);
             }else{
                 this.move();
             }
@@ -224,7 +224,7 @@
                         me.move();
                     }
                     i++;
-                 }, 15);
+                 }, 10);
         },
         turn: function(num){
             //计算旋转方向num代表目标方向,dir代表当前方向
