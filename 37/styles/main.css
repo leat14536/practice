@@ -1,0 +1,28 @@
+*{
+  padding:0;
+  margin:0;
+}
+
+.btn{
+  border:none;
+  outline: none;
+  color: #fff;
+  background-color: #0b97c4;
+  padding:8px;
+  margin: 100px auto;
+  display:block;
+}
+
+.btn:hover{
+  background-color: #0d3349;
+}
+
+.surfaced{
+  min-width:300px;
+  min-height:200px;
+  display:none;
+  border:1px solid #00d6b2;
+  background-color:#fff;
+  text-align: center;
+  line-height: 110px;
+}
