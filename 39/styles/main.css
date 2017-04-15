@@ -1,0 +1,21 @@
+*{
+  padding:0;
+  margin:0;
+}
+.tab{
+  border-collapse: collapse;
+  margin:500px auto;
+}
+.tab tr td{
+  border:1px solid #666;
+  width:100px;
+  height:40px;
+  text-align: center;
+}
+.tab tr th{
+  width:100px;
+  height:40px;
+  border: 1px solid #666;
+  background-color:#0f0f0f;
+  color:#fff;
+}
