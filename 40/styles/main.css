@@ -1,0 +1,113 @@
+*{
+  margin:0;
+  padding:0;
+}
+.btn{
+  display: inline-block;
+  width:30px;
+  height:30px;
+  border:none;
+  outline: none;
+  background-color:#2b81af;
+  color:#9acfea;
+}
+.btn:hover{
+  background-color:#2aabd2;
+}
+.formBox{
+  border:1px solid #00d6b2;
+  display: inline-block;
+  overflow: hidden;
+}
+.date{
+  display: inline-block;
+  width:150px;
+  height:30px;
+  font-size:20px;
+  border:1px solid #999;
+}
+.dateBtn{
+  float:left;
+  color:#fff;
+  background-color:#28a4c9;
+  width:30px;
+  height:30px;
+  text-align: center;
+  line-height: 30px;
+}
+.dateBtn:hover{
+  background-color: #0b97c4;
+}
+.datePanel{
+  float:left;
+  width:150px;
+  height:28px;
+  border:1px solid #666;
+}
+.container{
+  width:200px;
+  height:100px;
+  margin:100px auto;
+}
+
+.ui-dataPanel-wrap{
+  display: none;
+}
+
+.ui-dataPanel-subject{
+  width:240px;
+  height:240px;
+  border:1px solid #666;
+  border-top:none;
+  text-align: center;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.ui-dataPanel-switchPanel{
+  width:240px;
+  height:40px;
+  background-color:#e9e9e9;
+  color:#000;
+  border:1px solid #666;
+  border-bottom: none;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  box-sizing: border-box;
+}
+
+.ui-dataPanel-monthAdd,.ui-dataPanel-yearAdd{
+  float:right;
+}
+
+.ui-dataPanel-yearSub, .ui-dataPanel-monthSub, .ui-dataPanel-yearAdd, .ui-dataPanel-monthAdd{
+  margin:5px;
+}
+
+.ui-dataPanel-switchLink{
+  text-decoration: none;
+  display:inline-block;
+  width:25px;
+  height:25px;
+  color:#666;
+  font-size:12px;
+  line-height:25px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.ui-dataPanel-date{
+  margin:10px;
+}
+
+.ui-dataPanel-head{
+  font-weight: bold;
+  line-height:50px;
+}
+
+.ui-dataPanel-select{
+  background-color:#28a4c9;
+  border-radius: 5px;
+  color:#fff;
+}
+
