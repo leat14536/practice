@@ -1,0 +1,15 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+.ui-album-piecing{
+    width:1000px;
+    height:800px;
+    border:1px solid red;
+    margin:10px auto;
+}
+.ui-album-piecing img{
+    width:100%;
+    //height:100%;
+}
