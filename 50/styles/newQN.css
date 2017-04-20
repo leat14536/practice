@@ -1,0 +1,187 @@
+
+.titBox{
+    display:block;
+    text-align: center;
+}
+
+.questionBox{
+    border-top: 2px solid #efefef;
+    border-bottom: 2px solid #efefef;
+    padding:15px;
+}
+
+.questionList{
+    width:100%;
+}
+
+.questionItem{
+    padding:15px;
+}
+
+.questionItem:hover{
+    background-color: #fcf0e5;
+}
+
+.titBox{
+    font-size:18px;
+}
+
+.selectList{
+    list-style-type: none;
+    margin-left:15px;
+    margin-top:20px;
+}
+
+.selectList li input{
+    vertical-align: text-bottom;
+    margin-right:10px;
+}
+
+.addBox{
+    position: relative;
+    height:78px;
+    margin-top:15px;
+}
+
+.addQuestion{
+    width:100%;
+    text-align: center;
+    padding: 15px;
+    border:1px solid #efefef;
+}
+
+.addQuestion button{
+    vertical-align: text-bottom;
+}
+
+.questionBtn{
+    margin-right:15px;
+}
+
+.addBtn{
+    font-size:20px;
+    text-align: center;
+    background-color: #efefef;
+    padding: 25px 0;
+    position: absolute;
+    width:100%;
+    top:0;
+    cursor: pointer;
+}
+
+.addBtn:hover{
+    background-color: #ccc;
+}
+
+.formBox{
+    margin-top:20px;
+    position: relative;
+}
+
+.endTime{
+    display: inline-block;
+    width:120px;
+    height:20px;
+    border:1px solid #ccc;
+    vertical-align: bottom;
+    margin-left:15px;
+    text-indent: 10px;
+}
+
+.saveBtn, .releaseBtn{
+    float:right;
+    margin-right:15px;
+}
+
+.ui-dataPanel-wrap{
+    width:242px;
+    height:280px;
+    margin-top:10px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 2px #aaaaaa;
+    position: absolute;
+    background-color: #fff;
+    display: none;
+}
+
+.ui-dataPanel-subject{
+    width:240px;
+    height:240px;
+    text-align: center;
+}
+
+.ui-dataPanel-switchPanel{
+    width:240px;
+    height:40px;
+    background-color:#ee7419;
+    color:#000;
+    box-sizing: border-box;
+    padding-top: 5px;
+    margin-bottom: -3px;
+}
+
+.ui-dataPanel-monthAdd,.ui-dataPanel-yearAdd{
+    float:right;
+}
+
+.ui-dataPanel-yearSub, .ui-dataPanel-monthSub, .ui-dataPanel-yearAdd, .ui-dataPanel-monthAdd{
+    margin:5px;
+}
+
+.ui-dataPanel-switchLink{
+    text-decoration: none;
+    display:inline-block;
+    width:25px;
+    height:25px;
+    color:#fff;
+    font-size:12px;
+    line-height:25px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.ui-dataPanel-switchLink:hover{
+    text-decoration: none;
+}
+
+.ui-dataPanel-date{
+    margin:10px;
+    color:#fff;
+}
+
+.ui-dataPanel-head{
+    font-weight: bold;
+    line-height:50px;
+}
+
+.ui-dataPanel-head tr th{
+    text-align: center;
+}
+
+.ui-dataPanel-select{
+    background-color:#ee7419;
+    border-radius: 5px;
+    color:#fff;
+}
+
+.selectOperation{
+    float:right;
+    visibility: hidden;
+}
+
+.selectList li{
+    display: block;
+    height:25px;
+}
+
+.selectList li:hover>.selectOperation{
+    visibility: visible;
+}
+
+.queOperation{
+    float:right;
+    visibility: hidden;
+}
+.selectList:hover li>.queOperation{
+    visibility: visible;
+}

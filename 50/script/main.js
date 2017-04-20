@@ -8,7 +8,7 @@
     *   title 标题
     *   setTime 问卷建立时间
     *   endTime 问卷结束时间
-    *   uestion 问题列表
+    *   question 问题列表
     *       num: 题目编号
     *       title:题目
     *       type: 题目类型 1单选 2多选 3文本
@@ -64,7 +64,7 @@
                 },
             ]
         },{
-            state : 0,
+            state : 1,
             title : '这是我的第一份问卷',
             setTime: new Date(2017,2,20,20,34,15),
             endTime : new Date(2017,3,5),
@@ -97,46 +97,53 @@
     let newQuestionnaire = 'newQuestionnaire';                      //新建问卷id
     let selectAll = 'selectAll';                                    //全选id
     let deleteAllSelect = 'deleteAllSelect'                         //选择删除id
-
+    let btnDel = 'del';
+    let btnEdit = 'edit';
+    let btnWatch = 'watch';
+    let newQueURL = 'newQuestionNaire.html'                         //新建问卷跳转页面
 
     /*
     *   利用表格数据渲染头页面
     * */
     function render(){
-        var container = document.getElementsByClassName('container')[0]
+        sessionStorage.questionnaireData=JSON.stringify(questionnaireData);
+
+        let container = document.getElementsByClassName('container')[0]
         if(questionnaireData.length){
-            var tbody = document.getElementById('tbody');
+            let tbody = document.getElementById('tbody');
             tbody.innerHTML = '';
             questionnaireData.forEach((obj,num)=>{
-                let stateStr,viewState;
+                let stateStr,viewState,editState;
                 let NowDate = new Date();
+                if(typeof obj.setTime==='string') {
+                    obj.setTime = new Date(obj.setTime)
+                }
+                if(typeof obj.endTime==='string'){
+                    obj.endTime = new Date(obj.endTime)
+                }
                 if(obj.state){
-                    if(obj.endTime.getTime()<NowDate.getTime()){
-                        stateStr = '<strong class="text-muted">未发布</strong>'
-                        viewState = 'disabled="disabled"'
-                    }else{
-                        stateStr = '<strong class="text-success">发布中</strong>'
-                    }
-                }else{
                     if(obj.endTime.getTime()<NowDate.getTime()){
                         stateStr = '<strong class="text-muted">已结束</strong>'
                     }else{
-                        stateStr = '<strong class="text-muted">未发布</strong>'
-                        viewState = 'disabled="disabled"'
+                        stateStr = '<strong class="text-success">发布中</strong>'
                     }
+                    editState = 'disabled="disabled"';
+                }else{
+                    stateStr = '<strong class="text-muted">未发布</strong>'
+                    viewState = 'disabled="disabled"'
                 }
 
                 tbody.innerHTML += `<tr class="questionNaireData">
-                    <td><input type="checkbox" class="checkBox" date-code=${num} /> </td>
+                    <td><input type="checkbox" class="checkBox" data-code=${num} /> </td>
                     <td>${obj.title}</td>
                     <td>${obj.setTime.getFullYear()}-${obj.setTime.getMonth()}-${obj.setTime.getDate()} ${obj.setTime.getHours()}:${obj.setTime.getMinutes()}:${obj.setTime.getSeconds()}</td>
                     <td >${stateStr}</td>
                     <td>
-                        <input type="button" class="btn btn-default btn-xs" value="编辑" date-code=${num} />
-                        <input type="button" class="btn btn-default btn-xs" value="删除" date-code=${num} />
-                        <input type="button" class="btn btn-default btn-xs" value="查看数据" date-code=${num} ${viewState} />
+                        <input type="button" class="btn btn-default btn-xs" value="编辑" data-code=${num} ${editState} name=${btnEdit} />
+                        <input type="button" class="btn btn-default btn-xs" value="删除" data-code=${num} name=${btnDel} />
+                        <input type="button" class="btn btn-default btn-xs" value="查看数据" data-code=${num} ${viewState} name=${btnWatch} />
                     </td>
-                </tr>`;
+                </tr>`
 
             })
         }else{
@@ -147,12 +154,13 @@
     /*
     *   添加点击事件
     * */
-    function addEv(){
+    function bodyAddEv(){
        document.body.addEventListener('click',function(e){
            let target = e.target||e.srcElement;
            switch (target.id){
                case(newQuestionnaire):
                    //新建问卷
+                   window.location.href = newQueURL;
                    break;
                case(selectAll):
                    selectAllCheckBox(e);
@@ -160,6 +168,25 @@
                case(deleteAllSelect):
                    deleteAllselect();
                    break;
+               default:
+                   if(target.type==='button'){
+                       let num = target.getAttribute('data-code');
+                       let operation = target.getAttribute('name')
+                       switch(operation) {
+                           case(btnDel):
+                               questionnaireData.splice(num, 1)
+                               render();
+                               break;
+                           case(btnEdit):
+                               //跳转操作页面
+                               break;
+                           case (btnWatch):
+                               //跳转观看数据页面
+                               break;
+                       }
+
+                   }
+
            }
        })
 
@@ -196,6 +223,18 @@
             })
             render();
         }
+
+
+    }
+
+    /*
+    *   获取questionnaireData
+    * */
+    function getQuestionnaireData(){
+        if(sessionStorage.questionnaireData) {
+            questionnaireData = JSON.parse(sessionStorage.questionnaireData)
+            console.log(JSON.parse(sessionStorage.questionnaireData))
+        }
     }
 
 
@@ -203,7 +242,8 @@
 
 
     window.onload = function(){
+        getQuestionnaireData();
         render();
-        addEv();
+        bodyAddEv();
     }
-})(window);
+})();
