@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="styles/newQN.css" />
 </head>
 <body>
-<nav class="bg-warning navbar navbar-default">
+<nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -36,12 +36,12 @@
         <div class="col-md-1"></div>
         <div class="questionBox col-md-10">
             <div class="questionList">
-                <div class="questionItem" data-question-code="0">
+              <!--  <div class="questionItem" data-question-code="0">
                     <h4 class="questionTitle"><span data-canModify=true data-type="questionTitle">q1...</span></h4>
                     <ul class="selectList">
                         <li>
                             <input type="radio" name="item1" />
-                            <span data-canModify=true data-type="select" >q1...</span>
+                            <span data-canModify=true data-type="select" >q1.dfgsfshhdjgjgjfgsjfsjgsjgsjfgsfgsjfgjsjfgsjgjgsjf..</span>
                             <span class="selectOperation">
                                 <button class="btn btn-default btn-xs">上移</button>
                                 <button class="btn btn-default btn-xs">下移</button>
@@ -85,7 +85,7 @@
                             </span>
                         </li>
                     </ul>
-                </div>
+                </div>-->
             </div>
             <div class="addBox">
                 <div class="addQuestion">
@@ -103,8 +103,8 @@
     </div>
     <div class="formBox">
         问卷截止日期<span class="endTime"></span>
-        <button class="btn btn-warning btn-xs releaseBtn">发布问卷</button>
-        <button class="btn btn-default btn-xs saveBtn">保存问卷</button>
+        <button class="btn btn-default btn-xs releaseBtn" data-btnType="issue">发布问卷</button>
+        <button class="btn btn-default btn-xs saveBtn" data-btnType="save">保存问卷</button>
     </div>
     <div class="ui-dataPanel-wrap">
         <div class="ui-dataPanel-switchPanel">
@@ -131,11 +131,21 @@
         </table>
     </div>
 </div>
+
+<div class="surfaced">
+    <div class="surfacedHead">提示</div>
+    <div class="message">是否返回首页</div>
+    <div class="showEndtime"></div>
+    <div class="sure">
+        <button class="surfacedTrue btn btn-warning btn-xs" data-btnType="surfacedTrue" >确定</button>
+        <button class="surfacedFalse btn btn-default btn-xs" data-btnType="surfacedFalse" >取消</button>
+    </div>
+</div>
 <script src="script/jquery.min.js" type="text/javascript"></script>
 <script src="script/bootstrap.min.js" type="text/javascript"></script>
-<script src="script/newQuestionNaire.js" type="text/javascript"></script>
 <script src="script/calendar.js" type="text/javascript"></script>
 <script src="script/newQN.js" type="text/javascript"></script>
+<script src="script/surfaced.js" type="text/javascript"></script>
 
 </body>
 </html>
