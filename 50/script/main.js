@@ -25,19 +25,19 @@
             endTime : new Date(2017,10,1),
             question : [
                 {
-                    num: 1,
+                    //num: 1,
                     title: '单选题',
                     type: 1,
                     option: ['选项1','选项2','选项3']
                 },
                 {
-                    num: 1,
+                    //num: 1,
                     title: '多选题',
                     type: 2,
                     option: ['选项1','选项2','选项3','选项4']
                 },
                 {
-                    num: 1,
+                    //num: 1,
                     title: '文本题',
                     type: 3,
                     option: true,
@@ -51,19 +51,19 @@
             endTime : new Date(2017,10,2),
             question : [
                 {
-                    num: 1,
+                    //num: 1,
                     title: '单选题',
                     type: 1,
                     option: ['选项1','选项2','选项3']
                 },
                 {
-                    num: 1,
+                    //num: 1,
                     title: '多选题',
                     type: 2,
                     option: ['选项1','选项2','选项3','选项4']
                 },
                 {
-                    num: 1,
+                    //num: 1,
                     title: '文本题',
                     type: 3,
                     option: true,
@@ -77,22 +77,41 @@
             endTime : new Date(2017,3,5),
             question : [
                 {
-                    num: 1,
+                    //num: 1,
                     title: '单选题',
                     type: 1,
-                    option: ['选项1','选项2','选项3']
+                    option: ['选项1','选项2']
+                },
+
+                {
+                    //num: 1,
+                    title: '单选题',
+                    type: 1,
+                    option: ['选项1','选项2','选项3','选项4','选项1','选项2','选项3','选项4','选项1','选项2','选项3','选项4']
                 },
                 {
-                    num: 1,
+                    //num: 1,
                     title: '多选题',
                     type: 2,
-                    option: ['选项1','选项2','选项3','选项4']
+                    option: ['选项1','选项2','选项3','选项4','选项1','选项2','选项3','选项4','选项1','选项2','选项3','选项4']
                 },
                 {
-                    num: 1,
+                   // num: 1,
                     title: '文本题',
                     type: 3,
                     option: true,
+                },
+                {
+                    // num: 1,
+                    title: '文本题',
+                    type: 3,
+                    option: false,
+                },
+                {
+                    //num: 1,
+                    title: '多选题',
+                    type: 2,
+                    option: ['选项1','选项2']
                 },
             ]
         },

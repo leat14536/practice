@@ -1,0 +1,28 @@
+.proportion{
+    float:right;
+    font-size: 14px;
+    margin-right:135px;
+}
+
+.optionDataPanel{
+    display: inline-block;
+    width:300px;
+    height:130px;
+    float:right;
+}
+
+.textPanel{
+    height:50px;
+    min-height: 50px;
+    max-height: 50px;
+}
+
+.optionDataPanel .progress{
+    height: 10px;
+}
+
+.optionData{
+    float:right;
+    margin-left: 15px;
+    line-height: 10px;
+}

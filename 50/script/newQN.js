@@ -15,7 +15,7 @@
     let radioTitle = '这是一道单选题';
     let multiselectTitle = '这是一道复选题'
     let textTitle = '这是一道文本题'
-    let MainURL = '50.html';
+    let MainURL = 'index.html';
 
     /*
     *   初始化新问卷对象,初始化悬浮层
@@ -24,7 +24,7 @@
         surface = new surfaced(document.getElementsByClassName('surfaced')[0]);
 
         let urlId = location.search.replace('?','');
-        if(urlId.length&&typeof urlId-0==='number'){
+        if(urlId.length&&typeof (urlId-0)==='number'){
             //编辑
             if(judgeEdit(urlId)){
                 document.getElementsByTagName('title')[0].innerHTML = '修改问卷';
@@ -48,8 +48,8 @@
      *  验证是否为编辑
      * */
     function judgeEdit(urlId){
-        questionnaireData = JSON.parse(sessionStorage.questionnaireData);
-        for( i=0; i<questionnaireData.length; i++　){
+        let questionnaireData = JSON.parse(sessionStorage.questionnaireData);
+        for( let i=0; i<questionnaireData.length; i++　){
             if(questionnaireData[i].id==urlId){
                 QnData = questionnaireData[i];
                 if(QnData.setTime){
