@@ -10,7 +10,6 @@
     *   setTime 问卷建立时间
     *   endTime 问卷结束时间
     *   question 问题列表
-    *       num: 题目编号
     *       title:题目
     *       type: 题目类型 1单选 2多选 3文本
     *       type = 1||2时 option: [str,str...] 记录选项及顺序 文本题无此项
@@ -25,19 +24,16 @@
             endTime : new Date(2017,10,1),
             question : [
                 {
-                    //num: 1,
                     title: '单选题',
                     type: 1,
                     option: ['选项1','选项2','选项3']
                 },
                 {
-                    //num: 1,
                     title: '多选题',
                     type: 2,
                     option: ['选项1','选项2','选项3','选项4']
                 },
                 {
-                    //num: 1,
                     title: '文本题',
                     type: 3,
                     option: true,
@@ -51,19 +47,16 @@
             endTime : new Date(2017,10,2),
             question : [
                 {
-                    //num: 1,
                     title: '单选题',
                     type: 1,
                     option: ['选项1','选项2','选项3']
                 },
                 {
-                    //num: 1,
                     title: '多选题',
                     type: 2,
                     option: ['选项1','选项2','选项3','选项4']
                 },
                 {
-                    //num: 1,
                     title: '文本题',
                     type: 3,
                     option: true,
@@ -77,38 +70,32 @@
             endTime : new Date(2017,3,5),
             question : [
                 {
-                    //num: 1,
                     title: '单选题',
                     type: 1,
                     option: ['选项1','选项2']
                 },
 
                 {
-                    //num: 1,
                     title: '单选题',
                     type: 1,
-                    option: ['选项1','选项2','选项3','选项4','选项1','选项2','选项3','选项4','选项1','选项2','选项3','选项4']
+                    option: ['选项1','选项2','选项3','选项4','选项2','选项3','选项4','选项1','选项2','选项3','选项4']
                 },
                 {
-                    //num: 1,
                     title: '多选题',
                     type: 2,
                     option: ['选项1','选项2','选项3','选项4','选项1','选项2','选项3','选项4','选项1','选项2','选项3','选项4']
                 },
                 {
-                   // num: 1,
                     title: '文本题',
                     type: 3,
                     option: true,
                 },
                 {
-                    // num: 1,
                     title: '文本题',
                     type: 3,
                     option: false,
                 },
                 {
-                    //num: 1,
                     title: '多选题',
                     type: 2,
                     option: ['选项1','选项2']
@@ -127,7 +114,7 @@
     let btnDel = 'del';
     let btnEdit = 'edit';
     let btnWatch = 'watch';
-    let newQueURL = 'newQuestionNaire.html'                         //新建问卷跳转页面
+    let newQueURL = 'newQuestionNaire.html'                         //新建/编辑问卷 URL
     let viewDataURL = 'view.html';
 
     /*
@@ -215,19 +202,14 @@
                                render();
                                break;
                            case(btnEdit):
-                               //设置编辑选项
-                               //sessionStorage.questionnaireDataEdit = questionnaireData[target.getAttribute('data-code')].id;
-                               //console.log(sessionStorage.questionnaireDataEdit)
+                               //编辑页面
                                window.location.href = newQueURL+'?'+questionnaireData[target.getAttribute('data-code')].id;
-                               //转到编辑页面
                                break;
                            case (btnWatch):
-                               //sessionStorage.questionnaireDataEdit = questionnaireData[target.getAttribute('data-code')].id;
                                //观看数据页面
                                window.location.href = viewDataURL+'?'+questionnaireData[target.getAttribute('data-code')].id;
                                break;
                        }
-
                    }
 
            }

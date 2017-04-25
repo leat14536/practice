@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function Observer(data,fn){
+        this.data = data;
+        this.walk(data,fn);
+    }
+
+    Observer.prototype = {
+        walk(data,fn){
+            for ( let key in data ) {
+                let val = data[key];
+                if(typeof val=='object'){
+                    new Observer(val)
+                }
+                this.convert( key, val, fn );
+            }
+        },
+        convert(key,val,fn){
+            Object.defineProperty(this.data,key,{
+                enumerable: true,
+                configurable: true,
+                set(newVal){
+                    if(typeof newVal=='object') {
+                        new Observer(newVal)
+                    }else {
+                        console.log('你设置了' + key + ' , 新的值为 ' + newVal)
+                        if(fn){
+                            fn(newVal);
+                        }
+                    }
+                    if(newVal===val) return;
+                    val = newVal;
+                },
+                get(){
+                    console.log('你访问了 '+key)
+                    return val;
+                },
+            })
+        },
+        $watch(key,fn){
+            this.convert(key,null,fn);
+        },
+    }
+
+    /*let app2 = new Observer({
+        name: {
+            firstName: 'shaofeng',
+            lastName: 'liang'
+        },
+        age: 25
+    });
+
+    app2.$watch('name', function (newName) {
+        console.log('我的姓名发生了变化，可能是姓氏变了，也可能是名字变了。')
+    });
+
+    app2.data.name.firstName = 'hahaha';*/
+    // 输出：我的姓名发生了变化，可能是姓氏变了，也可能是名字变了。
+    /*app2.data.name.lastName = 'blablabla';
+    // 输出：我的姓名发生了变化，可能是姓氏变了，也可能是名字变了。*/
+</script>
+</body>
+</html>

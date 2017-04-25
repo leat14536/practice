@@ -151,7 +151,7 @@
         })
 
 
-        //获取数据,有后台时为异步加载
+        //获取数据,有后台时为异步加载,使用promise
         let promise = new Promise(function(resolve, reject) {
             let optionData = getOptionData();
             if(optionData.length) {
@@ -164,12 +164,6 @@
                 myCharts[num].hideLoading();
                 myCharts[num].setOption(data)
             })
-            /*myChart.hideLoading();
-            myChart.setOption(optionData[0])
-            myChart1.hideLoading();
-            myChart1.setOption(optionData[1])
-            myChart2.hideLoading();
-            myChart2.setOption(optionData[2])*/
 
         })
 
@@ -198,7 +192,7 @@
                         {
                             name: '数据占比',
                             type: 'pie',
-                            radius: '80%',
+                            radius: '60%',
                             data: data,
                         }
                     ]
@@ -219,6 +213,8 @@
                         ontainLabel: true
                     },
                     xAxis: {
+                        min:0,
+                        max:100
                     },
                     yAxis: {
                         data:select.reverse()
@@ -237,17 +233,19 @@
                     grid: {
                         left: '80px',
                         right: '4%',
-                        top:'10px',
+                        top:'30px',
                         ontainLabel: false
                     },
                     xAxis: {
+                        min:0,
+                        max:100,
                     },
                     yAxis:{
-                        data:['有效回答占比',''],
+                        data:['有效回答占比'],
                     },
                     series: [{
                         type: 'bar',
-                        data: [value,100]
+                        data: [value]
                     }]
                 };
                 optionData.push(option);
