@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>图片预加载</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        html,body{
+            height:100%;
+        }
+        .box{
+            text-align: center;
+        }
+        .btn{
+            text-decoration: none;
+            display: inline-block;
+            height:30px;
+            line-height: 30px;
+            border:1px solid #ccc;
+            background-color:#fff;
+            padding:0 10px;
+            margin-right: 50px;
+            color:#333;
+        }
+        .btn:hover{
+            background-color: #bbb;
+        }
+        .loading{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width:100%;
+            height:100%;
+            background-color:#eee;
+            font-size: 30px;
+            text-align: center;
+        }
+        .process{
+            margin-top:300px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <img src="http://img.daimg.com/uploads/allimg/170427/3-1F42H35T2.jpg" alt="pic" id="img" height="800px"/>
+    <p>
+        <a href="javascript:;" class="btn" data-control="prev">上一页</a>
+        <a href="javascript:;" class="btn" data-control="next">下一页</a>
+    </p>
+</div>
+<div class="loading"><p class="process">0%</p></div>
+
+
+
+
+<script src="jquery.min.js" type="text/javascript"></script>
+<script src="preload.js" type="text/javascript"></script>
+<script>
+    let imgs = [
+            'http://img.daimg.com/uploads/allimg/170427/3-1F42H35T2.jpg',
+            'http://img.daimg.com/uploads/allimg/170427/3-1F42H15Q1.jpg',
+            'http://img.daimg.com/uploads/allimg/170426/3-1F426214I8.jpg',
+            'http://img.daimg.com/uploads/allimg/170426/3-1F426214001.jpg',
+            'http://img.daimg.com/uploads/allimg/170426/3-1F426213022.jpg',
+            'http://img.daimg.com/uploads/allimg/170426/3-1F426211247.jpg',
+            'http://img.daimg.com/uploads/allimg/170426/3-1F4261R226.jpg'
+    ]
+    let index = 0;
+    let len = imgs.length;
+    let $process = $('.process')
+
+    /*$.each( imgs, ( i, src )=>{
+        let imgObj = new Image();
+
+        $(imgObj).on('load error',()=>{
+            count++;
+            $process.html(Math.round((count+1)*100/len) + '%');
+
+            if( count>=len-1 ){
+                $('.loading').hide();
+                document.title = `第${index+1}张 共${len}张`;
+            }
+        })
+
+        imgObj.src = imgs[i];
+    })*/
+
+    $.preload(imgs,{
+        each(count){
+            $process.html(Math.round((count+1)*100/len) + '%');
+        },
+        all(){
+            $('.loading').hide();
+            document.title = `第${index+1}张 共${len}张`;
+        }
+    })
+
+    $('.btn').on('click',function(){
+        if( $(this).data('control')==='prev' ){ //上一张
+            index--;
+            if(index<0) index = 0;              //Math.min(0, --index)
+        }else{
+            index++;
+            if(index>=len) index = len-1;
+        }
+
+        document.title = `第${index+1}张 共${len}张`;
+        $('#img').attr('src',imgs[index]);
+    })
+
+
+</script>
+</body>
+</html>
