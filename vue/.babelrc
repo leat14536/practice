@@ -1,0 +1,11 @@
+/**
+ * Created by Administrator on 2017/5/1 0001.
+ */
+{
+    "presets": [
+        "es2015",
+        "react",
+        "stage-2"
+    ],
+    "plugins": []
+}

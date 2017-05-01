@@ -6,7 +6,8 @@
 </head>
 <body>
 <script>
-    function Observer(data){
+    function Observer(data,parKey){
+        //暂不考虑数组
         this.data = data;
         this.walk(data);
     }
@@ -18,7 +19,7 @@
                 if(typeof val=='object'){
                     new Observer(val)
                 }
-                this.convert(key, val);
+                this.convert(key, val, null);
             }
         },
         convert(key,val,fn){
@@ -26,10 +27,11 @@
                 enumerable: true,
                 configurable: true,
                 set(newVal){
+                    console.log('你设置了' + key + ' , 新的值为 ' + newVal)
                     if(typeof newVal=='object') {
                         new Observer(newVal)
                     }else {
-                        console.log('你设置了' + key + ' , 新的值为 ' + newVal)
+                        //console.log('你设置了' + key + ' , 新的值为 ' + newVal)
                         if(fn){
                             fn(newVal);
                         }
@@ -45,7 +47,7 @@
             })
         },
         $watch(key,fn){
-            this.convert(key,null,fn);
+            this.convert(key,this.data[key],fn);
         },
     }
 
