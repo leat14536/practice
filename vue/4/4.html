@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <p>学校：{{school}}  姓名: {{user.name}}</p>
+    <p>年龄：{{user.age}}</p>
+</div>
+
+
+
+
+
+<script src="../traceur.js" type="text/javascript"></script>
+<script src="../bootstrap.js" type="text/javascript"></script>
+<script src="../event.js" type="module"></script>
+<script src="main.js" type="module"></script>
+<script type="text/javascript">
+    window.onload = ()=>{
+        setTimeout(()=>{
+            let app = new Vue({
+                el: '#app',
+                data: {
+                    user: {
+                        name: 'youngwind',
+                        age: 25
+                    },
+                    school: 'bupt',
+                    major: 'computer'
+                }
+            });
+        },500);
+
+    }
+</script>
+</body>
+</html>

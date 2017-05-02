@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2017/5/1 0001.
  */
-export class myEvent {
+export default class myEvent {
     constructor() {
         this.events={}
     }
@@ -21,8 +21,19 @@ export class myEvent {
     }
 
     emit(attr,...arg){
+        console.log(attr)
         this.events[attr] && this.events[attr].forEach((item)=>{
             item(...arg);
         })
+    }
+
+    pop( keys , ...arg ){
+        let key = keys.join('.');
+        let index;
+        do{
+            this.emit(key,...arg);
+            index = key.lastIndexOf('.');
+            key = key.substring(0,index);
+        }while( index != -1 )
     }
 }
