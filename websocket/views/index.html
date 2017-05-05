@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            width:300px;
+            height:800px;
+            background-color:#eee;
+            margin-left:50px;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+
+<input type="button" id="start" value="start" />
+<input type="text" id="ipt" />
+<input type="button" id="send" value="send" />
+<input type="button" id="end" value="end" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js" type="text/javascript"></script>
+<script>
+    function start() {
+        var start = document.getElementById('start');
+        var ipt = document.getElementById('ipt');
+        var send = document.getElementById('send');
+        var end = document.getElementById('end');
+
+        var pre = document.getElementById('box');
+        var socket
+        start.onclick=()=>{
+            var promise = new Promise((res,rej)=>{
+                socket = io('http://localhost:3000');
+
+                socket.on('connect', function(){
+                    pre.innerHTML+='start'
+                    res(socket);
+                });
+            })
+
+            promise.then((socket)=>{
+                send.onclick=()=>{
+                    socket.emit('send',ipt.value)
+                }
+
+                end.onclick = ()=>{
+                    socket.close();
+                }
+
+
+                socket.on('connect', function(){
+                    pre.innerHTML+='start'
+                });
+                socket.on('message', function(data){
+                    console.log('message: '+data);
+                    pre.innerHTML += '</br>'+data;
+                });
+                socket.on('disconnect', function(){
+                    pre.innerHTML += '</br>'+'end';
+                });
+            })
+        }
+    }
+
+    window.onload = ()=> {
+        start();
+    }
+
+
+</script>
+</body>
+</html>
