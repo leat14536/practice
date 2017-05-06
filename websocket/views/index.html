@@ -4,21 +4,31 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        #box{
-            width:300px;
-            height:800px;
+        #conversitionBox{
+            width:350px;
+            min-height:200px;
             background-color:#eee;
             margin-left:50px;
+            padding:10px;
+        }
+        #form {
+            width: 350px;
+            margin-left: 50px;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-<div id="box"></div>
+<div id="conversitionBox"></div>
 
-<input type="button" id="start" value="start" />
-<input type="text" id="ipt" />
-<input type="button" id="send" value="send" />
-<input type="button" id="end" value="end" />
+<form id="form">
+    <input type="button" id="start" value="start" />
+    <input type="text" id="ipt" />
+    <input type="button" id="send" value="send" />
+    <input type="button" id="end" value="end" />
+</form>
+
+<!--使用socket.io框架需引入socket.io.js-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js" type="text/javascript"></script>
 <script>
     function start() {
@@ -27,38 +37,38 @@
         var send = document.getElementById('send');
         var end = document.getElementById('end');
 
-        var pre = document.getElementById('box');
-        var socket
+        var box = document.getElementById('conversitionBox');
+        var socket;
         start.onclick=()=>{
-            var promise = new Promise((res,rej)=>{
-                socket = io('http://localhost:3000');
+            var promise = new Promise((res, rej)=> {
+                socket = io('http://localhost:8000');           //创建连接
 
-                socket.on('connect', function(){
-                    pre.innerHTML+='start'
+                socket.on('connect', function () {                //连接成功时触发
+                    box.innerHTML += 'start'
                     res(socket);
                 });
             })
 
+
             promise.then((socket)=>{
                 send.onclick=()=>{
-                    socket.emit('send',ipt.value)
+                    socket.emit('message',ipt.value)            //发送数据 通过emit触发服务器的message事件
+                    ipt.value = '';
                 }
 
                 end.onclick = ()=>{
-                    socket.close();
+                    socket.close();                              //关闭连接
                 }
 
+                socket.on('message', function(data){             //服务器发回消息时触发
+                    box.innerHTML += '</br>'+data;               //这里未做字符串转义,暂不考虑安全问题
+                });
 
-                socket.on('connect', function(){
-                    pre.innerHTML+='start'
+                socket.on('disconnect', function(){              //关闭连接时触发
+                    box.innerHTML += '</br>'+'end'+'</br>';
+                    socket = null;
                 });
-                socket.on('message', function(data){
-                    console.log('message: '+data);
-                    pre.innerHTML += '</br>'+data;
-                });
-                socket.on('disconnect', function(){
-                    pre.innerHTML += '</br>'+'end';
-                });
+
             })
         }
     }
