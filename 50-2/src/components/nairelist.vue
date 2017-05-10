@@ -7,28 +7,28 @@
         <th>标题</th>
         <th>创建时间</th>
         <th>状态</th>
-        <th>操作<input type="button" value="+ 新建问卷" id="newQuestionnaire"></th>
+        <th>操作<router-link to="/newnaire"><input type="button" value="+ 新建问卷" id="newQuestionnaire"></router-link></th>
       </tr>
       </thead>
       <tbody id="tbody">
 
-        <tr v-for="item in naire" >
-          <td><input type="checkbox" class="checkBox" ref="checkbox"/> </td>
+        <tr v-for="(item,index) in naire" >
+          <td><input type="checkbox" class="checkBox" @click="selectItem(item)" v-model="item.checked" /></td>
           <td>{{item.title}}</td>
           <td>{{item.setTime | getTime}}</td>
           <td ><strong :class="['state',{public:item.state==1?true:false}]">{{item | setState}}</strong></td>
           <td>
             <input type="button" :class="[{'operateBtn':item.state==0?true:false},{'disabled':item.state==0?false:true}]" value="编辑" />
-            <input type="button" class="operateBtn" value="删除" v-on:click="delItem"/>
+            <input type="button" class="operateBtn" value="删除" @click="delItem(item)"/>
             <input type="button" class="operateBtn" value="查看数据" />
           </td>
         </tr>
       </tbody>
     </table>
     <div class="optionBox">
-      <input type="checkbox" id="selectAll" v-on:click='selectAll' />
+      <input type="checkbox" id="selectAll" @click='selectAllList' v-model="selectAll" />
       <label for="selectAll">全选</label>
-      <input type="button" value="删除" class="operateBtn"v-on:click="delAllSelect"/>
+      <input type="button" value="删除" class="operateBtn" @click="delAllSelect" />
     </div>
   </div>
 </template>
@@ -40,7 +40,6 @@
     data(){
       let questionnaireData = [
         {
-          id: 0,
           state: 1,
           title: '这是我的第一份问卷',
           setTime: new Date(2017, 3, 19, 20, 34, 15),
@@ -64,7 +63,6 @@
           ]
         },
         {
-          id: 1,
           state: 0,
           title: '这是我的第一份问卷',
           setTime: new Date(2017, 3, 20, 20, 34, 15),
@@ -88,7 +86,6 @@
           ]
         },
         {
-          id: 2,
           state: 1,
           title: '这是我的第一份问卷',
           setTime: new Date(2017, 1, 20, 20, 34, 15),
@@ -138,13 +135,14 @@
         }
       }
       return {
-        naire: data
+        naire: data,
+        selectAll: false
       }
     },
-    filters:{
+    filters:{             //过滤器
       getTime(date){
-        let time = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
-        return time;
+        let timeStr = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+        return timeStr;
       },
       setState(item){
         if(item.state==0){
@@ -158,42 +156,40 @@
             return '发布中'
           }
         }
-
       }
     },
-    methods:{
-      selectAll(e){
-        if(e.target.checked){
-          this.$refs.checkbox.forEach((input)=>{
-            input.checked = 'checked'
-          })
-        }else{
-          this.$refs.checkbox.forEach((input)=>{
-            input.checked = null;
-          })
+    methods:{             //绑定事件
+      selectItem(item){   //单条选择
+        if(item.checked==='undefined'){
+          item.$set(this.naire[index],'checked',true);
         }
       },
-      delAllSelect(e){
-        let delArr=[];
-        this.$refs.checkbox.forEach((input,index)=>{
-          if(input.checked){
+      selectAllList(e){   //全选
+        this.naire.forEach((item)=>{
+          if(item.checked==='undefined'){
+            item.$set(this.naire[index],'checked',this.selectAll);
+          }else{
+            item.checked = this.selectAll;
+          }
+        })
+      },
+      delAllSelect(e){    //删除所选
+        let delArr = [];
+        this.naire.forEach((item,index)=>{
+          if(item.checked){
             delArr.unshift(index);
           }
         })
-        if(delArr.length){
-          //弹出确认框
-          //这里简化 使用浏览器自带弹出框
-          let ret = confirm("确认要删除？")
-          if(ret){
-            delArr.forEach((delIndex)=>{
-              this.$refs.checkbox[delIndex].checked = null;
-              this._data.naire.splice(delIndex,1);
-            })
-          }
-        }
+       if(delArr.length&&confirm("是否删除")){
+          delArr.forEach((index)=>{
+            this.naire.splice(index,1);
+          })
+       }
       },
-      delItem(e){
-        console.log(e.target.parentNode.parentNode);
+      delItem(item){      //删除单条
+        if(confirm("是否删除")){
+          this.naire.splice(this.naire.indexOf(item),1);
+        }
       }
     }
   }

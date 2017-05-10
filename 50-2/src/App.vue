@@ -19,7 +19,7 @@ export default {
 </script>
 
 <style>
-  header, div, nav, span, table, thead, tbody, th, tr, td, nav, input, label, body, html{
+  header, div, nav, span, table, thead, tbody, th, tr, td, nav, input, label, body, html, h1, h2, h3, h4, h5, h6{
     padding:0;
     margin:0;
   }
