@@ -34,7 +34,24 @@
               </li>
             </ul>
           </div>
-          <div v-else-if="item.type==3"></div>
+          <div v-else-if="item.type==3">
+            <h4>Q{{index+1}}
+              <span @click="modify(item,'title',$event)">{{item.title}}</span>
+              <span style="float:right;font-size:14px;font-weight: normal">
+                <input type="checkbox" name="'option'+index" v-model="item.option" />
+                是否必填
+              </span>
+            </h4>
+            <textarea cols="50" rows="8" style="resize:none" :required="item.option" class="textBox"></textarea>
+            <div class="textSelectBox">
+              <span class="textSelect">
+                  <a class="operate" v-if="index" @click="questionMoveUp( naire.question, index )">上移</a>
+                  <a class="operate" v-if="index!=naire.question.length-1"  @click="questionMoveUp( naire.question, index+1 )">下移</a>
+                  <a class="operate" @click="copyQuestion(naire.question, index)">复用</a>
+                  <a class="operate" @click="delQuestion(naire.question, index)">删除</a>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="addBox">
@@ -47,25 +64,28 @@
       </div>
     </div>
     <div class="formBox">
-      问卷截止日期: <span class="endTime"></span>
-      <button class="save">保存问卷</button>
+      问卷截止日期: <span class="endTime" @click="showCalendar = !showCalendar">{{naire.endTime | endTimeFilte}}</span>
+      <button class="save" @click="saveNaire">保存问卷</button>
       <button class="issue">发布问卷</button>
     </div>
+    <calendar @sendTime="setEndTime" v-if="showCalendar"></calendar>
     <input id="modify" type="text" v-model="valueStorage" :style="iptNodeStyle" @blur="select" />
   </div>
 </template>
 
 <script>
+  import calendar from './calendar';
   export default {
     name: 'newnaire',
     data () {
       return {
         naire: {
-          state: null,
+          id: new Date().getTime(),
+          state: 0,
           title: '这是我的第一份问卷',
           setTime: new Date(),
           endTime: null,
-          question: []
+          question: [],
         },
         addQuestionState: false,                //控制 添加问题下滑的class
         valueStorage: '',                       //存储需要改变的值
@@ -75,10 +95,20 @@
         modifyAddress: {                        //修改之前的obj和key
           obj: null,
           key: null,
-        }
+        },
+        showCalendar: false,                    //日历面板是否显示
       }
     },
     filters:{
+      endTimeFilte(date){
+        if(date){
+          let str = date.getFullYear()+'-'+(1+date.getMonth())+'-'+date.getDate();
+          return str;
+        }
+        return '';
+      }
+    },
+    created(){
     },
     mounted(){
       this.$nextTick(()=>{
@@ -87,6 +117,7 @@
     },
     methods: {
       getIptNode(){
+        console.log(this.$route)
         this.iptNodeStorage = this.$el.lastChild;
       },
       modify( obj, key, e ){
@@ -145,7 +176,6 @@
         let tmp = arr[index];
         arr.splice(index, 1, arr[index-1]);
         arr.splice(index-1, 1, tmp);
-        //[arr[index-1],arr[index]] = [arr[index],arr[index-1]]
       },
       questionMoveUp( arr, index ){
         let tmp = arr[index];
@@ -158,20 +188,17 @@
       copyQuestion( questions, index ){
         if(questions.length<10){
           let question = questions[index];
-          console.log(question);
           let newQuestion = {};
           for( let item in question ){
             if(question[item] instanceof Array){
               newQuestion[item] = [];
-              for( let i=0; i<question[item].lenght; i++ ){
+              for( let i=0; i<question[item].length; i++ ){
                 newQuestion[item][i] = question[item][i];
               }
             }else{
               newQuestion[item] = question[item];
             }
           }
-          console.log(questions[index]);
-          console.log(newQuestion);
           questions.splice( index, 0, newQuestion );
         }else{
           alert('题目数量不能大于10')
@@ -186,11 +213,52 @@
       },
       addOption(item){
         if (item.option.length > 9) {
-          alert('选项数量不能多于10')
+          alert('选项数量不能多于10');
         } else {
           item.option.push('选项' + (item.option.length + 1))
         }
+      },
+      setEndTime( year, month, date ){
+        let endTime = new Date(year, month, date);
+        if(endTime.getTime()<new Date().getTime()){
+          alert('结束日期不能早于当前');
+        }else {
+          this.showCalendar = false;
+          this.naire.endTime = endTime;
+        }
+      },
+      saveNaire(){
+        if( this.naire.question.length>=1 && this.naire.question.length<=10 ) {
+          let data = [];
+          if (sessionStorage.questionnaireData) {
+            data = JSON.parse(sessionStorage.questionnaireData);
+            let flag = true;
+            for( let i=0; i<data.lenght; i++ ){
+              if(data[i].id==this.id){
+                data.splice(i,1,this.naire);
+                flag = false;
+                break;
+              }
+            }
+            if(flag){
+              data.push(this.naire);
+            }
+          } else {
+            data = [this.naire];
+          }
+          sessionStorage.questionnaireData = JSON.stringify(data)
+          if(confirm("已保存,是否发布?")){
+            //this.issueNaire();
+          }else{
+            window.location.href=''
+          }
+        }else{
+          alert('题目数量应大于1小于10')
+        }
       }
+    },
+    components: {
+      calendar
     }
   }
 
@@ -283,6 +351,7 @@
     display:inline-block;
     width:150px;
     height:23px;
+    text-align: center;
     border:1px solid #ccc;
   }
 
@@ -364,5 +433,22 @@
   .operate:hover{
     text-decoration: underline;
     color:#666;
+  }
+
+  .textSelectBox{
+    height:20px;
+  }
+
+  .textSelect{
+    display:none;
+    float:right;
+  }
+
+  .questionItem:hover .textSelect{
+    display: block;
+  }
+
+  .textBox{
+    margin-top:15px;
   }
 </style>

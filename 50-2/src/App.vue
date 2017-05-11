@@ -61,7 +61,7 @@ export default {
   }
 
 
-  .thead th{
+  .thead>th{
     border-bottom:2px solid #ccc;
     border-left:none;
     border-right:none;

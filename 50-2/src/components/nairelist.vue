@@ -18,7 +18,9 @@
           <td>{{item.setTime | getTime}}</td>
           <td ><strong :class="['state',{public:item.state==1?true:false}]">{{item | setState}}</strong></td>
           <td>
-            <input type="button" :class="[{'operateBtn':item.state==0?true:false},{'disabled':item.state==0?false:true}]" value="编辑" />
+            <router-link to="">
+              <input type="button" :class="[{'operateBtn':item.state==0?true:false},{'disabled':item.state==0?false:true}]" value="编辑" />
+            </router-link>
             <input type="button" class="operateBtn" value="删除" @click="delItem(item)"/>
             <input type="button" class="operateBtn" value="查看数据" />
           </td>
@@ -34,105 +36,111 @@
 </template>
 
 <script>
+  const questionnaireData = [
+    {
+      id:1,
+      state: 1,
+      title: '这是我的第一份问卷',
+      setTime: new Date(2017, 3, 19, 20, 34, 15),
+      endTime: new Date(2017, 10, 1),
+      question: [
+        {
+          title: '单选题',
+          type: 1,
+          option: ['选项1', '选项2', '选项3']
+        },
+        {
+          title: '多选题',
+          type: 2,
+          option: ['选项1', '选项2', '选项3', '选项4']
+        },
+        {
+          title: '文本题',
+          type: 3,
+          option: true,
+        },
+      ]
+    },
+    {
+      id: 2,
+      state: 0,
+      title: '这是我的第一份问卷',
+      setTime: new Date(2017, 3, 20, 20, 34, 15),
+      endTime: new Date(2017, 10, 2),
+      question: [
+        {
+          title: '单选题',
+          type: 1,
+          option: ['选项1', '选项2', '选项3']
+        },
+        {
+          title: '多选题',
+          type: 2,
+          option: ['选项1', '选项2', '选项3', '选项4']
+        },
+        {
+          title: '文本题',
+          type: 3,
+          option: true,
+        },
+      ]
+    },
+    {
+      id: 3,
+      state: 1,
+      title: '这是我的第一份问卷',
+      setTime: new Date(2017, 1, 20, 20, 34, 15),
+      endTime: new Date(2017, 3, 5),
+      question: [
+        {
+          title: '单选题',
+          type: 1,
+          option: ['选项1', '选项2']
+        },
+        {
+          title: '单选题',
+          type: 1,
+          option: ['选项1', '选项2', '选项3', '选项4', '选项2', '选项3', '选项4', '选项1', '选项2', '选项3', '选项4']
+        },
+        {
+          title: '多选题',
+          type: 2,
+          option: ['选项1', '选项2', '选项3', '选项4', '选项1', '选项2', '选项3', '选项4', '选项1', '选项2', '选项3', '选项4']
+        },
+        {
+          title: '文本题',
+          type: 3,
+          option: true,
+        },
+        {
+          title: '文本题',
+          type: 3,
+          option: false,
+        },
+        {
+          title: '多选题',
+          type: 2,
+          option: ['选项1', '选项2']
+        },
+      ],
+    },
+  ]
 
   export default {
     name: 'nairelist',
     data(){
-      let questionnaireData = [
-        {
-          state: 1,
-          title: '这是我的第一份问卷',
-          setTime: new Date(2017, 3, 19, 20, 34, 15),
-          endTime: new Date(2017, 10, 1),
-          question: [
-            {
-              title: '单选题',
-              type: 1,
-              option: ['选项1', '选项2', '选项3']
-            },
-            {
-              title: '多选题',
-              type: 2,
-              option: ['选项1', '选项2', '选项3', '选项4']
-            },
-            {
-              title: '文本题',
-              type: 3,
-              option: true,
-            },
-          ]
-        },
-        {
-          state: 0,
-          title: '这是我的第一份问卷',
-          setTime: new Date(2017, 3, 20, 20, 34, 15),
-          endTime: new Date(2017, 10, 2),
-          question: [
-            {
-              title: '单选题',
-              type: 1,
-              option: ['选项1', '选项2', '选项3']
-            },
-            {
-              title: '多选题',
-              type: 2,
-              option: ['选项1', '选项2', '选项3', '选项4']
-            },
-            {
-              title: '文本题',
-              type: 3,
-              option: true,
-            },
-          ]
-        },
-        {
-          state: 1,
-          title: '这是我的第一份问卷',
-          setTime: new Date(2017, 1, 20, 20, 34, 15),
-          endTime: new Date(2017, 3, 5),
-          question: [
-            {
-              title: '单选题',
-              type: 1,
-              option: ['选项1', '选项2']
-            },
-            {
-              title: '单选题',
-              type: 1,
-              option: ['选项1', '选项2', '选项3', '选项4', '选项2', '选项3', '选项4', '选项1', '选项2', '选项3', '选项4']
-            },
-            {
-              title: '多选题',
-              type: 2,
-              option: ['选项1', '选项2', '选项3', '选项4', '选项1', '选项2', '选项3', '选项4', '选项1', '选项2', '选项3', '选项4']
-            },
-            {
-              title: '文本题',
-              type: 3,
-              option: true,
-            },
-            {
-              title: '文本题',
-              type: 3,
-              option: false,
-            },
-            {
-              title: '多选题',
-              type: 2,
-              option: ['选项1', '选项2']
-            },
-          ]
-        },
-      ]
       let data;
-      if (!data) {
-        if (sessionStorage.questionnaireData) {
-          data = JSON.parse(sessionStorage.questionnaireData)
-          data.setTime = new Date(data.setTime)
-          data.endTime = new Date(data.endTime)
-        } else {
-          data = questionnaireData;
-        }
+      if (sessionStorage.questionnaireData) {
+        data = JSON.parse(sessionStorage.questionnaireData)
+        console.log(data);
+        data.forEach((item)=>{
+          item.setTime = new Date(item.setTime);
+          if( item.endTime ){
+            item.endTime = new Date(item.endTime);
+          }
+        })
+      } else {
+        data = questionnaireData;
       }
       return {
         naire: data,
@@ -141,7 +149,7 @@
     },
     filters:{             //过滤器
       getTime(date){
-        let timeStr = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+        let timeStr = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()<10?'0'+date.getMinutes():date.getMinutes()}:${date.getSeconds()<10?'0'+date.getSeconds():date.getSeconds()}`
         return timeStr;
       },
       setState(item){
@@ -252,6 +260,11 @@
     background-color:#f07600;
     border-color:#c26206;
     color:#fff;
+  }
+
+  .thead th{
+    height:50px;
+    border-bottom: 2px solid #cacaca;
   }
 
   #tbody tr td{
