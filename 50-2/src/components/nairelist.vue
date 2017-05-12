@@ -1,6 +1,7 @@
 <template>
   <div class="tableBox">
-    <table class="table">
+    <div  v-if="naire.length">
+      <table class="table">
       <thead class="thead">
       <tr>
         <th></th>
@@ -11,26 +12,34 @@
       </tr>
       </thead>
       <tbody id="tbody">
-
-        <tr v-for="(item,index) in naire" >
-          <td><input type="checkbox" class="checkBox" @click="selectItem(item)" v-model="item.checked" /></td>
-          <td>{{item.title}}</td>
-          <td>{{item.setTime | getTime}}</td>
-          <td ><strong :class="['state',{public:item.state==1?true:false}]">{{item | setState}}</strong></td>
-          <td>
-            <router-link to="">
-              <input type="button" :class="[{'operateBtn':item.state==0?true:false},{'disabled':item.state==0?false:true}]" value="编辑" />
-            </router-link>
-            <input type="button" class="operateBtn" value="删除" @click="delItem(item)"/>
-            <input type="button" class="operateBtn" value="查看数据" />
-          </td>
-        </tr>
+      <tr v-for="(item,index) in naire" >
+        <td><input type="checkbox" class="checkBox" @click="selectItem(item)" v-model="item.checked" /></td>
+        <td>{{item.title}}</td>
+        <td>{{item.setTime | getTime}}</td>
+        <td ><strong :class="['state',{public:item.state==1?true:false}]">{{item | setState}}</strong></td>
+        <td>
+          <router-link :to="{name:'newnaire',params:{'id':item.id}}" v-if="item.state==0">
+            <input type="button" class="operateBtn" value="编辑" />
+          </router-link>
+          <input v-else type="button" class="disabled" value="编辑"/>
+          <input type="button" class="operateBtn" value="删除" @click="delItem(item)"/>
+          <router-link :to="{name:'viewdata',params:{'id':item.id}}">
+            <input type="button" class="operateBtn" :value="setViewBtnValue(item.state)" />
+          </router-link>
+        </td>
+      </tr>
       </tbody>
     </table>
-    <div class="optionBox">
-      <input type="checkbox" id="selectAll" @click='selectAllList' v-model="selectAll" />
-      <label for="selectAll">全选</label>
-      <input type="button" value="删除" class="operateBtn" @click="delAllSelect" />
+      <div class="optionBox">
+        <input type="checkbox" id="selectAll" @click='selectAllList' v-model="selectAll" />
+        <label for="selectAll">全选</label>
+        <input type="button" value="删除" class="operateBtn" @click="delAllSelect" />
+      </div>
+    </div>
+    <div v-else class="addBtnBox">
+      <router-link to="/newnaire">
+        <input type="button" value="新建问卷" class="addBtn"/>
+      </router-link>
     </div>
   </div>
 </template>
@@ -87,7 +96,7 @@
     },
     {
       id: 3,
-      state: 1,
+      state: 2,
       title: '这是我的第一份问卷',
       setTime: new Date(2017, 1, 20, 20, 34, 15),
       endTime: new Date(2017, 3, 5),
@@ -125,14 +134,13 @@
       ],
     },
   ]
-
+  const sessionPath = 'questionnaireData';
   export default {
     name: 'nairelist',
     data(){
       let data;
-      if (sessionStorage.questionnaireData) {
-        data = JSON.parse(sessionStorage.questionnaireData)
-        console.log(data);
+      if (sessionStorage[sessionPath]) {
+        data = JSON.parse(sessionStorage[sessionPath])
         data.forEach((item)=>{
           item.setTime = new Date(item.setTime);
           if( item.endTime ){
@@ -141,6 +149,7 @@
         })
       } else {
         data = questionnaireData;
+        sessionStorage[sessionPath] = JSON.stringify(data);
       }
       return {
         naire: data,
@@ -164,7 +173,7 @@
             return '发布中'
           }
         }
-      }
+      },
     },
     methods:{             //绑定事件
       selectItem(item){   //单条选择
@@ -198,6 +207,19 @@
         if(confirm("是否删除")){
           this.naire.splice(this.naire.indexOf(item),1);
         }
+      },
+      setViewBtnValue(state){
+        if(state==2){
+          return '查看数据';
+        }else{
+          return '查看问卷';
+        }
+      }
+    },
+    watch:{
+      naire:function(){
+        sessionStorage[sessionPath] = JSON.stringify(this.naire);
+
       }
     }
   }
@@ -298,6 +320,24 @@
     border-radius: 3px;
     cursor: not-allowed;
     outline: none;
+  }
+
+  .addBtnBox{
+    text-align: center;
+  }
+
+  .addBtn{
+    border:1px solid #a1a1a1;
+    background-color:#fff;
+    padding:10px 15px;
+    font-size:20px;
+    border-radius: 3px;
+  }
+
+  .addBtn:hover{
+    background-color:#f07600;
+    border-color:#c26206;
+    color:#fff;
   }
 
 </style>

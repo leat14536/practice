@@ -1,3 +1,5 @@
+<!--新建问卷和修改问卷-->
+
 <template>
   <div id="newnaire">
     <h4 class="titBox">
@@ -66,7 +68,7 @@
     <div class="formBox">
       问卷截止日期: <span class="endTime" @click="showCalendar = !showCalendar">{{naire.endTime | endTimeFilte}}</span>
       <button class="save" @click="saveNaire">保存问卷</button>
-      <button class="issue">发布问卷</button>
+      <button class="issue" @click="issusNaire">发布问卷</button>
     </div>
     <calendar @sendTime="setEndTime" v-if="showCalendar"></calendar>
     <input id="modify" type="text" v-model="valueStorage" :style="iptNodeStyle" @blur="select" />
@@ -75,6 +77,7 @@
 
 <script>
   import calendar from './calendar';
+  const sessionPath = 'questionnaireData';
   export default {
     name: 'newnaire',
     data () {
@@ -109,6 +112,11 @@
       }
     },
     created(){
+      this.$nextTick(()=>{
+        if( typeof this.$route.params.id!='undefined' ){
+          this.setData(this.$route.params.id);
+        }
+      })
     },
     mounted(){
       this.$nextTick(()=>{
@@ -116,8 +124,28 @@
       })
     },
     methods: {
+      setData(id){
+        let sessData,flag=true;
+        if( sessionStorage[sessionPath] ){
+          sessData = JSON.parse(sessionStorage.questionnaireData);
+          for( let i=0; i<sessData.length; i++ ){
+            if(sessData[i].id==id){
+              this.naire = sessData[i];
+              this.naire.setTime = new Date(this.naire.setTime);
+              if(this.naire.endTime){
+                this.naire.endTime = new Date(this.naire.endTime);
+              }
+              flag = !flag
+              break;
+            }
+          }
+        }
+        if(flag) {
+          alert('问卷数据出错');
+          window.location.href = ''
+        }
+      },
       getIptNode(){
-        console.log(this.$route)
         this.iptNodeStorage = this.$el.lastChild;
       },
       modify( obj, key, e ){
@@ -127,9 +155,9 @@
         e.target.parentNode.replaceChild( this.iptNodeStorage, e.target );
         this.modifyAddress.obj = obj;
         this.modifyAddress.key = key;
-        setTimeout(()=>{
+        this.$nextTick(()=>{
           this.iptNodeStorage.focus();
-        },100)
+        })
       },
       select(e){
         if(this.valueStorage.trim().length){
@@ -229,37 +257,55 @@
       },
       saveNaire(){
         if( this.naire.question.length>=1 && this.naire.question.length<=10 ) {
-          let data = [];
-          if (sessionStorage.questionnaireData) {
-            data = JSON.parse(sessionStorage.questionnaireData);
-            let flag = true;
-            for( let i=0; i<data.lenght; i++ ){
-              if(data[i].id==this.id){
-                data.splice(i,1,this.naire);
-                flag = false;
-                break;
-              }
-            }
-            if(flag){
-              data.push(this.naire);
-            }
-          } else {
-            data = [this.naire];
-          }
-          sessionStorage.questionnaireData = JSON.stringify(data)
-          if(confirm("已保存,是否发布?")){
-            //this.issueNaire();
+          this.upLoad();
+          if(confirm("已保存,是否发布?\n"+(this.naire.endTime?this.getEndTime():''))){
+            this.issusNaire();
           }else{
             window.location.href=''
           }
         }else{
-          alert('题目数量应大于1小于10')
+          alert('题目数量应大于1小于10');
         }
+      },
+      issusNaire(){
+        if(this.naire.endTime){
+          this.naire.state = 1 ;
+          this.upLoad();
+          alert('发布成功,点击返回主界面')
+          window.location.href=''
+        }else{
+          alert('请设置结束时间');
+        }
+      },
+      getEndTime(){
+        let str = '',date=this.naire.endTime;
+        str = date.getFullYear()+'-'+(1+date.getMonth())+'-'+(date.getDate()-1)+' 23:59:59';
+        return str;
+      },
+      upLoad(){
+        let data = [];
+        if (sessionStorage[sessionPath]) {
+          data = JSON.parse(sessionStorage.questionnaireData);
+          let flag = true;
+          for( let i=0; i<data.length; i++ ){
+            if(data[i].id==this.naire.id){
+              data.splice(i,1,this.naire);
+              flag = false;
+              break;
+            }
+          }
+          if(flag){
+            data.push(this.naire);
+          }
+        } else {
+          data = [this.naire];
+        }
+        sessionStorage[sessionPath] = JSON.stringify(data)
       }
     },
     components: {
       calendar
-    }
+    },
   }
 
 </script>
@@ -374,8 +420,7 @@
   .questionItem{
     width:90%;
     padding:15px;
-    margin:0 auto;
-    margin-top:15px;
+    margin:15 auto;
   }
 
   .questionItem:hover{
