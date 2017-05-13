@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>图片预加载-无序加载</title>
+    <title>图片预加载-有序加载</title>
     <style>
         *{
             margin:0;
@@ -51,7 +51,6 @@
         <a href="javascript:;" class="btn" data-control="next">下一页</a>
     </p>
 </div>
-<div class="loading"><p class="process">0%</p></div>
 
 
 
@@ -68,35 +67,26 @@
             'http://img.daimg.com/uploads/allimg/170426/3-1F426211247.jpg',
             'http://img.daimg.com/uploads/allimg/170426/3-1F4261R226.jpg'
     ]
-    let index = 0;
-    let len = imgs.length;
-    let $process = $('.process')
-
-    /*$.each( imgs, ( i, src )=>{
-        let imgObj = new Image();
-
-        $(imgObj).on('load error',()=>{
-            count++;
-            $process.html(Math.round((count+1)*100/len) + '%');
-
-            if( count>=len-1 ){
-                $('.loading').hide();
-                document.title = `第${index+1}张 共${len}张`;
-            }
-        })
-
-        imgObj.src = imgs[i];
-    })*/
-
-    $.preload(imgs,{
-        each(count){
-            $process.html(Math.round((count+1)*100/len) + '%');
-        },
-        all(){
-            $('.loading').hide();
-            document.title = `第${index+1}张 共${len}张`;
-        }
+    var len = imgs.length,
+            count = 0,
+            index=0;
+    $.preload(imgs, {
+        order: 'ordered'
     })
+    /*load();
+    //有序加载
+    function load(){
+        var imgObj = new Image();
+        $(imgObj).on('load error', ()=>{
+            if(count>=len){
+                //全部加载完成
+            }else{
+                load();
+            }
+            count++;
+        })
+        imgObj.src = imgs[count];
+    }*/
 
     $('.btn').on('click',function(){
         if( $(this).data('control')==='prev' ){ //上一张
