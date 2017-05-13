@@ -41,32 +41,31 @@
         var socket;
         start.onclick=()=>{
             var promise = new Promise((res, rej)=> {
-                socket = io('http://localhost:8000');           //创建连接
+                socket = io('http://localhost:8000');               //创建连接
 
-                socket.on('connect', function () {                //连接成功时触发
+                socket.on('connect', function () {                  //连接成功时触发
                     box.innerHTML += 'start'
                     res(socket);
                 });
             })
 
 
-            promise.then((socket)=>{
-                send.onclick=()=>{
-                    socket.emit('message',ipt.value)            //发送数据 通过emit触发服务器的message事件
+            promise.then((socket)=> {
+                send.onclick = ()=> {
+                    socket.emit('message', ipt.value)               //发送数据 通过emit触发服务器的message事件
                     ipt.value = '';
                 }
 
-                end.onclick = ()=>{
-                    socket.close();                              //关闭连接
+                end.onclick = ()=> {
+                    socket.close();                                 //关闭连接
                 }
 
-                socket.on('message', function(data){             //服务器发回消息时触发
-                    box.innerHTML += '</br>'+data;               //这里未做字符串转义,暂不考虑安全问题
+                socket.on('message', (data) => {                    //服务器发回消息时触发
+                    box.innerHTML += '</br>' + data;                //这里未做字符串转义,暂不考虑安全问题
                 });
 
-                socket.on('disconnect', function(){              //关闭连接时触发
-                    box.innerHTML += '</br>'+'end'+'</br>';
-                    socket = null;
+                socket.on('disconnect', () => {                     //关闭连接时触发
+                    box.innerHTML += '</br>' + 'end' + '</br>';
                 });
 
             })
