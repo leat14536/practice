@@ -38,16 +38,13 @@ import myEvent from '../event.js'
                 enumerable: true,
                 configurable: true,
                 set(newVal){
-                    //console.log('你设置了' + key + ' , 新的值为 ' + newVal)
                     if(typeof newVal=='object') {
                         new _Observer(newVal,parentKeys)
                     }
 
-
                     if(newVal===val) return;
                     let oldVal = val;
                     val = newVal;
-
 
                     if(this.deep) {
                         //事件冒泡
@@ -57,7 +54,6 @@ import myEvent from '../event.js'
                     }
                 },
                 get(){
-                    //console.log('你访问了 '+key)
                     return val;
                 },
             })
@@ -70,7 +66,6 @@ import myEvent from '../event.js'
             domArr.forEach((obj)=>{
                 let nodeVal = obj.node.nodeValue
                 let keys = textNodeRender.apply(this,[obj.node,nodeVal]);
-                //console.log(keys);
                 keys.forEach((key)=>{
                     this._bind( key, obj.node, nodeVal )
                 })

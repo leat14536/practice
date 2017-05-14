@@ -182,7 +182,7 @@
                         if( QnData.question.length<10) {
                             let NewQuestion = {};
                             for (let item in  QnData.question[parDivNum]) {
-                                if (typeof QnData.question[parDivNum][item] == 'object') {
+                                if (QnData.question[parDivNum][item] instanceof Array) {
                                     NewQuestion[item] = []
                                     for (let j = 0; j < QnData.question[parDivNum][item].length; j++) {
                                         NewQuestion[item][j] = QnData.question[parDivNum][item][j]

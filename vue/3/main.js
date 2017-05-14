@@ -51,6 +51,7 @@ import myEvent from '../event.js'
         $watch(key,callback){
             //注册事件
             myEvent.on(key,callback);
+            console.log('注册');
         }
     }
 

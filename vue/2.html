@@ -15,7 +15,7 @@
     Observer.prototype = {
         walk(data){
             for (let key in data) {
-                let val = data[key];
+                let val = data[key]
                 if(typeof val=='object'){
                     new Observer(val)
                 }
