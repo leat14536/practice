@@ -1,4 +1,4 @@
-# websocket socket.io基本用法
+# websocket socket.io
 
 查看需要在在node环境下安装express和socket.io
 
