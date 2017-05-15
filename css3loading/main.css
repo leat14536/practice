@@ -1,0 +1,80 @@
+*{
+    margin:0;
+    padding:0;
+}
+@keyframes rot{
+    from {transform: rotate(0deg)}
+    to {transform: rotate(360deg)}
+}
+
+.loading{
+    animation: rot 1s linear;
+    animation-iteration-count: 1000;
+    width:64px;
+    height:64px;
+    position: fixed;
+    top:50%;
+    left:50%;
+    margin-top:-32px;
+    margin-left:-32px;
+    border:2px solid #ff3b95;
+    border-radius:50%;
+    z-index:1;
+}
+
+.shade{
+    background-color:#fff;
+    width:38px;
+    height:38px;
+    position: fixed;
+    top:50%;
+    left:50%;
+    margin-top:-38px;
+    z-index: 2;
+}
+
+.circle{
+    width:38px;
+    height:38px;
+    position: fixed;
+    top:50%;
+    left:50%;
+    margin-top:-19px;
+    margin-left:-19px;
+    background-color:#fb8bbd;
+    border-radius: 50%;
+    z-index:3;
+}
+
+@keyframes fanRotate{
+    0%   {transform:rotate(180deg);background-color:#fb8bbd;}
+    50%  {transform:rotate(360deg);background-color:#fb8bbd;}
+    50.1%  {transform:rotate(180deg);background-color:#ff3b95}
+    100% {transform:rotate(360deg);background-color:#ff3b95}
+}
+
+.sector,.sectorShade{
+    width:38px;
+    height:38px;
+    position: fixed;
+    top:50%;
+    left:50%;
+    margin-top:-17px;
+    margin-left:-17px;
+    background-color: #ff3b95;
+    border-radius: 50%;
+    clip: rect(0px 19px 38px 0px)
+}
+
+.sector{
+    transform:rotate(180deg);
+    z-index:3;
+}
+
+.sectorShade{
+    animation: fanRotate 1s linear;
+    animation-iteration-count: 1000;
+    transform:rotate(180deg);
+    background-color:#fb8bbd;
+    z-index:4;
+}
