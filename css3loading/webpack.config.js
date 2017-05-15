@@ -22,7 +22,7 @@ module.exports = {
     plugins: [
         new ExtractTextPlugin('styles.css'),    //分离css文件
         new HtmlWebpackPlugin({
-            filename: 'test.html',              //模板
+            filename: 'index.html',              //模板
             template: 'index.html',             //文件名
             minify: {
                 removeComments: true,           //去除注释
