@@ -1,16 +1,14 @@
-# 个人练习
-
-部分使用es6语法,未做浏览器兼容,使用最新版本的chrome或者firefox浏览器查看
+个别使用es6语法,未做编译导致浏览器不兼容,使用最新版本的chrome或者firefox浏览器查看
 
 ##### [微型调查问卷平台](http://ife.baidu.com/2016/task/detail?taskId=50)
 
-[demo 1](https://leat14536.github.io/practice/50-2/dist/index#/)
-vue-cli构建项目,vue-router,e-charts渲染数据,问卷数据使用session Storage临时存储,演示demo使用webpack打包
+[demo 1](https://leat14536.github.io/practice/50-2/dist/index#/)   
+vue-cli构建项目,vue-router,e-charts,session Storage存储,webpack打包
 
 [demo 1源代码](https://github.com/leat14536/practice/tree/gh-pages/50-2)
 
-[demo 2](https://leat14536.github.io/practice/50/index.html)
-原生javascript,e-charts,bootstrap,session Storage存储数据
+[demo 2](https://leat14536.github.io/practice/50/index.html)   
+原生javascript,e-charts,bootstrap,session Storage
 
 [demo 2源代码](https://github.com/leat14536/practice/tree/gh-pages/50)
 
@@ -18,7 +16,8 @@ vue-cli构建项目,vue-router,e-charts渲染数据,问卷数据使用session St
 
 ##### 听指令的小方块 [1](http://ife.baidu.com/2016/task/detail?taskId=33) [2](http://ife.baidu.com/2016/task/detail?taskId=34) [3](http://ife.baidu.com/2016/task/detail?taskId=35) [4](http://ife.baidu.com/2016/task/detail?taskId=36)
 
-[demo](https://leat14536.github.io/practice/33-2/37/36.html)
+[demo](https://leat14536.github.io/practice/33-2/37/36.html)  
+canvas,原生javascript 
 
 源代码[1](https://github.com/leat14536/practice/tree/gh-pages/33-2/33-2) [2](https://github.com/leat14536/practice/tree/gh-pages/33-2/34) [3](https://github.com/leat14536/practice/tree/gh-pages/33-2/35) [4](https://github.com/leat14536/practice/tree/gh-pages/33-2/37)
 
@@ -35,6 +34,12 @@ vue-cli构建项目,vue-router,e-charts渲染数据,问卷数据使用session St
 ##### websocket前后端
 
 [源代码](https://github.com/leat14536/practice/tree/master/websocket)
+
+---
+
+##### css3 饼状loading
+
+[demo](https://leat14536.github.io/practice/css3loading/dist/index)
 
 ---
 
