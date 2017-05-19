@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .formBox{
+            width:500px;
+            text-align: right;
+            margin:50px auto;
+        }
+        .formBox [type="text"], .formBox [type="password"]{
+            outline: none;
+            width:300px;
+            height:30px;
+            margin-top: 15px;
+            border:1px solid #333;
+            border-radius: 3px;
+        }
+        .formBox .form-fv-suc{
+            border-color:#2aa126;
+        }
+        .formBox .form-fv-err{
+            border-color:#b92c28;
+        }
+        .form-fv-message{
+            display: inline-block;
+            width:300px;
+            text-align: left;
+            font-size: 12px;
+        }
+        .form-fv-message.form-fv-err{
+            color:#b92c28;
+        }
+    </style>
+</head>
+<body>
+<div class="formBox">
+    <form id="form">
+        姓名: <input type="text" class="suc"
+                data-fv-require data-fv-require-message = '姓名必须是字母/数字/下划线'
+                ><br />
+        手机: <input type="text" class="err"
+                   data-fv-tel  data-fv-tel-message = '手机格式错误'
+                ><br />
+        邮箱: <input type="text"
+                   data-fv-mail data-fv-mail-message = '邮箱格式错误'
+                ><br />
+        密码: <input type="password" id="psd"
+                data-fv-minLength = '6' data-fv-minLength-message = '不得少于6个字符'
+                data-fv-maxLength = '10' data-fv-maxLength-message = '不得多余10个字符'
+                ><br />
+        密码确认: <input type="password"
+                data-fv-match = '#psd' data-fv-match-message="密码输入不一致"
+                ><br />
+        扩展: <input type="text"
+                       data-fv-myvalidat="aaa" data-fv-myvalidat-message="扩展方法"
+                ><br />
+        <input type="submit" value="submit">
+        <input type="reset" value="reset">
+    </form>
+</div>
+
+
+<script src="formValidator.js" type="text/javascript"></script>
+<script>
+window.onload = ()=>{
+    let form = document.querySelectorAll('.formBox [type="text"], .formBox [type="password"]'),
+        flag = false;
+    let fv = new FormValidator({
+        form,
+        method : 'keyup',
+        validat: {
+            Myvalidat(value,data){
+                console.log('data-fv-myvalidat: '+data);
+                flag = !flag;
+                return flag;
+            }
+        }
+    })
+    document.querySelector('#form').onreset = ()=>{
+        fv.reset();
+    }
+    document.querySelector('#form').onsubmit = ()=>{
+        fv.submit(callback);
+        return false;
+    }
+}
+
+function callback(){
+    alert('submit');
+}
+</script>
+</body>
+</html>

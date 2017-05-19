@@ -1,0 +1,114 @@
+html, body, div, span, ul, li, a, header, footer {
+    padding:0;
+    margin: 0;
+}
+body{
+    font: 12px/1.23 微软雅黑,Arial, 宋体, Helvetica, sans-serif;
+    color:#000;
+}
+.dn{
+    display:none;
+}
+.fl{
+    float:left;
+}
+.fr{
+    float:right;
+}
+.pa{
+    position:absolute;
+}
+.pr{
+    position:relative;
+}
+.db{
+    display:block;
+}
+
+.container{
+    width:1260px;
+    margin:0 auto;
+}
+%maxwidth{
+    width:100%;
+}
+%dp-ib{
+    display:inline-block;
+}
+$globalUrl:url('../assets/material/global_009.png') no-repeat;
+
+.header{
+    @extend %maxwidth;
+    height:80px;
+    .header-top{
+        @extend %maxwidth;
+        height:30px;
+        .ht-left{
+            margin-left:25px;
+            div{
+                @extend %dp-ib;
+            }
+            .htl-logo{
+                background: url('../assets/material/global_009.png');
+                width:90px;
+                height:10px;
+                background-position: 0 -92px;
+                margin-top:10px;
+                margin-right:15px;
+            }
+            .htl-welcome a{
+                text-decoration: none;
+                line-height: 22px;
+                color:#000;
+            }
+            .htl-cart{
+                cursor: pointer;
+                margin-left:10px;
+                .htlc-num{
+                    margin-left:13px;
+                }
+            }
+        }
+        .ht-line{
+            width:1px;
+            height:17px;
+            margin:-2px 15px;
+            border-left:1px solid #000;
+        }
+        .ht-right{
+            div{
+                @extend %dp-ib;
+            }
+            .htr-tit a,.htr-club a{
+                text-decoration: none;
+                line-height: 22px;
+                color:#000;
+            }
+        }
+    }
+    .head-nav{
+        @extend %maxwidth;
+        .nav-menu{
+            @extend %dp-ib;
+            height:50px;
+        }
+        height: 50px;
+        background-color:#000;
+        color:#fff;
+        font-size:14px;
+        .nav-menu a{
+            display: block;
+            text-decoration: none;
+            color:#fff;
+            height:20px;
+            line-height:50px;
+            padding:0 10px;
+        }
+        .nav-menu a:hover{
+            color:#ee2737;
+        }
+        .nav-menu:hover{
+            background-color: #fff;
+        }
+    }
+}
