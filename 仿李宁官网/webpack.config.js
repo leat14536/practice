@@ -16,10 +16,15 @@ module.exports = {
     },
     output: {
         filename: '[name].js',                           //出口文件名
+        //publicPath: '/assets/',
         path: path.resolve(__dirname, './dist'),         //出口路径
     },
     module: {
         rules: [
+            {
+                test: /\.html$/,
+                loader: 'html-withimg-loader'
+            },
             {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
@@ -51,11 +56,7 @@ module.exports = {
             },
             {
                 test: /\.(png|gif|jpe?g)$/,
-                loader: 'file-loader',
-                query: {
-                    limit: 10,
-                    //name: '/asset/[name]-[hash:8].[ext]'
-                }
+                loader: 'file-loader?name=assets/[hash:8].[name].[ext]'
             },
         ]
     },
