@@ -7,9 +7,6 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var autoprefixer = require('autoprefixer');
 var ExtractPlugin = require("extract-text-webpack-plugin");
 
-
-
-
 module.exports = {
     entry: {
         main: './src/main.js',
