@@ -6,8 +6,12 @@ body{
   font: 12px/1.23 微软雅黑,Arial, 宋体, Helvetica, sans-serif;
   color:#000;
 }
-
-img{ border:none; }
+.container{
+  width:100%;
+  height:100%;
+  overflow: hidden;
+}
+img{ border:0; }
 .fr{  float:right;  }
 .pa{  position:absolute;  }
 .pr{  position:relative;  }
@@ -153,15 +157,20 @@ $navLogoNativeUrl:url('../assets/material/D5FEF7BB1C9BD121BC641C53C13F7369.png')
     }
   }
 }
-.drop-down {
+.drop-down-box {
   position: fixed;
   top: 80px;
   left: 0;
   @extend %maxwidth;
-  .drop-dowm-menu {
+  z-index: 10;
+  .drop-down-menu {
     background-color: #fff;
     padding: 16px 0;
     @extend %maxwidth;
+    display:none;
+    &.active{
+      display:block;
+    }
     .dm-items {
       overflow: hidden;
       @extend %container;
@@ -231,7 +240,7 @@ $navLogoNativeUrl:url('../assets/material/D5FEF7BB1C9BD121BC641C53C13F7369.png')
         @extend %dp-ib;
         background-color: rgba(0, 0, 0, 0.8);
         line-height: 30px;
-        &:hover {
+        &.active{
           background-color: rgba(238, 39, 55, 0.8);
         }
       }
@@ -253,19 +262,56 @@ $navLogoNativeUrl:url('../assets/material/D5FEF7BB1C9BD121BC641C53C13F7369.png')
   @extend %w1190;
   margin: 20px auto;
   background-color: #fff;
+  text-align: center;
   .title {
     @extend %dp-ib;
-    transition: all 0.3s;
+    transition: background-color 0.3s;
     width: 285px;
     height: 335px;
     background-color: #ebebeb;
     padding: 6px 5px;
     margin-right: 3px;
+    color:#313131;
     &:hover {
       background-color: #f1525f;
+      color:#fff;
+      .title-2-img{
+        background: url("../assets/material/lining_161216_title_pic2.png");
+      }
     }
     &:last-child {
       margin: 0;
+    }
+    .title-1{
+      width:100%;
+      height:15px
+    }
+    .title-2{
+      width:100%;
+      height:28px;
+      font-size: 20px;
+    }
+    .title-2-2{
+      width:100%;
+      height:22px;
+      padding-top: 6px;
+      font-size: 20px;
+    }
+    .title-3{
+      width:100%;
+      height:25px;
+      font-size: 20px;
+    }
+    .title-4{
+      width:100%;
+      height:34px;
+      font-size: 16px;
+    }
+    .title-2-img{
+      @extend %dp-ib;
+      width:16px;
+      height:16px;
+      background: url("../assets/material/lining_161216_title_pic.png") no-repeat;
     }
   }
 }
@@ -276,18 +322,35 @@ $navLogoNativeUrl:url('../assets/material/D5FEF7BB1C9BD121BC641C53C13F7369.png')
   .fiveVenue{
     @extend %w1190;
     padding-left:33px;
-    .hc-box{
-      @extend %dp-ib;
-      width:126px;
-      height:205px;
-      margin-right:123px;
-      background: #fff;
-      &:last-child{
-        margin: 0;
-      }
+
+  }
+}
+
+.hc-box{
+  @extend %dp-ib;
+  width:126px;
+  height:205px;
+  margin-right:123px;
+  background: #fff;
+  font-size:14px;
+  color:#313131;
+  text-align: center;
+  &:last-child{
+    margin: 0;
+  }
+  .hc-box-pic img{
+    transition: all .3s;
+  }
+  &:hover{
+    transition: all 0.3s;
+    color:#ee2737;
+    .hc-box-pic img{
+      transition: all .3s;
+      margin-left:-10px;
     }
   }
 }
+
 .zjyBox{
   @extend %w1190;
   height:710px;
@@ -354,6 +417,26 @@ $navLogoNativeUrl:url('../assets/material/D5FEF7BB1C9BD121BC641C53C13F7369.png')
   .icon-pic,.icon-word{
     width:137px;
     text-align: center;
+  }
+  .icon-pic-1{
+    display:block;
+  }
+  .icon-pic-2{
+    display:none;
+  }
+  .icon-word{
+    color:#000;
+  }
+  &:hover{
+    .icon-pic-1 {
+      display: none;
+    }
+    .icon-pic-2{
+      display:block;
+    }
+    .icon-word{
+      color:#ee2737;
+    }
   }
 }
 
@@ -560,7 +643,36 @@ $footColor:#575551;
   margin: 0 8px;
   vertical-align: text-bottom;
 }
+@for $i from 0 through 10 {
+  .slide-box[data-slide='#{$i}']{
+    transition: all 0.5s;
+    margin-left:-100%*$i;
+  }
+}
 
+.slide-left,.slide-right{
+  width:31px;
+  height:47px;
+  position: absolute;
+  top:286px;
+  //background: $globalUrl;
+  opacity: 0.5;
+  background-color: red;
+}
+.slide-left{
+  left:10%;
+  background-position:-290px 0 ;
+  &:hover{
+    opacity: 1;
+  }
+}
+.slide-right{
+  right:10%;
+  background-position: -219px 0 ;
+  &:hover{
+    opacity: 1;
+  }
+}
 
 
 

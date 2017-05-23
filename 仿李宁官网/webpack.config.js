@@ -28,7 +28,8 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',             //使用babel-loader
                     options: {
-                        presets: ['env']
+                        presets: ['env'],
+                        plugins: ['transform-object-assign',]
                     }
                 }
             },
