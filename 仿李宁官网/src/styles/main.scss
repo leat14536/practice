@@ -385,8 +385,26 @@ $navLogoNativeUrl:url('../assets/material/D5FEF7BB1C9BD121BC641C53C13F7369.png')
       width:2055px;
       position: relative;
       height:inherit;
+      margin-left:-137px*3;
+    }
+    [slideleft='true']{
+      animation: slideleft 1s ease;
+    }
+    [slideright='true']{
+      animation: slideright 1s ease;
     }
   }
+  @keyframes slideleft
+  {
+    from { margin-left:-137px*3 }
+    to { margin-left:-137px*6 }
+  }
+  @keyframes slideright
+  {
+    from { margin-left:-137px*3 }
+    to { margin-left:0 }
+  }
+
   .left-btn,.right-btn{
     width:30px;
     height:55px;
@@ -442,16 +460,29 @@ $navLogoNativeUrl:url('../assets/material/D5FEF7BB1C9BD121BC641C53C13F7369.png')
 
 .slide-wrap{
   @extend %w1190;
+  position: relative;
   .star,.xin{
+    transition: all 0.3s;
     @extend %dp-ib;
     width:594px;
     height:310px;
     background-color:#fff;
+    position: absolute;
+    //overflow: hidden;
   }
   .star{
-    margin-right:2px;
+    left:597px;
+  }
+  .placehold{
+    height:310px;
+    width:0;
   }
 }
+.star:hover,.xin:hover {
+  box-shadow: 0 5px 10px rgba(60, 60, 20, 0.7);
+  margin-top:-10px;
+}
+
 
 .hotStyle{
   @extend %maxwidth;
@@ -463,7 +494,7 @@ $navLogoNativeUrl:url('../assets/material/D5FEF7BB1C9BD121BC641C53C13F7369.png')
     color:#747474;
     padding:42px 0;
     text-align: center;
-
+    cursor: default;
   }
   .hot-content{
     width:1192px;
@@ -483,6 +514,39 @@ $navLogoNativeUrl:url('../assets/material/D5FEF7BB1C9BD121BC641C53C13F7369.png')
     }
   }
 }
+.hot-item{
+  display: block;
+  width:30px;
+  height:65px;
+  background: url("../assets/lining_161216_goods_tag_bg1.png");
+  margin-bottom: 2px;
+  position: relative;
+  text-align: center;
+  color:#fff;
+  padding-top: 24px;
+  &:hover{
+    background: url("../assets/lining_161216_goods_tag_bg2.png");
+  }
+  .item-arr{
+    display: block;
+    position: absolute;
+    top:42px;
+    right:-4px;
+    width:4px;
+    height:8px;
+    background: url("../assets/material/g_a.png");
+    z-index: 10;
+  }
+  &.active{     ///重做
+    background: url("../assets/material/r_a.png");
+  }
+  .hot-item-font{
+    margin-top:30px;
+    font-size: 13px;
+    vertical-align:center;
+  }
+}
+
 %goodsItem{
   width:231px;
   height:260px;

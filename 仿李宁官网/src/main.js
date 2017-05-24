@@ -5,12 +5,11 @@ require('./styles/main.scss');
 require( './index.html' );
 require('babel-polyfill');          //兼容ie
 import Slide from "./js/slide.js";
+import  TechnologySlide from "./js/TechnologySlide.js";
 (function(window){
     window.onload = function(){
         setSlide();
     }
-
-
 
     function setSlide() {
         navMenu();
@@ -55,7 +54,7 @@ import Slide from "./js/slide.js";
             time: 5000,
             enType: 'mouseenter',
             enCallback( num, elems, btns ){
-                elems[0].parentNode.setAttribute('data-slide',num)
+                elems[0].parentNode.setAttribute('data-slide','' + num);
                 btns.forEach((el,index)=>{
                     if(index!=num){
                         removeClass(el,btnAct)
@@ -70,18 +69,14 @@ import Slide from "./js/slide.js";
     }
 
     function sectionSlide(){
-        let elems = document.querySelectorAll('.icon-box'),
-            leftBtn = document.querySelector('.left-btn'),
-            rightBtn = document.querySelector('.right-btn');
-        new Slide({
-            elems,
+        let leftBtn = document.querySelector('.left-btn'),
+            rightBtn = document.querySelector('.right-btn')
+        new  TechnologySlide({
             leftBtn,
             rightBtn,
-            enCallback(){
-                console.log(arguments[0])
-            },
-            time: 3000
-        })
+            distance:3,
+            time: 5000,
+        });
     }
 
     function addClass(el,str){

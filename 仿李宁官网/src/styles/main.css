@@ -1,0 +1,46 @@
+/*
+Error: Invalid GBK character "\xE5"
+        on line 6 of main.scss
+
+1: html, body, div, span, ul, li, a, header, footer, h1, h2, h3, h4, h5, h6 {
+2:   padding:0;
+3:   margin: 0;
+4: }
+5: body{
+6:   font: 12px/1.23 微软雅黑,Arial, 宋体, Helvetica, sans-serif;
+7:   color:#000;
+8: }
+9: .container{
+10:   width:100%;
+11:   height:100%;
+
+Backtrace:
+main.scss:6
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/util.rb:1300:in `rescue in block in find_encoding_error'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/util.rb:1297:in `block in find_encoding_error'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/util.rb:1296:in `each'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/util.rb:1296:in `each_with_index'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/util.rb:1296:in `find_encoding_error'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/util.rb:911:in `rescue in check_sass_encoding'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/util.rb:907:in `check_sass_encoding'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/engine.rb:436:in `check_encoding!'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/engine.rb:392:in `_to_tree'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/engine.rb:381:in `_render_with_sourcemap'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/engine.rb:298:in `render_with_sourcemap'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/plugin/compiler.rb:492:in `update_stylesheet'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/plugin/compiler.rb:209:in `each'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/plugin.rb:82:in `update_stylesheets'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/exec/sass_scss.rb:340:in `watch_or_update'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/exec/sass_scss.rb:51:in `process_result'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/exec/base.rb:52:in `parse'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/exec/base.rb:19:in `parse!'
+D:/Ruby23/lib/ruby/gems/2.3.0/gems/sass-3.4.23/bin/scss:13:in `<top (required)>'
+D:/Ruby23/bin/scss:22:in `load'
+D:/Ruby23/bin/scss:22:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Invalid GBK character \"\xE5\"\A         on line 6 of main.scss\A \A 1: html, body, div, span, ul, li, a, header, footer, h1, h2, h3, h4, h5, h6 {\A 2:   padding:0;\A 3:   margin: 0;\A 4: }\A 5: body{\A 6:   font: 12px/1.23 微软雅黑,Arial, 宋体, Helvetica, sans-serif;\A 7:   color:#000;\A 8: }\A 9: .container{\A 10:   width:100%;\A 11:   height:100%;"; }

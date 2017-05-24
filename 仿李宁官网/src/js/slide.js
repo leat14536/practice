@@ -12,7 +12,9 @@
                 elems : [],             //轮播图片
                 slideBtns: [],          //对应btn
                 leftBtn: null,          //左切换btn      点击触发
+                leftCallback:null,
                 rightBtn: null,         //右切换btn
+                rightCalback:null,
                 time: 0,                //间隔时间单位毫秒
                 enType: 'mouseenter',       //btn触发事件时切换相应图片 建议使用mouseenter,click
                 enCallback:null,          //每次切换时运行
@@ -28,6 +30,7 @@
         }
         setAutoSlide(){
             if(this.option.time){
+                clearInterval(this.timer);
                 this.timer = setInterval(()=>{
                     this.num++;
                     this.numJudge();
@@ -35,7 +38,7 @@
                 },this.option.time);
             }
         }
-        addEv(){
+        setEn(){
             if(this.option.enType){
                 this.option.slideBtns.forEach((elem, index)=> {
                     (function (index, elem, self) {
@@ -44,6 +47,8 @@
                     })(index, elem, this);
                 })
             }
+        }
+        setOut(){
             if(this.option.outType){
                 this.option.elems.forEach((elem, index)=> {
                     (function (index, elem, self) {
@@ -52,23 +57,43 @@
                     })(index, elem, this)
                 })
             }
+        }
+        setLeft(){
             if(this.option.leftBtn){
                 this.option.leftBtn.onclick = ()=>{
-                    this.num--;
-                    this.numJudge();
-                    this.enCallback( this.num );
-                }
-            }
-            if(this.option.rightBtn){
-                this.option.rightBtn.onclick = ()=>{
-                    this.num++;
-                    this.numJudge();
-                    this.enCallback( this.num );
+                    if(this.option.leftCallback){
+                        this.setAutoSlide();
+                        this.option.leftCallback();
+                    }else {
+                        this.num--;
+                        this.numJudge();
+                        this.enCallback(this.num);
+                    }
                 }
             }
         }
+        setRight(){
+            if(this.option.rightBtn){
+                this.option.rightBtn.onclick = ()=>{
+                    if(this.option.rightCallback){
+                        this.setAutoSlide();
+                        this.option.rightCallback();
+                    }else {
+                        this.num++;
+                        this.numJudge();
+                        this.enCallback(this.num);
+                    }
+                }
+            }
+        }
+        addEv(){
+            this.setEn();
+            this.setOut();
+            this.setLeft();
+            this.setRight();
+        }
         enCallback(num){
-            console.log(num);
+            this.setAutoSlide();
             this.num = num;
             this.option.enCallback( num, this.option.elems, this.option.slideBtns )
         }
