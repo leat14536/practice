@@ -43,41 +43,47 @@
             </div>
         </div>
     </div>
-    <div class="head-nav">
+    <div class="head-nav"
+         data-menu-type="default"
+        data-menu-viewMessage="data-view-active"
+        data-menu-btnMessage="data-btn-active"
+        data-menu-removeMessage=true >
         <div class="header-wrap">
-            <div class="nav-menu">
-                <a href="javascript:;"><span  id="nav-logo"></span></a>
+            <div class="nav-menu" data-menu-btn="1">
+                <a href="javascript:;">
+                    <span  id="nav-logo"></span>
+                </a>
             </div>
             <div class="nav-line"></div>
-            <div class="nav-menu">
+            <div class="nav-menu" data-menu-btn="2">
                 <a href="javascript:;">
                     所有分类
                     <span class="point-arr"></span>
                 </a>
             </div>
             <div class="nav-line"></div>
-            <div class="nav-menu">
+            <div class="nav-menu" data-menu-btn="3">
                 <a href="javascript:;">
                     男子
                     <span class="point-arr"></span>
                 </a>
             </div>
             <div class="nav-line"></div>
-            <div class="nav-menu">
+            <div class="nav-menu" data-menu-btn="4">
                 <a href="javascript:;">
                     女子
                     <span class="point-arr"></span>
                 </a>
             </div>
             <div class="nav-line"></div>
-            <div class="nav-menu">
+            <div class="nav-menu" data-menu-btn="5">
                 <a href="javascript:;">
                     系列
                     <span class="point-arr"></span>
                 </a>
             </div>
             <div class="nav-line"></div>
-            <div class="nav-menu">
+            <div class="nav-menu" data-menu-btn="6">
                 <a href="javascript:;">
                     <span class="nav-logo-negtive"></span>
                     韦德
@@ -85,28 +91,28 @@
                 </a>
             </div>
             <div class="nav-line"></div>
-            <div class="nav-menu">
+            <div class="nav-menu" data-menu-btn="7">
                 <a href="javascript:;">
                     弹簧标
                     <span class="point-arr"></span>
                 </a>
             </div>
             <div class="nav-line"></div>
-            <div class="nav-menu">
+            <div class="nav-menu" data-menu-btn="8">
                 <a href="javascript:;">
                     10K报名
                     <span class="point-arr"></span>
                 </a>
             </div>
             <div class="nav-line"></div>
-            <div class="nav-menu">
+            <div class="nav-menu" data-menu-btn="9">
                 <a href="javascript:;">
                     李宁夏令营
                     <span class="point-arr"></span>
                 </a>
             </div>
             <div class="nav-line"></div>
-            <div class="nav-menu">
+            <div class="nav-menu" data-menu-btn="10">
                 <a href="javascript:;">
                     更多品牌
                     <span class="point-arr"></span>
@@ -114,8 +120,8 @@
             </div>
         </div>
     <div class="drop-down-box">
-        <div class="drop-down-menu"></div>
-        <div class="drop-down-menu">
+        <div class="drop-down-menu" data-menu-view="1"></div>
+        <div class="drop-down-menu" data-menu-view="2">
             <div class="dm-items">
                 <div class="dm-item dm-item1">
                     <h3 class="dm-tit">
@@ -251,7 +257,7 @@
                 </ul>
             </div>
         </div>
-        <div class="drop-down-menu">
+        <div class="drop-down-menu" data-menu-view="3">
             <div class="dm-items">
                 <div class="dm-item dm-item1">
                     <h3 class="dm-tit">
@@ -387,7 +393,7 @@
                 </ul>
             </div>
         </div>
-        <div class="drop-down-menu">
+        <div class="drop-down-menu" data-menu-view="4">
             <div class="dm-items">
                 <div class="dm-item dm-item1">
                     <h3 class="dm-tit">
@@ -523,7 +529,7 @@
                 </ul>
             </div>
         </div>
-        <div class="drop-down-menu">
+        <div class="drop-down-menu" data-menu-view="5">
             <div class="dm-items">
                 <div class="dm-item dm-item1">
                     <h3 class="dm-tit">
@@ -659,7 +665,7 @@
                 </ul>
             </div>
         </div>
-        <div class="drop-down-menu">
+        <div class="drop-down-menu" data-menu-view="6">
             <div class="dm-items">
                 <div class="dm-item dm-item1">
                     <h3 class="dm-tit">
@@ -795,9 +801,9 @@
                 </ul>
             </div>
         </div>
-        <div class="drop-down-menu"></div>
-        <div class="drop-down-menu"></div>
-        <div class="drop-down-menu">
+        <div class="drop-down-menu" data-menu-view="7"></div>
+        <div class="drop-down-menu" data-menu-view="8"></div>
+        <div class="drop-down-menu" data-menu-view="9">
             <div class="dm-items">
                 <div class="dm-item dm-item1">
                     <h3 class="dm-tit">
@@ -933,7 +939,7 @@
                 </ul>
             </div>
         </div>
-        <div class="drop-down-menu">
+        <div class="drop-down-menu" data-menu-view="10">
             <div class="dm-items">
                 <div class="dm-item dm-item1">
                     <h3 class="dm-tit">
@@ -1078,29 +1084,33 @@
     </div>
 </nav>
 <div class="container">
-<div class="slide-container">
-    <div class="slide-bck">
-        <div class="slide-box" data-slide="0">
-            <img src="./assets/lazyloading2.gif" />
-            <img src="./assets/lazyloading2.gif" />
-            <img src="./assets/lazyloading2.gif" />
-            <img src="./assets/lazyloading2.gif" />
-            <img src="./assets/lazyloading2.gif" />
+    <div data-slide-type="default"
+        data-slide-btnData="data-slide-active"
+        data-slide-auto="5000"
+        data-slide-messageData="data-slide">
+        <div class="slide-container">
+            <div class="slide-bck">
+                <div class="slide-box" data-slide="1">
+                    <img src="./assets/lazyloading2.gif"/>
+                    <img src="./assets/lazyloading2.gif"/>
+                    <img src="./assets/lazyloading2.gif"/>
+                    <img src="./assets/lazyloading2.gif"/>
+                    <img src="./assets/lazyloading2.gif"/>
+                </div>
+                <div class="slideBtn-box">
+                    <div class="slide-btn" data-slide-btn="1" data-slide-active>HIGH爆周末 专区满减</div>&nbsp;
+                    <div class="slide-btn" data-slide-btn="2">520 勇敢说爱</div>&nbsp;
+                    <div class="slide-btn" data-slide-btn="3">重芯开跑</div>&nbsp;
+                    <div class="slide-btn" data-slide-btn="4">李宁漫威系列</div>&nbsp;
+                    <div class="slide-btn" data-slide-btn="5">李宁2017苏杯羽毛球装备</div>&nbsp;
+                </div>
+            </div>
         </div>
-        <div class="slideBtn-box">
-            <div class="slide-btn active">HIGH爆周末 专区满减</div>&nbsp;
-            <div class="slide-btn">520 勇敢说爱</div>&nbsp;
-            <div class="slide-btn">重芯开跑</div>&nbsp;
-            <div class="slide-btn">李宁漫威系列</div>&nbsp;
-            <div class="slide-btn">李宁2017苏杯羽毛球装备</div>&nbsp;
+        <div>
+            <div class="slide-left" data-slide-left></div>
+            <div class="slide-right" data-slide-right></div>
         </div>
     </div>
-</div>
-<div>
-    <div class="slide-left"></div>
-    <div class="slide-right"></div>
-</div>
-
 <div class="maxwidth">
     <div class="four-title">
         <div class="title">
@@ -1392,12 +1402,60 @@
 </div>
 <div class="maxwidth">
     <div class="slide-wrap">
-        <div class="star">
-            <img src="assets/lazyloading2.gif" style="width:594px;height:310px;">
-            <div class="slide-dian"></div>
+        <div class="star"
+             data-slide-type="default"
+             data-slide-picData="data-slide-active"
+             data-slide-btnData="data-slide-active"
+             data-slide-auto="5000">
+            <img src="assets/lazyloading2.gif"
+                 style="width:594px;height:310px;"
+                 data-slide-active data-slide-pic="1">
+            <img src="assets/lazyloading2.gif"
+                 style="width:594px;height:310px;"
+                 data-slide-pic="2">
+            <img src="assets/lazyloading2.gif"
+                 style="width:594px;height:310px;"
+                 data-slide-pic="3">
+            <img src="assets/lazyloading2.gif"
+                 style="width:594px;height:310px;"
+                 data-slide-pic="4">
+            <img src="assets/lazyloading2.gif"
+                 style="width:594px;height:310px;"
+                 data-slide-pic="5">
+            <div class="slide-dian">
+                <span class="seris-btn" data-slide-active data-slide-btn="1"></span>
+                <span class="seris-btn" data-slide-btn="2"></span>
+                <span class="seris-btn" data-slide-btn="3"></span>
+                <span class="seris-btn" data-slide-btn="4"></span>
+                <span class="seris-btn" data-slide-btn="5"></span>
+            </div>
         </div>
-        <div class="xin">
-            <img src="assets/lazyloading2.gif" style="width:594px;height:310px;">
+        <div class="xin" data-slide-type="default"
+             data-slide-picData="data-slide-active"
+             data-slide-btnData="data-slide-active"
+             data-slide-auto="5000">
+            <img src="assets/lazyloading2.gif"
+                 style="width:594px;height:310px;"
+                 data-slide-active data-slide-pic="1">
+            <img src="assets/lazyloading2.gif"
+                 style="width:594px;height:310px;"
+                 data-slide-pic="2">
+            <img src="assets/lazyloading2.gif"
+                 style="width:594px;height:310px;"
+                 data-slide-pic="3">
+            <img src="assets/lazyloading2.gif"
+                 style="width:594px;height:310px;"
+                 data-slide-pic="4">
+            <img src="assets/lazyloading2.gif"
+                 style="width:594px;height:310px;"
+                 data-slide-pic="5">
+            <div class="slide-dian">
+                <span class="seris-btn" data-slide-active data-slide-btn="1"></span>
+                <span class="seris-btn" data-slide-btn="2"></span>
+                <span class="seris-btn" data-slide-btn="3"></span>
+                <span class="seris-btn" data-slide-btn="4"></span>
+                <span class="seris-btn" data-slide-btn="5"></span>
+            </div>
         </div>
         <div class="placehold"></div>
     </div>
@@ -1432,16 +1490,176 @@
             </div>
             <div class="hot-goods">
                 <div class="choiceContent">
-                    <div class="goods-item-1"></div>
-                    <div class="goods-item-2"></div>
-                    <div class="goods-item-3"></div>
-                    <div class="goods-item-4"></div>
-                    <div class="goods-item-5"></div>
-                    <div class="goods-item-6"></div>
-                    <div class="goods-item-7"></div>
-                    <div class="goods-item-8"></div>
-                    <div class="goods-item-9"></div>
-                    <div class="goods-item-10"></div>
+                    <div class="goods-item-1 hot-goods-item">
+                        <img src="assets/material/g_bn.png"class="hot-bck"/>
+                        <div class="goodsBox">
+                            <div class="selSlavePic">
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                            </div>
+                            <div class="goodsPic">
+                                <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                            </div>
+                            <div class="goodsInfo">￥
+                                <span class="goodsPrice">69.00</span>
+                                <div class="goodsName">【2017新品】李...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="goods-item-2 hot-goods-item">
+                        <img src="assets/material/g_bn.png"class="hot-bck"/>
+                        <div class="goodsBox">
+                            <div class="selSlavePic">
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                            </div>
+                            <div class="goodsPic">
+                                <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                            </div>
+                            <div class="goodsInfo">￥
+                                <span class="goodsPrice">69.00</span>
+                                <div class="goodsName">【2017新品】李...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="goods-item-3 hot-goods-item">
+                        <img src="assets/material/g_bn.png"class="hot-bck"/>
+                        <div class="goodsBox">
+                            <div class="selSlavePic">
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                            </div>
+                            <div class="goodsPic">
+                                <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                            </div>
+                            <div class="goodsInfo">￥
+                                <span class="goodsPrice">69.00</span>
+                                <div class="goodsName">【2017新品】李...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="goods-item-4 hot-goods-item">
+                        <img src="assets/material/g_bn.png"class="hot-bck"/>
+                        <div class="goodsBox">
+                            <div class="selSlavePic">
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                            </div>
+                            <div class="goodsPic">
+                                <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                            </div>
+                            <div class="goodsInfo">￥
+                                <span class="goodsPrice">69.00</span>
+                                <div class="goodsName">【2017新品】李...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="goods-item-5 hot-goods-item">
+                        <img src="assets/material/g_bn.png"class="hot-bck"/>
+                        <div class="goodsBox">
+                            <div class="selSlavePic">
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                            </div>
+                            <div class="goodsPic">
+                                <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                            </div>
+                            <div class="goodsInfo">￥
+                                <span class="goodsPrice">69.00</span>
+                                <div class="goodsName">【2017新品】李...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="goods-item-6 hot-goods-item">
+                        <img src="assets/material/g_bn.png"class="hot-bck"/>
+                        <div class="goodsBox">
+                            <div class="selSlavePic">
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                            </div>
+                            <div class="goodsPic">
+                                <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                            </div>
+                            <div class="goodsInfo">￥
+                                <span class="goodsPrice">69.00</span>
+                                <div class="goodsName">【2017新品】李...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="goods-item-7 hot-goods-item">
+                        <img src="assets/material/g_bn.png"class="hot-bck"/>
+                        <div class="goodsBox">
+                            <div class="selSlavePic">
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                            </div>
+                            <div class="goodsPic">
+                                <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                            </div>
+                            <div class="goodsInfo">￥
+                                <span class="goodsPrice">69.00</span>
+                                <div class="goodsName">【2017新品】李...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="goods-item-8 hot-goods-item">
+                        <img src="assets/material/g_bn.png"class="hot-bck"/>
+                        <div class="goodsBox">
+                            <div class="selSlavePic">
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                            </div>
+                            <div class="goodsPic">
+                                <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                            </div>
+                            <div class="goodsInfo">￥
+                                <span class="goodsPrice">69.00</span>
+                                <div class="goodsName">【2017新品】李...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="goods-item-9 hot-goods-item">
+                        <img src="assets/material/g_bn.png"class="hot-bck"/>
+                        <div class="goodsBox">
+                            <div class="selSlavePic">
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                            </div>
+                            <div class="goodsPic">
+                                <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                            </div>
+                            <div class="goodsInfo">￥
+                                <span class="goodsPrice">69.00</span>
+                                <div class="goodsName">【2017新品】李...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="goods-item-10 hot-goods-item">
+                        <img src="assets/material/g_bn.png"class="hot-bck"/>
+                        <div class="goodsBox">
+                            <div class="selSlavePic">
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                                <img src="./assets/lazyloading2.gif" >
+                            </div>
+                            <div class="goodsPic">
+                                <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                            </div>
+                            <div class="goodsInfo">￥
+                                <span class="goodsPrice">69.00</span>
+                                <div class="goodsName">【2017新品】李...</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="choiceContent hide">
                     <div class="goods-item"></div>
@@ -1462,11 +1680,36 @@
 <div class="indexContent">
     <div class="qie-title">
         <div class="qie-title-box">
-            <div class="qie-title-btn active"></div>
-            <div class="qie-title-btn"></div>
-            <div class="qie-title-btn"></div>
-            <div class="qie-title-btn"></div>
-            <div class="qie-title-btn"></div>
+            <div class="qie-title-btn active">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
+            <div class="qie-title-btn">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
+            <div class="qie-title-btn">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
+            <div class="qie-title-btn">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
+            <div class="qie-title-btn">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
         </div>
     </div>
     <div class="title-pic-box">
@@ -1476,28 +1719,125 @@
     </div>
     <div class="running-con">
         <div class="choice-content">
-            <div class="choice-item">韦德产品</div>
-            <div class="choice-item">篮球鞋</div>
-            <div class="choice-item">服装</div>
-            <div class="choice-item">配件</div>
+            <div class="choice-item active">韦<br>德<br>产<br>品
+                <span class="item-arr"></span></div>
+            <div class="choice-item">篮<br>球<br>鞋
+                <span class="item-arr"></span></div>
+            <div class="choice-item"><br>服<br>装
+                <span class="item-arr"></span></div>
+            <div class="choice-item"><br>配<br>件
+                <span class="item-arr"></span></div>
         </div>
         <div class="running-goods">
             <div class="running-content">
-                <div class="goods goods-1"></div>
-                <div class="goods goods-2"></div>
-                <div class="goods goods-3"></div>
+                <div class="goods goods-1">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-2">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-3">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
                 <div class="goods goods-4"></div>
                 <div class="goods goods-5"></div>
-                <div class="goods goods-6"></div>
-                <div class="goods goods-7"></div>
-                <div class="goods goods-8"></div>
-                <div class="goods goods-9"></div>
-                <div class="goods goods-10"></div>
+                <div class="goods goods-6">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-7">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-8">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-9">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-10">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="seris-slide">
-            <div class="">
-                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;">
+            <div class="seris-slide"
+                 data-slide-type="default"
+                 data-slide-picData="data-slide-active"
+                 data-slide-btnData="data-slide-active"
+                 data-slide-auto="5000">
+                <div class="seris-box">
+                    <span class="seris-btn" data-slide-active data-slide-btn="1"></span>
+                    <span class="seris-btn" data-slide-btn="2"></span>
+                    <span class="seris-btn" data-slide-btn="3"></span>
+                    <span class="seris-btn" data-slide-btn="4"></span>
+                    <span class="seris-btn" data-slide-btn="5"></span>
+                </div>
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="1" data-slide-active>
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="2">
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="3">
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="4">
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="5">
             </div>
         </div>
     </div>
@@ -1505,11 +1845,36 @@
 <div class="indexContent">
     <div class="qie-title">
         <div class="qie-title-box">
-            <div class="qie-title-btn"></div>
-            <div class="qie-title-btn active"></div>
-            <div class="qie-title-btn"></div>
-            <div class="qie-title-btn"></div>
-            <div class="qie-title-btn"></div>
+            <div class="qie-title-btn">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
+            <div class="qie-title-btn active">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
+            <div class="qie-title-btn">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
+            <div class="qie-title-btn">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
+            <div class="qie-title-btn">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
         </div>
     </div>
     <div class="title-pic-box">
@@ -1519,28 +1884,125 @@
     </div>
     <div class="running-con">
         <div class="choice-content">
-            <div class="choiceItem">韦德产品</div>
-            <div class="choiceItem">篮球鞋</div>
-            <div class="choiceItem">服装</div>
-            <div class="choiceItem">配件</div>
+            <div class="choice-item active">韦<br>德<br>产<br>品
+                <span class="item-arr"></span></div>
+            <div class="choice-item">篮<br>球<br>鞋
+                <span class="item-arr"></span></div>
+            <div class="choice-item"><br>服<br>装
+                <span class="item-arr"></span></div>
+            <div class="choice-item"><br>配<br>件
+                <span class="item-arr"></span></div>
         </div>
         <div class="running-goods">
             <div class="running-content">
-                <div class="goods goods-1"></div>
-                <div class="goods goods-2"></div>
-                <div class="goods goods-3"></div>
+                <div class="goods goods-1">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-2">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-3">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
                 <div class="goods goods-4"></div>
                 <div class="goods goods-5"></div>
-                <div class="goods goods-6"></div>
-                <div class="goods goods-7"></div>
-                <div class="goods goods-8"></div>
-                <div class="goods goods-9"></div>
-                <div class="goods goods-10"></div>
+                <div class="goods goods-6">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-7">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-8">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-9">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-10">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="seris-slide">
-            <div class="">
-                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;">
+            <div class="seris-slide"
+                 data-slide-type="default"
+                 data-slide-picData="data-slide-active"
+                 data-slide-btnData="data-slide-active"
+                 data-slide-auto="5000">
+                <div class="seris-box">
+                    <span class="seris-btn" data-slide-active data-slide-btn="1"></span>
+                    <span class="seris-btn" data-slide-btn="2"></span>
+                    <span class="seris-btn" data-slide-btn="3"></span>
+                    <span class="seris-btn" data-slide-btn="4"></span>
+                    <span class="seris-btn" data-slide-btn="5"></span>
+                </div>
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="1" data-slide-active>
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="2">
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="3">
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="4">
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="5">
             </div>
         </div>
     </div>
@@ -1548,11 +2010,36 @@
 <div class="indexContent">
     <div class="qie-title">
         <div class="qie-title-box">
-            <div class="qie-title-btn"></div>
-            <div class="qie-title-btn"></div>
-            <div class="qie-title-btn active"></div>
-            <div class="qie-title-btn"></div>
-            <div class="qie-title-btn"></div>
+            <div class="qie-title-btn">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
+            <div class="qie-title-btn">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
+            <div class="qie-title-btn active">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
+            <div class="qie-title-btn">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
+            <div class="qie-title-btn">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
         </div>
     </div>
     <div class="title-pic-box">
@@ -1562,28 +2049,125 @@
     </div>
     <div class="running-con">
         <div class="choice-content">
-            <div class="choiceItem">韦德产品</div>
-            <div class="choiceItem">篮球鞋</div>
-            <div class="choiceItem">服装</div>
-            <div class="choiceItem">配件</div>
+            <div class="choice-item active">韦<br>德<br>产<br>品
+                <span class="item-arr"></span></div>
+            <div class="choice-item">篮<br>球<br>鞋
+                <span class="item-arr"></span></div>
+            <div class="choice-item"><br>服<br>装
+                <span class="item-arr"></span></div>
+            <div class="choice-item"><br>配<br>件
+                <span class="item-arr"></span></div>
         </div>
         <div class="running-goods">
             <div class="running-content">
-                <div class="goods goods-1"></div>
-                <div class="goods goods-2"></div>
-                <div class="goods goods-3"></div>
+                <div class="goods goods-1">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-2">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-3">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
                 <div class="goods goods-4"></div>
                 <div class="goods goods-5"></div>
-                <div class="goods goods-6"></div>
-                <div class="goods goods-7"></div>
-                <div class="goods goods-8"></div>
-                <div class="goods goods-9"></div>
-                <div class="goods goods-10"></div>
+                <div class="goods goods-6">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-7">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-8">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-9">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-10">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="seris-slide">
-            <div class="">
-                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;">
+            <div class="seris-slide"
+                 data-slide-type="default"
+                 data-slide-picData="data-slide-active"
+                 data-slide-btnData="data-slide-active"
+                 data-slide-auto="5000">
+                <div class="seris-box">
+                    <span class="seris-btn" data-slide-active data-slide-btn="1"></span>
+                    <span class="seris-btn" data-slide-btn="2"></span>
+                    <span class="seris-btn" data-slide-btn="3"></span>
+                    <span class="seris-btn" data-slide-btn="4"></span>
+                    <span class="seris-btn" data-slide-btn="5"></span>
+                </div>
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="1" data-slide-active>
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="2">
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="3">
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="4">
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="5">
             </div>
         </div>
     </div>
@@ -1591,11 +2175,36 @@
 <div class="indexContent">
     <div class="qie-title">
         <div class="qie-title-box">
-            <div class="qie-title-btn"></div>
-            <div class="qie-title-btn"></div>
-            <div class="qie-title-btn"></div>
-            <div class="qie-title-btn active"></div>
-            <div class="qie-title-btn"></div>
+            <div class="qie-title-btn">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
+            <div class="qie-title-btn">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
+            <div class="qie-title-btn">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
+            <div class="qie-title-btn active">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
+            <div class="qie-title-btn">
+                <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                <div class="qie-title-word">
+                    跑步系列
+                </div>
+            </div>
         </div>
     </div>
     <div class="title-pic-box">
@@ -1605,71 +2214,291 @@
     </div>
     <div class="running-con">
         <div class="choice-content">
-            <div class="choiceItem">韦德产品</div>
-            <div class="choiceItem">篮球鞋</div>
-            <div class="choiceItem">服装</div>
-            <div class="choiceItem">配件</div>
+            <div class="choice-item active">韦<br>德<br>产<br>品
+                <span class="item-arr"></span></div>
+            <div class="choice-item">篮<br>球<br>鞋
+                <span class="item-arr"></span></div>
+            <div class="choice-item"><br>服<br>装
+                <span class="item-arr"></span></div>
+            <div class="choice-item"><br>配<br>件
+                <span class="item-arr"></span></div>
         </div>
         <div class="running-goods">
             <div class="running-content">
-                <div class="goods goods-1"></div>
-                <div class="goods goods-2"></div>
-                <div class="goods goods-3"></div>
+                <div class="goods goods-1">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-2">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-3">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
                 <div class="goods goods-4"></div>
                 <div class="goods goods-5"></div>
-                <div class="goods goods-6"></div>
-                <div class="goods goods-7"></div>
-                <div class="goods goods-8"></div>
-                <div class="goods goods-9"></div>
-                <div class="goods goods-10"></div>
+                <div class="goods goods-6">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-7">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-8">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-9">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods goods-10">
+                    <div class="goodsBox">
+                        <div class="goodsPic">
+                            <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                        </div>
+                        <div class="goodsInfo">￥
+                            <span class="goodsPrice">69.00</span>
+                            <div class="goodsName">【2017新品】李...</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="seris-slide">
-            <div class="">
-                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;">
+            <div class="seris-slide"
+                 data-slide-type="default"
+                 data-slide-picData="data-slide-active"
+                 data-slide-btnData="data-slide-active"
+                 data-slide-auto="5000">
+                <div class="seris-box">
+                    <span class="seris-btn" data-slide-active data-slide-btn="1"></span>
+                    <span class="seris-btn" data-slide-btn="2"></span>
+                    <span class="seris-btn" data-slide-btn="3"></span>
+                    <span class="seris-btn" data-slide-btn="4"></span>
+                    <span class="seris-btn" data-slide-btn="5"></span>
+                </div>
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="1" data-slide-active>
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="2">
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="3">
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="4">
+                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="5">
             </div>
         </div>
     </div>
 </div>
 <div class="indexContent">
-    <div class="qie-title">
-        <div class="qie-title-box">
-            <div class="qie-title-btn"></div>
-            <div class="qie-title-btn"></div>
-            <div class="qie-title-btn"></div>
-            <div class="qie-title-btn"></div>
-            <div class="qie-title-btn active"></div>
-        </div>
-    </div>
-    <div class="title-pic-box">
-        <div class="title-pic">
-            <img src="assets/pic/lining_170324_fiveseries_floor_bg_01.jpg" style="width:1920px;height:282px;">
-        </div>
-    </div>
-    <div class="running-con">
-        <div class="choice-content">
-            <div class="choiceItem">韦德产品</div>
-            <div class="choiceItem">篮球鞋</div>
-            <div class="choiceItem">服装</div>
-            <div class="choiceItem">配件</div>
-        </div>
-        <div class="running-goods">
-            <div class="running-content">
-                <div class="goods goods-1"></div>
-                <div class="goods goods-2"></div>
-                <div class="goods goods-3"></div>
-                <div class="goods goods-4"></div>
-                <div class="goods goods-5"></div>
-                <div class="goods goods-6"></div>
-                <div class="goods goods-7"></div>
-                <div class="goods goods-8"></div>
-                <div class="goods goods-9"></div>
-                <div class="goods goods-10"></div>
+        <div class="qie-title">
+            <div class="qie-title-box">
+                <div class="qie-title-btn">
+                    <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                    <div class="qie-title-word">
+                        跑步系列
+                    </div>
+                </div>
+                <div class="qie-title-btn">
+                    <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                    <div class="qie-title-word">
+                        跑步系列
+                    </div>
+                </div>
+                <div class="qie-title-btn">
+                    <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                    <div class="qie-title-word">
+                        跑步系列
+                    </div>
+                </div>
+                <div class="qie-title-btn">
+                    <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                    <div class="qie-title-word">
+                        跑步系列
+                    </div>
+                </div>
+                <div class="qie-title-btn active">
+                    <img src="assets/icon/lining_161228_fiveseries_logo_01.png">
+                    <div class="qie-title-word">
+                        跑步系列
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="seris-slide">
-            <div class="">
-                <img src="assets/lazyloading2.gif" style="width:463px;height:265px;">
+        <div class="title-pic-box">
+            <div class="title-pic">
+                <img src="assets/pic/lining_170324_fiveseries_floor_bg_01.jpg" style="width:1920px;height:282px;">
+            </div>
+        </div>
+        <div class="running-con">
+            <div class="choice-content">
+                <div class="choice-item active">韦<br>德<br>产<br>品
+                    <span class="item-arr"></span></div>
+                <div class="choice-item">篮<br>球<br>鞋
+                    <span class="item-arr"></span></div>
+                <div class="choice-item"><br>服<br>装
+                    <span class="item-arr"></span></div>
+                <div class="choice-item"><br>配<br>件
+                    <span class="item-arr"></span></div>
+            </div>
+            <div class="running-goods">
+                <div class="running-content">
+                    <div class="goods goods-1">
+                        <div class="goodsBox">
+                            <div class="goodsPic">
+                                <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                            </div>
+                            <div class="goodsInfo">￥
+                                <span class="goodsPrice">69.00</span>
+                                <div class="goodsName">【2017新品】李...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="goods goods-2">
+                        <div class="goodsBox">
+                            <div class="goodsPic">
+                                <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                            </div>
+                            <div class="goodsInfo">￥
+                                <span class="goodsPrice">69.00</span>
+                                <div class="goodsName">【2017新品】李...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="goods goods-3">
+                        <div class="goodsBox">
+                            <div class="goodsPic">
+                                <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                            </div>
+                            <div class="goodsInfo">￥
+                                <span class="goodsPrice">69.00</span>
+                                <div class="goodsName">【2017新品】李...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="goods goods-4"></div>
+                    <div class="goods goods-5"></div>
+                    <div class="goods goods-6">
+                        <div class="goodsBox">
+                            <div class="goodsPic">
+                                <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                            </div>
+                            <div class="goodsInfo">￥
+                                <span class="goodsPrice">69.00</span>
+                                <div class="goodsName">【2017新品】李...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="goods goods-7">
+                        <div class="goodsBox">
+                            <div class="goodsPic">
+                                <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                            </div>
+                            <div class="goodsInfo">￥
+                                <span class="goodsPrice">69.00</span>
+                                <div class="goodsName">【2017新品】李...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="goods goods-8">
+                        <div class="goodsBox">
+                            <div class="goodsPic">
+                                <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                            </div>
+                            <div class="goodsInfo">￥
+                                <span class="goodsPrice">69.00</span>
+                                <div class="goodsName">【2017新品】李...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="goods goods-9">
+                        <div class="goodsBox">
+                            <div class="goodsPic">
+                                <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                            </div>
+                            <div class="goodsInfo">￥
+                                <span class="goodsPrice">69.00</span>
+                                <div class="goodsName">【2017新品】李...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="goods goods-10">
+                        <div class="goodsBox">
+                            <div class="goodsPic">
+                                <img src="./assets/lazyloading2.gif" style="width:160px; height:160px;">
+                            </div>
+                            <div class="goodsInfo">￥
+                                <span class="goodsPrice">69.00</span>
+                                <div class="goodsName">【2017新品】李...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="seris-slide"
+                     data-slide-type="default"
+                     data-slide-picData="data-slide-active"
+                     data-slide-btnData="data-slide-active"
+                     data-slide-auto="5000">
+                    <div class="seris-box">
+                        <span class="seris-btn" data-slide-active data-slide-btn="1"></span>
+                        <span class="seris-btn" data-slide-btn="2"></span>
+                        <span class="seris-btn" data-slide-btn="3"></span>
+                        <span class="seris-btn" data-slide-btn="4"></span>
+                        <span class="seris-btn" data-slide-btn="5"></span>
+                    </div>
+                    <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="1" data-slide-active>
+                    <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="2">
+                    <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="3">
+                    <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="4">
+                    <img src="assets/lazyloading2.gif" style="width:463px;height:265px;" data-slide-pic="5">
+                </div>
             </div>
         </div>
     </div>
@@ -1727,7 +2556,7 @@
     </div>
 </footer>
 <nav class="left-nav"></nav>
-<nav class="rught-nav"></nav>
+<nav class="right-nav"></nav>
 </div>
 </body>
 </html>

@@ -1,110 +1,110 @@
 /**
  * Created by Administrator on 2017/5/23 0023.
  */
+//常规轮播
+    export default function(){
+        let els = document.querySelectorAll('[data-slide-type="default"]'),
+            ret = [];
+        for( let i=0,el; el=els[i++]; ){
+            ret.push(new Slide(el));
+        }
+    }
 
-    export default class Slide{
-        constructor(prop){
-            this.init(prop);
+    class Slide{
+        constructor(el){
+            this.init(el);
+            this.bindEvent();
         }
-        init(prop){
-            if(! prop instanceof Object) return;
-            let __option__ = {
-                elems : [],             //轮播图片
-                slideBtns: [],          //对应btn
-                leftBtn: null,          //左切换btn      点击触发
-                leftCallback:null,
-                rightBtn: null,         //右切换btn
-                rightCalback:null,
-                time: 0,                //间隔时间单位毫秒
-                enType: 'mouseenter',       //btn触发事件时切换相应图片 建议使用mouseenter,click
-                enCallback:null,          //每次切换时运行
-                outType: null, //建议使用mouseleave
-                outCallback: null        //鼠标离开时运行
+        init(el){
+            this.el = el;
+            this.pics = this.check('data-slide-pic');
+            this.btns = this.check('data-slide-btn');
+            this.picData = el.getAttribute('data-slide-picData');
+            this.btnData = el.getAttribute('data-slide-btnData');
+            this.autoTime = el.getAttribute('data-slide-auto');
+            this.btnEv = el.getAttribute('data-slide-btnEv')||'click';
+            this.messageData = el.getAttribute('data-slide-messageData');
+            if(this.messageData)this.messageEl = el.querySelector('['+this.messageData+']');
+            this.autoTimer = null;
+            this.leftBtn = el.querySelector('[data-slide-left]');
+            this.rightBtn = el.querySelector('[data-slide-right]');
+            this.autoCnt = 1;
+        }
+        bindEvent(){
+            this.autoSlide();
+            this.bindBtnEv();
+        }
+        check(str){
+            let pics = this.el.querySelectorAll('['+str+']'),
+                ret = {},
+                attr,
+                i=0,
+                el;
+            for( ; el=pics[i++]; ){
+                attr = el.getAttribute(str);
+                ret[attr] = el;
             }
-            this.option = Object.assign(  __option__ , prop );
-            this.option.elems = [...this.option.elems];              //兼容ie
-            this.option.slideBtns = [...this.option.slideBtns];      //兼容ie
-            this.num = 0;
-            this.setAutoSlide();
-            this.addEv();
+            this.maxCnt = i;
+            return ret;
         }
-        setAutoSlide(){
-            if(this.option.time){
-                clearInterval(this.timer);
-                this.timer = setInterval(()=>{
-                    this.num++;
-                    this.numJudge();
-                    this.enCallback( this.num );
-                },this.option.time);
-            }
-        }
-        setEn(){
-            if(this.option.enType){
-                this.option.slideBtns.forEach((elem, index)=> {
-                    (function (index, elem, self) {
-                        elem.addEventListener(self.option.enType,
-                            self.enCallback.bind(self, index), false);
-                    })(index, elem, this);
-                })
-            }
-        }
-        setOut(){
-            if(this.option.outType){
-                this.option.elems.forEach((elem, index)=> {
-                    (function (index, elem, self) {
-                        elem.addEventListener(self.option.outType,
-                            self.outCallback.bind(self, index), false);
-                    })(index, elem, this)
-                })
+        autoSlide(){
+            if(this.autoTime){
+                clearInterval(this.autoTimer);
+                this.autoTimer = setInterval(()=>{
+                    this.autoCnt++;
+                    this.switchPic();
+                },this.autoTime);
             }
         }
-        setLeft(){
-            if(this.option.leftBtn){
-                this.option.leftBtn.onclick = ()=>{
-                    if(this.option.leftCallback){
-                        this.setAutoSlide();
-                        this.option.leftCallback();
-                    }else {
-                        this.num--;
-                        this.numJudge();
-                        this.enCallback(this.num);
-                    }
+        cntJudge(){
+            let max = this.maxCnt,
+                num = this.autoCnt;
+            if( num>=max )num = num%max+1;
+            if( num<1 )num = max+num-1;
+            this.autoCnt = num;
+        }
+        switchPic(){
+            this.cntJudge();
+            let now = this.autoCnt,
+                pics = this.pics,
+                btns = this.btns,
+                picData = this.picData,
+                btnData = this.btnData,
+                messageData = this.messageData;
+            if( picData )this.switchAttr( picData, pics, now );
+            if( btnData )this.switchAttr( btnData, btns, now );
+            if(messageData)this.messageEl.setAttribute(messageData,now);
+        }
+        switchAttr( attr, elems, now ){
+            for (let i in elems) {
+                elems[i].removeAttribute(attr);
+            }
+            elems[now].setAttribute( attr, '' );
+        }
+        bindBtnEv(){
+            let el = this.el;
+            el.addEventListener(this.btnEv,(e)=>{
+                let target = e.target,
+                    num = target.getAttribute('data-slide-btn');
+                if( num ){
+                    this.autoCnt = +num;
+                    this.autoSlide();
+                    this.switchPic();
+                }
+            })
+            if(this.leftBtn) {
+                this.leftBtn.onclick = ()=> {
+                    this.autoCnt--;
+                    this.autoSlide();
+                    this.switchPic();
                 }
             }
-        }
-        setRight(){
-            if(this.option.rightBtn){
-                this.option.rightBtn.onclick = ()=>{
-                    if(this.option.rightCallback){
-                        this.setAutoSlide();
-                        this.option.rightCallback();
-                    }else {
-                        this.num++;
-                        this.numJudge();
-                        this.enCallback(this.num);
-                    }
+            if(this.rightBtn) {
+                this.rightBtn.onclick = ()=> {
+                    this.autoCnt++;
+                    this.autoSlide();
+                    this.switchPic();
                 }
             }
-        }
-        addEv(){
-            this.setEn();
-            this.setOut();
-            this.setLeft();
-            this.setRight();
-        }
-        enCallback(num){
-            this.setAutoSlide();
-            this.num = num;
-            this.option.enCallback( num, this.option.elems, this.option.slideBtns )
-        }
-        outCallback(num){
-            this.option.outCallback( num, this.option.elems, this.option.slideBtns )
-        }
-        numJudge(){
-            let max = this.option.slideBtns.length,
-                num = this.num;
-            if(num>=max)num = num%max;
-            if( num<0 )num = max+num;
-            this.num = num;
         }
     }

@@ -1,6 +1,7 @@
 /**
  * Created by Administrator on 2017/5/24 0024.
  */
+//特殊轮播
 export default class TechnologySlide {
     constructor(option) {
         this.init(option)
