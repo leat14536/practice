@@ -1,67 +1,60 @@
 /**
  * Created by Administrator on 2017/5/25 0025.
  */
+import Vender from './Vender.js';
 export default function(){
-    let els = document.querySelectorAll('[data-menu-type="default"]'),
-        ret = [];
+    let els = document.querySelectorAll('[data-menu-type="default"]');
     for( let i=0,el; el=els[i++]; ){
-        ret.push( new TabToggle(el) );
+         new TabToggle(el);
     }
 }
 
-class TabToggle{
+class TabToggle extends Vender{
     constructor(el){
+        super();
         this.init(el)
         this.bindEvent();
     }
     init(el){
-        console.log(el)
         this.el = el;
-        this.btns = this.check('data-menu-btn');
-        this.views = this.check('data-menu-view');
+        this.btns = this.check( el, 'data-menu-btn' );
+        this.views = this.check( el, 'data-menu-view' );
         this.viewMessage = el.getAttribute('data-menu-viewMessage');
         this.btnMessage = el.getAttribute('data-menu-btnMessage');
-        this.removeMessage = el.getAttribute('data-menu-removeMessage');
-        this.ev = el.getAttribute('data-menu-event')||'mouseover'
+        this.ev = el.getAttribute('data-menu-event')||'mouseover';
+        this.closeEv = el.getAttribute('data-menu-closeEv')||'mouseleave'
+        this.removeMessage = el.hasAttribute('data-menu-removeMessage');
     }
     bindEvent(){
         this.btnAddEvent()
     }
-    check(str){
-        let pics = this.el.querySelectorAll('['+str+']'),
-            ret = {},
-            attr,
-            i=0,
-            el;
-        for( ; el=pics[i++]; ){
-            attr = el.getAttribute(str);
-            ret[attr] = el;
-        }
-        return ret;
-    }
+
     btnAddEvent(){
-        let i,
-            el = this.el,
-            views = this.views;
+        let el = this.el,
+            views = this.views,
+            btns = this.btns;
         el.addEventListener(this.ev,(e)=>{
-            let target = el.target;
-            console.log(el)
+            let target = e.target;
             let num = target.getAttribute('data-menu-btn');
-            if(num){
-                this.removeMessage(views,this.viewMessage);
-                views[num].setAttribute(this.viewMessage);
-                this.removeMessage(btns,this.btnMessage);
-                btns[num].setAttribute(this.btnMessage);
+            while( !num && target!=el ){
+                target = target.parentNode;
+                num = target.getAttribute('data-menu-btn');
             }
-        },false)
-    }
-    removeMessage(elems,attr){
-        if(elems) {
-            for (let el in elems){
-                 el.removeAttribute(attr);
+            if( num && !target.hasAttribute(this.btnMessage) ){
+                this.removeMsg(views,this.viewMessage);
+                views[num].setAttribute(this.viewMessage,'');
+                this.removeMsg(btns,this.btnMessage);
+                btns[num].setAttribute(this.btnMessage,'');
             }
+        },false);
+        if(this.removeMessage) {
+            el.addEventListener(this.closeEv, (e)=> {
+                this.removeMsg(views, this.viewMessage);
+                this.removeMsg(btns, this.btnMessage);
+            }, false);
         }
     }
+
 }
 
 

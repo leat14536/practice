@@ -27,6 +27,12 @@ export default class TechnologySlide {
         },false)
         this.rightBtn.addEventListener('click',()=>{
             this.right();
+            if (e && e.stopPropagation) {
+                e.stopPropagation();
+            } else {
+                window.event.cancelBubble = true;
+                return false;
+            }
         },false)
     }
     left(){
