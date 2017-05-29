@@ -61,7 +61,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             filename: 'index.html',              //模板
-            template: './src/index.html',             //文件名
+            template: './src/index.html',        //文件名
             minify: {
                 removeComments: true,           //去除注释
                 collapseWhitespace: true,       //去除空格

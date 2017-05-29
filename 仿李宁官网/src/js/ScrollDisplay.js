@@ -2,8 +2,7 @@
  * Created by Administrator on 2017/5/27 0027.
  */
 /*
- *   标签上定义 data-scroll-display = num
- *   data-sd-mainmessage = str;
+ *   标签上定义 data-scroll-display = num data-sd-mainmessage = str;
  *   当页面的scroll大于 num时为主标签添加Attribute(str,'');
  *
  *   import scrollDisplay from 'xx/scrollDisplay.js'

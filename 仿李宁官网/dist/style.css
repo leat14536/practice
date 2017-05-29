@@ -1,8 +1,0 @@
-html, body, div, span, ul, li, a, header, footer {
-  padding: 0;
-  margin: 0; }
-
-div {
-  width: 100px;
-  height: 100px;
-  background-color: red; }

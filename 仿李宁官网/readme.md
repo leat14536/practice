@@ -1,3 +1,3 @@
 # 李宁官网首页仿站
 
-webpack + sass +
+webpack + sass + 原生js (es6)
