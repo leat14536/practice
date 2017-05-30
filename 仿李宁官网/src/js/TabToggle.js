@@ -1,6 +1,21 @@
 /**
  * Created by Administrator on 2017/5/25 0025.
  */
+/*
+*   选项卡切换
+*   主标签添加 [data-menu-type="default"]
+*       [data-menu-btnMessage='data-active'] 选中的按钮添加'data-active'属性
+*       [data-menu-viewMessage='data-active'] 选中按钮对应菜单添加'data-active'属性
+*       [data-menu-event='click'] 按钮触发'click'时切换到对应菜单
+*
+*       [data-menu-removeMessage] 设置该属性时主标签触发移出事件时会为所有菜单移除'data-active'
+*       [data-menu-closeEv='mouseleave'] 主标签移出事件
+*   切换按钮添加 [data-menu-btn=str]
+*   菜单添加     [data-menu-view=str]
+*
+* */
+
+
 import Vender from './Vender.js';
 export default function(){
     let els = document.querySelectorAll('[data-menu-type="default"]');

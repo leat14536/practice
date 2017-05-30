@@ -2,10 +2,12 @@
  * Created by Administrator on 2017/5/27 0027.
  */
 /*
- *   标签上定义 data-scroll-display = num data-sd-mainmessage = str;
- *   当页面的scroll大于 num时为主标签添加Attribute(str,'');
+ *   标签上定义 [data-scroll-display = num](必填) [data-sd-mainmessage = str];(必填)
+ *   当页面的scroll大于 num时为主标签添加setAttribute(str,'');
  *
  *   import scrollDisplay from 'xx/scrollDisplay.js'
+ *   ...
+ *   scrollDisplay()
  * */
 export default function() {
     let elems = document.querySelectorAll('[data-scroll-display]');

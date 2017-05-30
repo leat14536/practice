@@ -12,7 +12,7 @@ module.exports = {
         main: './src/main.js',
     },
     output: {
-        filename: '[name].js',                           //出口文件名
+        filename: 'scripts/[name].js',                           //出口文件名
         //publicPath: '/assets/',
         path: path.resolve(__dirname, './dist'),         //出口路径
     },
@@ -54,7 +54,7 @@ module.exports = {
             },
             {
                 test: /\.(png|gif|jpe?g)$/,
-                loader: 'file-loader?name=assets/[hash:8].[name].[ext]'
+                loader: 'file-loader?name=images/[hash:8].[name].[ext]'
             },
         ]
     },

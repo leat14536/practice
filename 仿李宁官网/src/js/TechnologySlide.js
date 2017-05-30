@@ -9,35 +9,35 @@ export default class TechnologySlide {
     init(option){
         this.el = document.querySelector('[data-tech-slide]');
         this.childWidth = this.el.firstElementChild.offsetWidth;
-        this.leftBtn = option.leftBtn;
-        this.rightBtn = option.rightBtn;
-        this.distance = option.distance;
-        this.timer = null;
-        this.autoTimer = null;
-        this.framerate = option.framerate||10;
-        this.speed =  this.childWidth* this.distance/50;
-        this.el.style['marginLeft'] = -this.childWidth*3+'px';
-        this.time = option.time||5000;
+        this.leftBtn = option.leftBtn;      //左移按钮
+        this.rightBtn = option.rightBtn;    //右移按钮
+        this.distance = option.distance;    //移动元素的个数
+        this.timer = null;                  //计时器
+        this.autoTimer = null;              //自动轮播计时器
+        this.framerate = option.framerate||10;  //单次移动的时间
+        this.speed =  this.childWidth* this.distance/50;//一次移动的距离
+        this.time = option.AutoTime||5000;  //自动轮播时间
+
+        this.el.style.marginLeft = -this.childWidth*3+'px';
         this.addEv();
         this.autoSlide();
     }
     addEv(){
+        //左移
         this.leftBtn.addEventListener('click',()=>{
             this.left();
         },false)
+
+        //右移
         this.rightBtn.addEventListener('click',()=>{
             this.right();
-            if (e && e.stopPropagation) {
-                e.stopPropagation();
-            } else {
-                window.event.cancelBubble = true;
-                return false;
-            }
         },false)
     }
     left(){
         if(this.timer) return;
         this.autoSlide();
+        //重置自动轮播
+
         let el = this.el,
             start = 0,
             end = -this.childWidth*this.distance;

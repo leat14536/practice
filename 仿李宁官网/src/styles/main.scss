@@ -48,6 +48,7 @@ $navLogoNativeUrl:url('../assets/material/D5FEF7BB1C9BD121BC641C53C13F7369.png')
     .ht-left {
       @extend %fl;
       margin-left: 25px;
+      font-family: SimHei;
       div {
         @extend %dp-ib;
       }
@@ -66,7 +67,8 @@ $navLogoNativeUrl:url('../assets/material/D5FEF7BB1C9BD121BC641C53C13F7369.png')
       }
       .htl-cart {
         cursor: pointer;
-        margin-left: 10px;
+        vertical-align: text-top;
+        //margin-left: 10px;
         .htl-shop {
           background: $globalUrl;
           background-position: -166px 0;
@@ -74,15 +76,12 @@ $navLogoNativeUrl:url('../assets/material/D5FEF7BB1C9BD121BC641C53C13F7369.png')
           width: 16px;
           height: 13px;
         }
-        .htlc-num {
-          margin-left: 13px;
-        }
       }
     }
     .ht-line {
       width: 1px;
       height: 17px;
-      margin: -2px 15px;
+      margin: -5px 10px;
       border-left: 1px solid #000;
     }
     .ht-right {
@@ -163,6 +162,27 @@ $navLogoNativeUrl:url('../assets/material/D5FEF7BB1C9BD121BC641C53C13F7369.png')
       line-height: 50px;
       margin: 15px 0;
     }
+  }
+}
+.header-search{
+  float:right;
+  margin-right:40px;
+  margin-top:15px;
+  width:211px;
+  height:25px;
+  background:$globalUrl no-repeat 0 -67px;
+  .head-ipt{
+    margin:4px 5px 4px 5px;
+    border:none;
+    outline: none;
+    color:#c4c4c4;
+  }
+  .head-searchBtn{
+    float:right;
+    display: inline-block;
+    width:25px;
+    height:25px;
+    cursor: pointer;
   }
 }
 .drop-down-box {
@@ -449,7 +469,6 @@ $navLogoNativeUrl:url('../assets/material/D5FEF7BB1C9BD121BC641C53C13F7369.png')
     height:118px;
     margin: 0 auto;
     overflow: hidden;
-    background-color:#fff;//
     .innerBox{
       width:2055px;
       position: relative;
@@ -544,6 +563,9 @@ $navLogoNativeUrl:url('../assets/material/D5FEF7BB1C9BD121BC641C53C13F7369.png')
   height:310px;
   background-color:#fff;
   position: absolute;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
   img{
     width:594px;
     height:310px;
@@ -636,7 +658,7 @@ $navLogoNativeUrl:url('../assets/material/D5FEF7BB1C9BD121BC641C53C13F7369.png')
     background: url("../assets/material/g_a.png");
     z-index: 10;
   }
-  &[data-btn-active]>.item-arr{     ///重做
+  &[data-btn-active]>.item-arr{
     background: url("../assets/material/r_a.png");
   }
   .hot-item-font{
@@ -808,11 +830,11 @@ $navLogoNativeUrl:url('../assets/material/D5FEF7BB1C9BD121BC641C53C13F7369.png')
 }
 @for $i from 1 through 5 {
   .goods-#{$i}{
-  top:0;
-  left:232px * $i - 232px;
+    top:0;
+    left:232px * $i - 232px;
   }
 }
-.goods-4,.goods-5{
+.goods-4-none,.goods-5-none{
   display:none;
 }
 @for $i from 6 through 10 {
@@ -828,12 +850,23 @@ $navLogoNativeUrl:url('../assets/material/D5FEF7BB1C9BD121BC641C53C13F7369.png')
   width:463px;
   height:265px;
   overflow: hidden;
-  img{
-    display: none;
-    &[data-slide-active]{
-      animation: fadeIn 0.5s;
-      display: block;
-    }
+  .seris-overflow{
+    overflow: hidden;
+    width:463px;
+    height:265px;
+  }
+}
+@for $i from 1 through 10{
+  .seris-overflow[data-slide='#{$i}'] .seris-wrap{
+    margin-left:-463px*$i+463px;
+  }
+}
+.seris-wrap {
+  transition: all 0.3s;
+  width:463px*10;
+  height:265px;
+  img {
+    float: left;
   }
 }
 
@@ -852,15 +885,10 @@ $navLogoNativeUrl:url('../assets/material/D5FEF7BB1C9BD121BC641C53C13F7369.png')
     background-position: 0 -22px;
   }
 }
-@keyframes slowArisen {
-  from{opacity: 0.1}
-  to{opacity:1}
-}
+
 .footer{
   @extend %maxwidth;
-  margin-top:45px;
-  margin-bottom:28px;
-  background-color: #fff;//
+  margin-top:45px
 }
 
 .footer-content{
@@ -929,20 +957,19 @@ $footColor:#575551;
   height:47px;
   position: absolute;
   top:286px;
-  //background: $globalUrl;
   opacity: 0.5;
-  background-color: red;
+  background: $globalUrl;
 }
 .slide-left{
   left:10%;
-  background-position:-290px 0 ;
+  background-position: -219px 0 ;
   &:hover{
     opacity: 1;
   }
 }
 .slide-right{
   right:10%;
-  background-position: -219px 0 ;
+  background-position:-219px -47px ;
   &:hover{
     opacity: 1;
   }

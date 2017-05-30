@@ -2,12 +2,18 @@
  * Created by Administrator on 2017/5/23 0023.
  */
 /*
-*   使用方法 在外层标签上添加 data-slide-type="default"
-*   轮播图添加 data-slide-picData = num  从1开始计算
-*   按钮添加 data-slide-btnData = num
-*   图片和按钮的值相对应
-*
+*   使用方法 在外层标签上添加 data-slide-type="default"(必填)
+*       [data-slide-picData='str1'] 轮播到某图片时为图片添加str1属性;(必填)
+*       [data-slide-btnData='str2'] 轮播到某图片时为相应按钮添加str2属性;(必填)
+*       [data-slide-auto=num] 设置自动轮播时间,单位毫秒 不填为不自动轮播
+*       [data-slide-btnEvent='click'] 按钮触发事件时滚到相应图片 默认'click'
+*       [data-slide-messageData='data-slide'] 为主标签下有data-slide的标签设置值,范围: 1-轮播图数量
+*   需要轮播的标签添加[data-slide-pic=num] (num从1-10);(必填)
+*   控制轮播的按钮添加[ddata-slide-btn=num] (与上方的值一一对应)(必填)
+*   [data-slide-left] 设置轮播左滚按钮 点击左滚
+*   [data-slide-right] 设置轮播右滚按钮 点击右滚
 * */
+
 import Vender from './Vender.js';
 //常规轮播
     export default function(){

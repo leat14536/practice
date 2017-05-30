@@ -4,6 +4,18 @@
 import ScrollTo from "./ScrollTo.js";
 import Vender from './Vender.js';
 
+/*
+*   锁定按钮,当触发移入事件时为移入标签添加属性(data-xxx),
+*   触发移出事件时为默认标签添加属性(data-xxx)
+*
+*    主标签添加[data-btn-type="ghost"](必填)
+*       [data-ghost-btnMessage='xxx'] 为触发事件的按钮添加xxx属性(必填)
+*        [data-ghost-event='xxx']设置移入事件类型 默认'mouseover'
+*        [data-ghost-endEvent='xxx'] 移出事件类型 默认'mouseleave'
+*    按钮添加[data-ghost-btn];(必填)
+* +  需要锁定的按钮添加[data-ghost-default];(必填)
+* */
+
 export default function(){
     let els = document.querySelectorAll('[data-btn-type="ghost"]')
     for( let i=0,el; el=els[i++]; ){

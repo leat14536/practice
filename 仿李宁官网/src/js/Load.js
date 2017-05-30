@@ -8,16 +8,16 @@
 *
 *   图片组合懒加载和组合特殊加载
 *   懒加载使用方法:
-*       主标签添加属性[data-load-type="lazyGroup"]
-*       主标签下需要懒加载的图片添加[data-group-src=(uri)]
+*       主标签添加属性[data-load-type="lazyGroup"](必填)
+*       主标签下需要懒加载的图片添加[data-group-src=(uri)](必填)
 *
 *       会根据主标签的高度(距离页面顶部的距离)加载主标签下选中的图片
 *
 *   特殊加载使用方法:
-*       主标签添加属性[data-load-type="conditionGroup"]
-*       主标签下需要懒加载的图片添加[data-group-src=(uri)]
-*       主标签添加属性[data-comment="xxx"] xxx代表依赖标签的css选择器(使用queryselector选择)
-*       主标签添加属性[data-comment-event="xxx"]
+*       主标签添加属性[data-load-type="conditionGroup"](必填)
+*       主标签下需要懒加载的图片添加[data-group-src=(uri)](必填)
+*       主标签添加属性[data-comment="xxx"] xxx代表依赖标签的css选择器(使用queryselector选择)(必填)
+*       主标签添加属性[data-comment-event="xxx"](必填)
 *           xxx默认'click'   代表依赖标签触发xxx事件时加载主标签下选中的图片
 *           建议使用 'moseover'/'click'
 * */
@@ -55,7 +55,7 @@ class LazyLoad{
     load(min,max){
         let options = this.options,
             del = [];
-        for (let i = this.min, len = options.length; i < len; i++) {
+        for (let i = 0, len = options.length; i < len; i++) {
             if (options[i].top >= min && options[i].top <= max) {
                 options[i].imgBox.load();
                 del.push(i);

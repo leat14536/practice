@@ -2,16 +2,56 @@
  * Created by Administrator on 2017/5/19 0019.
  */
 require('./styles/main.scss');
-require( './index.html' );
+//require('./index.html');
+//require("html-loader?-attrs!./index.html");
 require('babel-polyfill');
 
-import slide from "./js/slide.js";
-import tabToggle from './js/TabToggle';
-import TechnologySlide from "./js/TechnologySlide.js";
-import ghostBtn from "./js/GhostBtn";
+/*//同步加载
+//import TechnologySlide from "./js/TechnologySlide.js";
 import scrollTo from "./js/ScrollTo.js";
-import scrollDisplay from "./js/ScrollDisplay.js"
 import load from "./js/Load.js";
+
+//异步加载
+ require.ensure([], function(require){
+     /!*
+      *   特殊轮播
+      * *!/
+     function sectionSlide(){
+         let leftBtn = document.querySelector('.left-btn'),
+             rightBtn = document.querySelector('.right-btn')
+         new  TechnologySlide({
+             leftBtn,
+             rightBtn,
+             distance:3,
+             AutoTime: 5000,
+         });
+     }
+     //页面滚动改变状态
+     require('./js/slide.js').default();
+
+     //锁定按钮
+     require('./js/GhostBtn').default();
+
+     //选项卡
+     require('./js/TabToggle').default();
+
+     //滚动到一定高度时改变属性
+     require('./js/ScrollDisplay.js').default();
+
+     let TechnologySlide = require('./js/TechnologySlide.js').default;
+     sectionSlide()
+
+
+ });*/
+//代码分割后主包388kb 分包12kb,与其增加一条请求不如打包在一起
+
+import TechnologySlide from "./js/TechnologySlide.js";
+import scrollTo from "./js/ScrollTo.js";
+import load from "./js/Load.js";
+import slide from "./js/Slide.js";
+import ghostBtn from "./js/GhostBtn";
+import tagToggle from "./js/TabToggle";
+import scrollDisplay from "./js/ScrollDisplay.js";
 
 (function(window){
     window.onload = function(){
@@ -19,27 +59,32 @@ import load from "./js/Load.js";
         setScroll();
     }
 
+
     function setSlide() {
-        //页面滚动改变状态
-        scrollDisplay();
 
         //图片懒加载和特殊加载
         load();
 
+        //右侧导航条事件
+        rightNav();
+
+        //选项卡
+        tagToggle()
+
         //轮播
         slide();
 
-        //选项卡
-        tabToggle();
-
-        //锁定按钮
-        ghostBtn();
+        //滚动到一定值时改变状态
+        scrollDisplay();
 
         //特殊轮播
         sectionSlide();
 
-        //右侧导航条事件
-        rightNav();
+        //移入小图时切换大图url;
+        goodsUrl();
+
+        //锁定按钮
+        ghostBtn();
     }
 
 
@@ -58,18 +103,21 @@ import load from "./js/Load.js";
     }
 
     /*
-    *   特殊轮播
+    *   移入小图切换
     * */
-    function sectionSlide(){
-        let leftBtn = document.querySelector('.left-btn'),
-            rightBtn = document.querySelector('.right-btn')
-        new  TechnologySlide({
-            leftBtn,
-            rightBtn,
-            distance:3,
-            time: 5000,
-        });
+    function goodsUrl(){
+        let goodsBox = document.querySelectorAll('.hot-goods-item .goodsBox');
+        for( let i=0,el; el = goodsBox[i++]; ){
+            el.addEventListener('mouseover',(e)=>{
+                let target = e.target;
+                if(target.parentNode.className==='selSlavePic'){
+                    el.querySelector('.goodsPic>img').setAttribute('src',target.getAttribute('src'));
+                }
+            })
+        }
     }
+
+
 
     /*
     *   添加右侧标签事件
@@ -100,6 +148,20 @@ import load from "./js/Load.js";
         totop.onclick = function(){
             window.scrollTo(0,0);
         }
+    }
+
+    /*
+    *   特殊轮播
+    * */
+    function sectionSlide(){
+        let leftBtn = document.querySelector('.left-btn'),
+            rightBtn = document.querySelector('.right-btn')
+        new  TechnologySlide({
+            leftBtn,
+            rightBtn,
+            distance:3,
+            AutoTime: 5000,
+        });
     }
 
 })(window)
