@@ -1,4 +1,8 @@
-个别使用es6语法,未做编译导致浏览器不兼容,使用最新版本的chrome或者firefox浏览器查看
+##### 李宁官网仿站
+
+[demo](https://leat14536.github.io/practice/%E4%BB%BF%E6%9D%8E%E5%AE%81%E5%AE%98%E7%BD%91/dist/index.html)  
+原生js(es6)+webpack+sass
+[源代码](https://github.com/leat14536/practice/tree/gh-pages/%E4%BB%BF%E6%9D%8E%E5%AE%81%E5%AE%98%E7%BD%91)
 
 ##### [微型调查问卷平台](http://ife.baidu.com/2016/task/detail?taskId=50)
 
