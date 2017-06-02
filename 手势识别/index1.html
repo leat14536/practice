@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基于$1的手势识别库</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        html,body{
+            width:100%;
+            height:100%;
+        }
+        .box{
+            font-size:0.2rem;
+            width:20rem;
+            height:100%;
+            overflow: hidden;
+        }
+        .btnBox{
+            font-size:0.5rem;
+            position: fixed;
+            height: 1rem;
+            width:20rem;
+            opacity: 0.8;
+        }
+        .panel{
+            vertical-align: middle;
+            width:10rem;
+            height:1rem;
+            font-size: 0.5rem;
+            line-height: 1rem;
+            background-color: #00AEEF;
+            color:#fff;
+            display: inline-block;
+            text-align: center;
+        }
+        .add,#dellist{
+            padding:0.1rem;
+            font-size:0.5rem;
+        }
+    </style>
+    <meta name="viewport" content=" height = device-height,width = device-width,initial-scale = 1.0,minimum-scale = 1.0,maximum-scale = 1.0,user-scalable = no" />
+</head>
+<body>
+<div class="btnBox">
+    <div class='panel'></div>
+    <button class="add">添加</button>
+    删除: <select id="dellist">
+                <option>请选择需要删除的手势</option>
+                <option value="1">1</option>
+                <option value="1">1</option>
+                <option value="1">1</option>
+                <option value="1">1</option>
+                <option value="1">1</option>
+                <option value="1">1</option>
+                <option value="1">1</option>
+                <option value="1">1</option>
+            </select>
+</div>
+<div class="box"></div>
+
+
+<script src="getsure.js" type="text/javascript"></script>
+<script>
+    (function() {
+        var docEl = document.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function() {
+                    docEl.style.fontSize = (docEl.clientWidth / 20) + 'px';
+
+                };
+        window.addEventListener(resizeEvt, recalc, false);
+        document.addEventListener('DOMContentLoaded', recalc, false);
+        var listShow = false;
+        var dellist = document.querySelector('#dellist')
+        window.onload = function () {
+            var panel = document.querySelector('.panel');
+            var getsure = new Getsure({
+                el: '.box',
+                callback(res){
+                    if (res.Score * 100 > 70 && res.Name !== 'No match.') {
+                        panel.innerHTML = res.Name + '   ' + parseInt(res.Score * 100) + '分';
+                    } else panel.innerHTML = '(・。・)';
+                }
+            })
+            document.querySelector('.add').onclick = ()=> {
+                if (getsure.points.length < 20) {
+                    alert('请画出图案');
+                } else {
+                    var name = prompt("请输入名称")
+                    //console.log(name);
+                    if (typeof name === 'string')getsure.addGetsure(name);
+                }
+            };
+            dellist.onclick = function () {
+                var str = '<option>请选择需要删除的手势</option>';
+                var list = getsure.getList();
+                list.forEach((val, i)=> {
+                    str += `<option value="${i}">${val}</option>`
+                })
+                this.innerHTML = str;
+            };
+            dellist.onchange = function () {
+                getsure.removeGetsure(this.value);
+            };
+        }
+    })();
+</script>
+</body>
+</html>
