@@ -2,6 +2,7 @@
     margin:0;
     padding:0;
 }
+<<<<<<< HEAD
 
 @keyframes rotate{
     0% {transform:rotate(0deg); }
@@ -11,6 +12,16 @@
 .loading{
     animation: rotate 1s linear;
     animation-iteration-count: 100;
+=======
+@keyframes rot{
+    from {transform: rotate(0deg)}
+    to {transform: rotate(360deg)}
+}
+
+.loading{
+    animation: rot 1s linear;
+    animation-iteration-count: 1000;
+>>>>>>> master
     width:64px;
     height:64px;
     position: fixed;
@@ -27,25 +38,43 @@
     background-color:#fff;
     width:38px;
     height:38px;
+<<<<<<< HEAD
     margin-top:-3px;
     margin-left:-3px;
+=======
+    position: fixed;
+    top:50%;
+    left:50%;
+    margin-top:-38px;
+>>>>>>> master
     z-index: 2;
 }
 
 .circle{
     width:38px;
     height:38px;
+<<<<<<< HEAD
     position: absolute;
     top:50%;
     left:50%;
     margin-left: -19px;
     margin-top:-19px;
+=======
+    position: fixed;
+    top:50%;
+    left:50%;
+    margin-top:-19px;
+    margin-left:-19px;
+>>>>>>> master
     background-color:#fb8bbd;
     border-radius: 50%;
     z-index:3;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 @keyframes fanRotate{
     0%   {transform:rotate(180deg);background-color:#fb8bbd;}
     50%  {transform:rotate(360deg);background-color:#fb8bbd;}
@@ -73,7 +102,11 @@
 
 .sectorShade{
     animation: fanRotate 1s linear;
+<<<<<<< HEAD
     animation-iteration-count: 100;
+=======
+    animation-iteration-count: 1000;
+>>>>>>> master
     transform:rotate(180deg);
     background-color:#fb8bbd;
     z-index:4;

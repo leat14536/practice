@@ -68,7 +68,11 @@
     <div class="formBox">
       问卷截止日期: <span class="endTime" @click="showCalendar = !showCalendar">{{naire.endTime | endTimeFilte}}</span>
       <button class="save" @click="saveNaire">保存问卷</button>
+<<<<<<< HEAD
       <button class="issue" @click="issusNaire">发布问卷</button>
+=======
+      <button class="issue">发布问卷</button>
+>>>>>>> master
     </div>
     <calendar @sendTime="setEndTime" v-if="showCalendar"></calendar>
     <input id="modify" type="text" v-model="valueStorage" :style="iptNodeStyle" @blur="select" />
@@ -77,7 +81,10 @@
 
 <script>
   import calendar from './calendar';
+<<<<<<< HEAD
   const sessionPath = 'questionnaireData';
+=======
+>>>>>>> master
   export default {
     name: 'newnaire',
     data () {
@@ -112,11 +119,14 @@
       }
     },
     created(){
+<<<<<<< HEAD
       this.$nextTick(()=>{
         if( typeof this.$route.params.id!='undefined' ){
           this.setData(this.$route.params.id);
         }
       })
+=======
+>>>>>>> master
     },
     mounted(){
       this.$nextTick(()=>{
@@ -146,6 +156,7 @@
         }
       },
       getIptNode(){
+        console.log(this.$route)
         this.iptNodeStorage = this.$el.lastChild;
       },
       modify( obj, key, e ){
@@ -257,13 +268,37 @@
       },
       saveNaire(){
         if( this.naire.question.length>=1 && this.naire.question.length<=10 ) {
+<<<<<<< HEAD
           this.upLoad();
           if(confirm("已保存,是否发布?\n"+(this.naire.endTime?this.getEndTime():''))){
             this.issusNaire();
+=======
+          let data = [];
+          if (sessionStorage.questionnaireData) {
+            data = JSON.parse(sessionStorage.questionnaireData);
+            let flag = true;
+            for( let i=0; i<data.lenght; i++ ){
+              if(data[i].id==this.id){
+                data.splice(i,1,this.naire);
+                flag = false;
+                break;
+              }
+            }
+            if(flag){
+              data.push(this.naire);
+            }
+          } else {
+            data = [this.naire];
+          }
+          sessionStorage.questionnaireData = JSON.stringify(data)
+          if(confirm("已保存,是否发布?")){
+            //this.issueNaire();
+>>>>>>> master
           }else{
             window.location.href=''
           }
         }else{
+<<<<<<< HEAD
           alert('题目数量应大于1小于10');
         }
       },
@@ -301,11 +336,19 @@
           data = [this.naire];
         }
         sessionStorage[sessionPath] = JSON.stringify(data)
+=======
+          alert('题目数量应大于1小于10')
+        }
+>>>>>>> master
       }
     },
     components: {
       calendar
+<<<<<<< HEAD
     },
+=======
+    }
+>>>>>>> master
   }
 
 </script>

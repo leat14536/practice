@@ -4,8 +4,11 @@
 let path = require('path')
 let ExtractTextPlugin = require('extract-text-webpack-plugin'); //分离css文件
 let HtmlWebpackPlugin = require('html-webpack-plugin');         //生成html文件
+<<<<<<< HEAD
 let autoprefixer = require('autoprefixer');                     //css前缀
 let webpack = require('webpack');
+=======
+>>>>>>> master
 
 module.exports = {
     entry: './main.js',
@@ -17,7 +20,11 @@ module.exports = {
         rules: [{
             test: /\.css$/,
             use: ExtractTextPlugin.extract({
+<<<<<<< HEAD
                 use:"css-loader!postcss-loader"
+=======
+                use: 'css-loader'
+>>>>>>> master
             })
         }]
     },
@@ -30,6 +37,7 @@ module.exports = {
                 removeComments: true,           //去除注释
                 collapseWhitespace: true,       //去除空格
             }
+<<<<<<< HEAD
         }),
         new webpack.LoaderOptionsPlugin({
             options:{
@@ -40,4 +48,8 @@ module.exports = {
         })
     ],
 
+=======
+        })
+    ]
+>>>>>>> master
 };

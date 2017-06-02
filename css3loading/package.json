@@ -4,17 +4,27 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+<<<<<<< HEAD
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack -p"
+=======
+    "test": "echo \"Error: no test specified\" && exit 1"
+>>>>>>> master
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+<<<<<<< HEAD
     "autoprefixer": "^7.1.0",
     "css-loader": "^0.28.1",
     "extract-text-webpack-plugin": "^2.1.0",
     "html-webpack-plugin": "^2.28.0",
     "postcss-loader": "^2.0.5",
+=======
+    "css-loader": "^0.28.1",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "html-webpack-plugin": "^2.28.0",
+>>>>>>> master
     "style-loader": "^0.17.0"
   }
 }

@@ -12,6 +12,7 @@
       </tr>
       </thead>
       <tbody id="tbody">
+<<<<<<< HEAD
       <tr v-for="(item,index) in naire" >
         <td><input type="checkbox" class="checkBox" @click="selectItem(item)" v-model="item.checked" /></td>
         <td>{{item.title}}</td>
@@ -28,6 +29,22 @@
           </router-link>
         </td>
       </tr>
+=======
+
+        <tr v-for="(item,index) in naire" >
+          <td><input type="checkbox" class="checkBox" @click="selectItem(item)" v-model="item.checked" /></td>
+          <td>{{item.title}}</td>
+          <td>{{item.setTime | getTime}}</td>
+          <td ><strong :class="['state',{public:item.state==1?true:false}]">{{item | setState}}</strong></td>
+          <td>
+            <router-link to="">
+              <input type="button" :class="[{'operateBtn':item.state==0?true:false},{'disabled':item.state==0?false:true}]" value="编辑" />
+            </router-link>
+            <input type="button" class="operateBtn" value="删除" @click="delItem(item)"/>
+            <input type="button" class="operateBtn" value="查看数据" />
+          </td>
+        </tr>
+>>>>>>> master
       </tbody>
     </table>
       <div class="optionBox">
@@ -96,7 +113,11 @@
     },
     {
       id: 3,
+<<<<<<< HEAD
       state: 2,
+=======
+      state: 1,
+>>>>>>> master
       title: '这是我的第一份问卷',
       setTime: new Date(2017, 1, 20, 20, 34, 15),
       endTime: new Date(2017, 3, 5),
@@ -134,13 +155,23 @@
       ],
     },
   ]
+<<<<<<< HEAD
   const sessionPath = 'questionnaireData';
+=======
+
+>>>>>>> master
   export default {
     name: 'nairelist',
     data(){
       let data;
+<<<<<<< HEAD
       if (sessionStorage[sessionPath]) {
         data = JSON.parse(sessionStorage[sessionPath])
+=======
+      if (sessionStorage.questionnaireData) {
+        data = JSON.parse(sessionStorage.questionnaireData)
+        console.log(data);
+>>>>>>> master
         data.forEach((item)=>{
           item.setTime = new Date(item.setTime);
           if( item.endTime ){
@@ -149,7 +180,10 @@
         })
       } else {
         data = questionnaireData;
+<<<<<<< HEAD
         sessionStorage[sessionPath] = JSON.stringify(data);
+=======
+>>>>>>> master
       }
       return {
         naire: data,
