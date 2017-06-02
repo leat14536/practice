@@ -129,7 +129,7 @@
             }
             return num;
         }
-        //添加push remove方法
+        //添加push remove clear方法
         this.PushGensture = function(settings){
             if(!settings[0] instanceof Unistroke) alert('数据出错');
             this.Unistrokes = settings;
@@ -359,17 +359,14 @@
                 this.drawPen(e);
             })
 
-            if(!devive) {
-                canvas.addEventListener(moveEvent, (e)=> {
-                    if (!this.flag)return;
-                    e.preventDefault();
-                    //console.log('move');
-                    this.drawPen(e);
-                })
-            }
+            canvas.addEventListener(moveEvent, (e)=> {
+                if (!this.flag)return;
+                e.preventDefault();
+                this.drawPen(e);
+            })
 
             canvas.addEventListener(endEvent, (e)=>{
-                e.preventDefault();
+                //e.preventDefault();
                 this.last = {};
                 this.flag = false;
 
@@ -378,10 +375,12 @@
                 this.callback(result)
             })
 
-            canvas.addEventListener('mouseleave', ()=>{
-                this.flag = false;
-                this.last = {};
-            })
+            if(!devive) {
+                canvas.addEventListener('mouseleave', ()=> {
+                    this.flag = false;
+                    this.last = {};
+                })
+            }
         },
         drawPen(e){
             var ctx = this.ctx;
