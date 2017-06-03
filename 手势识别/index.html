@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content=" height = device-height,width = device-width,initial-scale = 1.0,minimum-scale = 1.0,maximum-scale = 1.0,user-scalable = no" />
     <title>基于$1的手势识别</title>
     <style>
         *{
@@ -41,7 +42,6 @@
             font-size:0.5rem;
         }
     </style>
-    <meta name="viewport" content=" height = device-height,width = device-width,initial-scale = 1.0,minimum-scale = 1.0,maximum-scale = 1.0,user-scalable = no" />
 </head>
 <body>
 <div class="btnBox">
@@ -65,17 +65,7 @@
 <script src="getsure.js" type="text/javascript"></script>
 <script>
     (function() {
-        var docEl = document.documentElement,
-                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-                recalc = function() {
-                    docEl.style.fontSize = (docEl.clientWidth / 20) + 'px';
-
-                };
-        window.addEventListener(resizeEvt, recalc, false);
-        document.addEventListener('DOMContentLoaded', recalc, false);
-        var listShow = false;
         var dellist = document.querySelector('#dellist')
-        window.onload = function () {
             var panel = document.querySelector('.panel');
             var getsure = new Getsure({
                 el: '.box',
@@ -85,6 +75,10 @@
                     } else panel.innerHTML = '(・。・)';
                 }
             })
+
+            /*
+            *   添加图案
+            * */
             document.querySelector('.add').onclick = ()=> {
                 if (getsure.points.length < 20) {
                     alert('请画出图案');
@@ -94,6 +88,10 @@
                     if (typeof name === 'string')getsure.addGetsure(name);
                 }
             };
+
+            /*
+            *   打开列表
+            * */
             dellist.onclick = function () {
                 var str = '<option>请选择需要删除的手势</option>';
                 var list = getsure.getList();
@@ -102,10 +100,25 @@
                 })
                 this.innerHTML = str;
             };
+
+            /*
+            *   删除
+            * */
             dellist.onchange = function () {
                 getsure.removeGetsure(this.value);
             };
-        }
+
+            /*
+            *   初始化font-size
+            * */
+            var docEl = document.documentElement,
+                    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                    recalc = function() {
+                        docEl.style.fontSize = (docEl.clientWidth / 20) + 'px';
+                        getsure.resize();
+                    };
+            window.addEventListener(resizeEvt, recalc, false);
+            document.addEventListener('DOMContentLoaded', recalc, false);
     })();
 </script>
 </body>

@@ -339,8 +339,7 @@
 
             this.$1 =  new DollarRecognizer();
 
-            canvas.width = el.offsetWidth;
-            canvas.height = el.offsetHeight;
+            this.resize();
             el.appendChild(canvas);
         },
         _bindEvent(){
@@ -443,6 +442,10 @@
         },
         setLineWidth(size){
             this.lineWidth = size;
+        },
+        resize(){
+            this.canvas.width = this.el.offsetWidth;
+            this.canvas.height = this.el.offsetHeight;
         }
     };
 
