@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+<script src="main.js" type="text/javascript"></script>
+<script>
+    //要做到什么
+    var obj = {
+        name: 'youngwind',
+        age: 24,
+        address: {
+            info: {
+                city: "beijing"
+            }
+        }
+    };
+
+    var watch = Watcher(obj);
+
+    watch.$watch('name',function(newval){
+        console.log('name改变了');
+        console.log('newval: '+newval);
+    })
+
+    watch.$watch('address.info',function(newval){
+        console.log('info改变了: '+newval.city);
+    })
+
+    watch.$watch('$root',function(newval){
+        console.log('obj 改变了');
+    })
+
+    obj.name = 'aaa';
+    obj.address.info.city='shanxi';
+    // name改变了
+    // newval: aaa
+    // obj改变了
+    // city改变 shanxi
+    // obj改变了
+
+</script>
+</body>
+</html>
