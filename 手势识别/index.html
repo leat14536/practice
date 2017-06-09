@@ -48,16 +48,16 @@
     <div class='panel'></div>
     <button class="add">添加</button>
     删除: <select id="dellist">
-                <option>请选择需要删除的手势</option>
-                <option value="1">1</option>
-                <option value="1">1</option>
-                <option value="1">1</option>
-                <option value="1">1</option>
-                <option value="1">1</option>
-                <option value="1">1</option>
-                <option value="1">1</option>
-                <option value="1">1</option>
-            </select>
+    <option>请选择需要删除的手势</option>
+    <option value="1">1</option>
+    <option value="1">1</option>
+    <option value="1">1</option>
+    <option value="1">1</option>
+    <option value="1">1</option>
+    <option value="1">1</option>
+    <option value="1">1</option>
+    <option value="1">1</option>
+</select>
 </div>
 <div class="box"></div>
 
@@ -66,59 +66,55 @@
 <script>
     (function() {
         var dellist = document.querySelector('#dellist')
-            var panel = document.querySelector('.panel');
-            var getsure = new Getsure({
-                el: '.box',
-                callback(res){
-                    if (res.Score * 100 > 70 && res.Name !== 'No match.') {
-                        panel.innerHTML = res.Name + '   ' + parseInt(res.Score * 100) + '分';
-                    } else panel.innerHTML = '(・。・)';
-                }
+        var panel = document.querySelector('.panel');
+        var getsure = new Getsure({
+            el: '.box',
+            callback(res){
+                if (res.Score * 100 > 70 && res.Name !== 'No match.') {
+                    panel.innerHTML = res.Name + '   ' + parseInt(res.Score * 100) + '分';
+                } else panel.innerHTML = '(・。・)';
+            }
+        })
+        /*
+         *   添加图案
+         * */
+        document.querySelector('.add').onclick = ()=> {
+            if (getsure.points.length < 20) {
+                alert('请画出图案');
+            } else {
+                var name = prompt("请输入名称")
+                //console.log(name);
+                if (typeof name === 'string')getsure.addGetsure(name);
+            }
+        };
+        /*
+         *   打开列表
+         * */
+        dellist.onclick = function () {
+            var str = '<option>请选择需要删除的手势</option>';
+            var list = getsure.getList();
+            list.forEach((val, i)=> {
+                str += `<option value="${i}">${val}</option>`
             })
-
-            /*
-            *   添加图案
-            * */
-            document.querySelector('.add').onclick = ()=> {
-                if (getsure.points.length < 20) {
-                    alert('请画出图案');
-                } else {
-                    var name = prompt("请输入名称")
-                    //console.log(name);
-                    if (typeof name === 'string')getsure.addGetsure(name);
-                }
+            this.innerHTML = str;
+        };
+        /*
+         *   删除
+         * */
+        dellist.onchange = function () {
+            getsure.removeGetsure(this.value);
+        };
+        /*
+         *   初始化font-size
+         * */
+        var docEl = document.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function() {
+                docEl.style.fontSize = (docEl.clientWidth / 20) + 'px';
+                getsure.resize();
             };
-
-            /*
-            *   打开列表
-            * */
-            dellist.onclick = function () {
-                var str = '<option>请选择需要删除的手势</option>';
-                var list = getsure.getList();
-                list.forEach((val, i)=> {
-                    str += `<option value="${i}">${val}</option>`
-                })
-                this.innerHTML = str;
-            };
-
-            /*
-            *   删除
-            * */
-            dellist.onchange = function () {
-                getsure.removeGetsure(this.value);
-            };
-
-            /*
-            *   初始化font-size
-            * */
-            var docEl = document.documentElement,
-                    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-                    recalc = function() {
-                        docEl.style.fontSize = (docEl.clientWidth / 20) + 'px';
-                        getsure.resize();
-                    };
-            window.addEventListener(resizeEvt, recalc, false);
-            document.addEventListener('DOMContentLoaded', recalc, false);
+        window.addEventListener(resizeEvt, recalc, false);
+        document.addEventListener('DOMContentLoaded', recalc, false);
     })();
 </script>
 </body>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="div"></div>
+
+<script src="MyPromise.js" type="text/javascript"></script>
+<script>
+    var div = document.querySelector('.div');
+    var block = document.createElement('div');
+    block.cssText = 'width:100px;height:100px'
+    var p1 = new MyPromise((res,rej)=>{
+        setTimeout(()=>{
+            var div2 = block.cloneNode();
+            div2.style.backgroundColor = '('+parseInt(Math.random()*1000)%255+','+
+                                            +parseInt(Math.random()*1000)%255+','+
+                                            +parseInt(Math.random()*1000)%255+')';
+            div.appendChild(div2);
+            console.log(1)
+            res(1);
+        },1000)
+    });
+    p1.then((res,rej)=>{
+        console.log(2)
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>简单的划线</title>
+</head>
+<body>
+<canvas width=800 height=500 id="cvs" style="border:1px solid #666"></canvas>
+
+
+
+
+
+
+
+
+
+<script>
+	var canvas = document.querySelector('#cvs'),
+	ctx = canvas.getContext('2d'),
+	isMouseDown = false,
+	start = {},
+	now = {},
+	imgCatch,
+	lineSty = 'red',
+	lineStyl = 'blue';
+	 
+	drawLine(10,10,0.5);
+	
+	canvas.onmousedown = function(e){
+		e.preventDefault();
+		if(isMouseDown)return;
+	
+		isMouseDown = true;
+		var cav_b = windowToCanvas(e.clientX,e.clientY);
+		start.x = cav_b.x;
+		start.y = cav_b.y;
+	}
+	
+	canvas.onmousemove = function(e){
+		e.preventDefault();
+		if(!isMouseDown)return;
+		if(imgCatch)ctx.putImageData(imgCatch,0,0);	
+		//划线,画辅助线
+		now =  windowToCanvas(e.clientX,e.clientY);
+		imgCatch = ctx.getImageData(0, 0,canvas.width,canvas.height);
+		
+		ctx.strokeStyle = lineSty;
+		ctx.beginPath();
+		ctx.moveTo(start.x,start.y);
+		ctx.lineTo(now.x,now.y);
+		ctx.stroke();
+		
+		ctx.beginPath();
+		ctx.strokeStyle = lineStyl;
+		ctx.moveTo(now.x,0);
+		ctx.lineTo(now.x,canvas.height);
+		ctx.stroke();
+		
+		ctx.beginPath();
+		ctx.moveTo(0,now.y);
+		ctx.lineTo(canvas.width,now.y);
+		ctx.stroke();
+		ctx.closePath();
+	}
+	
+	canvas.onmouseup = function(e){
+		e.preventDefault();
+		if(!isMouseDown)return;
+		if(imgCatch)ctx.putImageData(imgCatch,0,0);
+	
+		isMouseDown = false;
+		//划线,重置
+		
+		ctx.beginPath();
+		ctx.strokeStyle = lineSty;
+		ctx.moveTo(start.x,start.y);
+		ctx.lineTo(now.x,now.y);
+		ctx.stroke();
+		ctx.closePath();
+		start = {};
+		imgCatch = '';
+	}
+	
+	function  windowToCanvas(x,y){
+		var bbox = canvas.getBoundingClientRect();
+   		return { x: x - bbox.left * (canvas.width  / bbox.width),
+            y: y - bbox.top  * (canvas.height / bbox.height) };
+	};
+	
+	function drawLine(jx,jy,wid){
+		ctx.lineWidth = wid;
+		ctx.strokeStyle = '#ccc'
+		for( var i=wid+jx; i<canvas.width; i+=jx){
+			ctx.beginPath();
+			ctx.moveTo(i,0);
+			ctx.lineTo(i,canvas.height);
+			ctx.stroke();
+			ctx.closePath();
+		}
+		for( var i=wid+jy; i<canvas.height; i+=jy){
+			ctx.beginPath();
+			ctx.moveTo(0,i);
+			ctx.lineTo(canvas.width,i);
+			ctx.stroke();
+			ctx.closePath();
+		}
+	}
+</script>
+</body>
+</html>

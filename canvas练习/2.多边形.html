@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<canvas id="canvas" width="800" height="500" style="border:1px solid #666"></canvas>
+<script>
+    var canvas = document.querySelector('#canvas'),
+        ctx = canvas.getContext('2d'),
+        isMouseDown = false,
+        start = {},
+        now = {},
+        imgCatch,
+        side=4,
+        initAngle=0,
+        assistStyle = 'red',
+        lineStyle = 'blue',
+        polygnFillStyle = 'yellow',
+        polygnStrokeStyle = '#000',
+        Point = function(x,y){
+          this.x = x;
+          this.y = y;
+        };
+
+    ctx.lineWidth = 0.5;
+
+    canvas.onmousedown = function(e){
+        e.preventDefault();
+        if(isMouseDown) return;
+        isMouseDown = true;
+        start = windowToCanvas(e.clientX,e.clientY);
+        saveImg();
+        drawAssist(assistStyle,start.x,start.y);
+    }
+
+    canvas.onmousemove = function(e){
+        e.preventDefault();
+        if(!isMouseDown)return;
+        now = windowToCanvas(e.clientX,e.clientY);
+        //重置
+        loadImg();
+        //画多边形
+        drawPolygon();
+        drawAssist(assistStyle,start.x,start.y);
+    }
+
+    canvas.onmouseup = function(e){
+        e.preventDefault();
+        if(!isMouseDown)return;
+        isMouseDown = false;
+        loadImg();
+        drawPolygon();
+    }
+
+    function drawPolygon(){
+        var points = getPoints();
+        ctx.beginPath();
+        ctx.moveTo(points[0].x,points[0].y);
+        for( var i=1,len=points.length; i<len; i++ ){
+            ctx.lineTo(points[i].x,points[i].y);
+        }
+        ctx.closePath();
+        ctx.fillStyle = polygnFillStyle;
+        ctx.strokeStyle = polygnStrokeStyle;
+        ctx.fill();
+        ctx.stroke();
+
+    }
+
+    function getPoints(){
+        var points = [],
+            width = Math.abs(now.x-start.x),
+            height = Math.abs(now.y-start.y),
+            radius = Math.min(width,height),
+            angel = initAngle;
+        for( var i=0; i<side; i++　){
+            points.push(new Point(start.x+(radius*Math.sin(angel)),
+                                    start.y+(radius*Math.cos(angel))));
+            angel += 2*Math.PI/side;
+        }
+        return points;
+    }
+
+    function drawAssist(color,x,y){
+        ctx.save();
+
+        ctx.strokeStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(x,0);
+        ctx.lineTo(x,canvas.height);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(0,y);
+        ctx.lineTo(canvas.width,y);
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.stroke();
+    }
+
+    function  windowToCanvas(x,y){
+        var bbox = canvas.getBoundingClientRect();
+        return { x: x - bbox.left * (canvas.width  / bbox.width),
+            y: y - bbox.top  * (canvas.height / bbox.height) };
+    };
+
+
+    function saveImg(){
+        imgCatch = ctx.getImageData(0, 0,canvas.width,canvas.height);
+    }
+
+    function loadImg(){
+        ctx.putImageData(imgCatch,0,0);
+    }
+
+    function drawGrid(color, stepx, stepy){
+        ctx.strokeStyle = color;
+        for( var i=0.5+stepx; i<canvas.width; i+=stepx){
+            ctx.beginPath();
+            ctx.moveTo(i,0);
+            ctx.lineTo(i,canvas.height);
+            ctx.stroke();
+            ctx.closePath();
+        }
+        for( var i=0.5+stepy; i<canvas.height; i+=stepy){
+            ctx.beginPath();
+            ctx.moveTo(0,i);
+            ctx.lineTo(canvas.width,i);
+            ctx.stroke();
+            ctx.closePath();
+        }
+    }
+
+
+    drawGrid('#ccc', 10, 10);
+    console.log('side:  控制边的数量\ninitAngle: 控制初始旋转角度单位是弧度\npolygnFillStyle: 多边形填充颜色\npolygnStrokeStyle: 多边形描边颜色')
+    console.log('直接在这里输入↓')
+</script>
+</body>
+</html>
