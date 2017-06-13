@@ -54,9 +54,9 @@
     <nav class="classify-list"
          :class="{entered:showClassify}">
       <div class="classify-item"
-           @click="changeNowList(index)"
+           @click="changeCurrentList(index)"
            :class="{select:index===now}"
-           v-for="(item,index) in singerList">{{item.name}}</div>
+           v-for="(item,index) in typeList.playlists">{{item.name}}</div>
     </nav>
 
     <!-- 歌曲列表 -->
@@ -70,10 +70,10 @@
       <div class="music-list-items"
            v-if="musicData[now]" >
         <div class="music-list-item"
-             v-for="(item,index) in musicData[now].hotAlbums">
+             v-for="(item,index) in musicData[now].names">
           <span>{{index+1}}</span>&nbsp;
           <span @click="saveMusicId(item)">{{item.name}}</span>&nbsp;
-          <span>{{item.artist.name}}</span>&nbsp;
+          <span>{{item.ar[0].name}}</span>&nbsp;
           <span>操作</span>
         </div>
       </div>
@@ -85,7 +85,8 @@
   export default {
     name: 'container',
     created(){
-      this.getSingerList();
+      //获取分类列表
+      this.getTypeList();
       this.$nextTick(()=>{
           console.log(this.showClassify);
       })
@@ -93,12 +94,14 @@
     props:['showClassify'],
     data(){
       return {
-        'singerList':[],
-        'musicData':[],
-        'nowActive':0,
-        'isLogin':false,
-        'isAdmin':false,
-        'now':0
+        singerList:[],
+        musicData:[],
+        nowActive:0,
+        isLogin:false,
+        isAdmin:false,
+        now:0,
+        typeList:[],
+        list:[]
       }
     },
     methods:{
@@ -110,35 +113,47 @@
       getMusicList(){
         var now = this.now;
         var xmlhttp=new XMLHttpRequest();
-        xmlhttp.open("GET","/api"+this.singerList[this.now].url,true);
+        xmlhttp.open("GET","/api/playlist/detail?id="+this.typeList.playlists[this.now].id,true);
         xmlhttp.send();
 
         xmlhttp.onreadystatechange = (e)=>{
           if(xmlhttp.readyState===4&&xmlhttp.status===200){
-            this.musicData[now] = JSON.parse(xmlhttp.responseText);
+            //this.musicData[now] = JSON.parse(xmlhttp.responseText);
+            //this.musicData = this.musicData.slice();
+            var musicLists = JSON.parse(xmlhttp.responseText);
+
+            this.musicData[now] = {
+              names: musicLists.playlist.tracks,
+              ids: musicLists.playlist.trackIds
+            }
+            //console.log(this.musicData[now])
             this.musicData = this.musicData.slice();
           }
         }
       },
-      getSingerList(){
+      getTypeList(){
+        //获取分类列表
         var xmlhttp=new XMLHttpRequest();
-        xmlhttp.open("GET","/api/main/singerList",true);
+        //xmlhttp.open("GET","/api/main/singerList",true);
+        xmlhttp.open("GET","/api/top/playlist/highquality?limit=10",true);
         xmlhttp.send();
 
         xmlhttp.onreadystatechange = (e)=>{
           if(xmlhttp.readyState===4&&xmlhttp.status===200){
-            this.singerList = JSON.parse(xmlhttp.responseText);
+            //this.singerList = JSON.parse(xmlhttp.responseText);
+            //console.log(JSON.parse(xmlhttp.responseText))
+            this.typeList = JSON.parse(xmlhttp.responseText);
             this.renderMusicList();
+            //console.log(this.typeList);
           }
         }
       },
-      changeNowList(index){
+      changeCurrentList(index){
         this.now = index;
         this.getMusicList();
       },
       saveMusicId(item){
-          console.log(item)
-        this.$emit('playMusic',item.id );
+        this.$emit('playMusic',item);
       }
     }
   }
@@ -205,6 +220,7 @@
     width:27%;
     height:2em;
     line-height:2em;
+    cursor:pointer;
     /*  暂时这样设置 */
     overflow: hidden;
   }
@@ -225,11 +241,15 @@
     border:1px solid #ccc;
     z-index: 2;
     padding:1em 1em;
-    line-height: 1.5em;
+    line-height: 2em;
     display: none;
   }
   .classify-item{
-    padding-left:1.5em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    cursor: pointer;
   }
   .classify-item.select{
     background-color: #eee;

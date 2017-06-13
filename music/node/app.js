@@ -7,7 +7,7 @@ let mongoose = require('mongoose');
 let bodyParser = require('body-parser');
 let app = express();
 let Cookies = require('cookies');
-var User = require('./models/User')
+let User = require('./models/User')
 //第一个参数表示后缀
 app.engine('html',swig.renderFile);
 
@@ -46,24 +46,34 @@ app.use( ( req, res, next )=>{
 //静态文件托管
 app.use('/public',express.static( __dirname+ '/public'));
 
+//路由
 app.use('/admin',require('./router/admin'));
 app.use('/api',require('./router/api'));
 app.use('/',require('./router/main'));
 
-//网易云接口
+//网易云
 //歌单接口
 app.use('/artist/album', require('./router/artist_album'));
 
 //音乐url接口
 app.use('/music/url', require('./router/musicUrl'))
 
-mongoose.connect('mongodb://localhost:27018/blog',(err)=>{
+//精品歌单
+app.use("/top/playlist/highquality", require("./router/top_playlist_highquality"))
+
+// 获取歌单内列表
+app.use('/playlist/detail', require('./router/playlist_detail'))
+
+
+//连接数据库
+//登录用
+mongoose.connect('mongodb://localhost:27018/music',(err)=>{
     if(err){
         console.log('连接失败')
     }else{
         console.log('连接成功');
         app.listen(9001,()=>{
-            console.log('9001')
+            console.log('http://localhost:9001')
         });
     }
 });

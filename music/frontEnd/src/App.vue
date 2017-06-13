@@ -35,7 +35,9 @@
                @playMusic="pushId"></container>
 
     <!-- 音乐播放面板 -->
-    <MusicPanel v-bind:currentID="playList[currentMusic]"></MusicPanel>
+    <!--v-bind:currentPicUrl="playList[currentMusic].al.picUrl"-->
+    <MusicPanel v-bind:current="playList[currentMusic]"
+                ></MusicPanel>
 
     <!-- 登录面板 -->
     <Login v-if="showLoginPanel"
@@ -53,7 +55,6 @@ export default {
   name: 'app',
   created(){
     //验证是否已登录
-    //todo:获取音乐列表
     var xmlhttp=new XMLHttpRequest();
     xmlhttp.open("GET","/api/",true);
     xmlhttp.send();
@@ -68,14 +69,13 @@ export default {
 
     promise.then((data)=>{
         if (data.isLogged) {
-          console.log(data)
-          console.log(this);
           this.loginData.username = data.username;
           this.isLogin = true;
           this.isAdmin = data.isAdmin;
         }
     })
 
+    //分类关闭
     this.$nextTick(()=>{
         this.$el.addEventListener('click',(e)=>{
           if(e.target.className.indexOf('header-music-list')===-1){
@@ -98,14 +98,21 @@ export default {
       showClassify:false,
       playList:[],
       currentMusic:0
-
     }
   },
   methods:{
+
+    /*
+    *   去登陆
+    * */
     toLogin(){
       this.loginMessage = 'login';
       this.showLoginPanel = true;
     },
+
+    /*
+     *   去注册
+     * */
     toRegister(){
       this.loginMessage = 'register';
       this.showLoginPanel = true;
@@ -114,6 +121,7 @@ export default {
       this.isLogin = true;
       this.loginData = data;
     },
+    //退出
     logout(){
       var xmlhttp=new XMLHttpRequest();
       xmlhttp.open("GET","/api/api/user/logout",true);
@@ -127,16 +135,18 @@ export default {
         }
       }
     },
-    pushId(id){
-      console.log(id);
+
+    pushId(item){
+      //加入播放列表
       for( var i=0; i<this.playList.length; i++ ){
-          if(this.playList[i]==id){
+          if(this.playList[i].id===item.id){
             this.currentMusic = i;
             return;
           }
       }
-      this.playList.unshift(id);
+      this.playList.unshift(item);
       this.currentMusic = 0;
+      console.log(this.playList);
     }
   },
   components: {
@@ -163,30 +173,6 @@ export default {
     width:100%;
     height:100%;
   }
-  /*.header{
-    position: fixed;
-    height:50px;
-    width:100%;
-    min-width: 300px;
-    background-color: #c62f2f;
-    color:#fff;
-    z-index: 999;
-  }
-  .logo{
-    float: left;
-    font-size: 20px;
-    font-weight: bold;
-    line-height: 50px;
-    margin-left:30px;
-  }
-  .login{
-    float: right;
-    line-height: 50px;
-    margin-right: 30px;
-  }
-  .login a{
-    color:#fff;
-  }*/
   /*
       头部
   */
@@ -223,6 +209,9 @@ export default {
     float:right;
     display: inline-block;
     margin-right:1em;
+  }
+  .login-box span{
+    cursor: pointer;
   }
 
   .spinner{

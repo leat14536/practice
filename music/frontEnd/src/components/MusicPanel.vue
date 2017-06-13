@@ -3,12 +3,14 @@
     <div class="wrap">
       <div class="btns">
         <span class="last"></span>
-        <span class="play"></span>
+        <span :class='{"play":isPause,"stop":!isPause}' @click="pauseMusic()"></span>
         <span class="next"></span>
       </div>
+
       <div class="pic">
-        <img src="http://p1.music.126.net/tfa811GLreJI_S0h9epqRA==/3394192426154346.jpg?param=34y34"/>
+        <img :src=picSrc />
       </div>
+
       <div class="progress">
         <div class="music-word">aaaa</div>
         <div class="music-play">
@@ -23,9 +25,10 @@
 </template>
 
 <script>
+  var audio = null;
   export default {
     name: 'MusicPanel',
-    props:['currentID'],
+    props:['current'],
     created(){
         this.$nextTick(()=> {
           this.bingWatcher();
@@ -33,31 +36,75 @@
     },
     data(){
       return {
-
+        currentUrl:'',
+        isPause:false,
+        picSrc:''
       }
     },
     methods:{
+      /*
+      *   当current改变时
+      *   改变audio和展示img的url
+      *   todo: 获取歌词
+      * */
       bingWatcher(){
         var self = this;
-        this.$watch('currentID',function(){
-          self.getMusicUrl();
+        this.$watch('current',function(){
+          self.loadMusic();
+          self.loadPic();
         })
       },
-      getMusicUrl(){
-        console.log('play : '+this.currentID);
+
+      /*
+      *   通过id获取音乐的url
+      *   将url赋给audio
+      * */
+      loadMusic(){
+        if(!audio)this.getAudio();
+
         if(typeof m==='number'&&!isNaN(-m)){
           return;
         }
 
         var xmlhttp=new XMLHttpRequest();
-        xmlhttp.open("GET","/api/music/url?id="+this.currentID,true);
+        xmlhttp.open("GET","/api/music/url?id="+this.current.id,true);
         xmlhttp.send();
 
         xmlhttp.onreadystatechange = (e)=>{
           if(xmlhttp.readyState===4&&xmlhttp.status===200){
-            console.log(JSON.parse(xmlhttp.responseText));
+            var ret = JSON.parse(xmlhttp.responseText);
+
+            this.currentUrl = ret.data[0].url;
+            audio.src=this.currentUrl;
           }
         }
+      },
+
+      /*
+      *   暂停/播放功能
+      * */
+      pauseMusic(){
+        this.isPause = !this.isPause;
+        if(this.isPause){
+          audio.pause();
+        }else{
+          audio.play();
+        }
+
+      },
+
+      /*
+      *   获取audio
+      * */
+      getAudio(){
+         audio = document.getElementById('audio');
+      },
+
+      /*
+      *   加载图片
+      * */
+      loadPic(){
+        this.picSrc = this.current.al.picUrl;
       }
     }
   }
@@ -65,38 +112,6 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  /*.music-panel{
-    line-height: 50px;
-    width: 100%;
-    min-width: 800px;
-    height: 50px;
-    border: 1px solid #666;
-    position: fixed;
-    bottom: 0;
-    background-color: #fff;
-  }
-  .last-music,.next-music{
-    display: inline-block;
-    width:30px;
-    height:30px;
-    border-radius: 50%;
-    background-color: #c62f2f;
-  }
-  .play-music{
-    display: inline-block;
-    width:35px;
-    height:35px;
-    border-radius: 50%;
-    background-color: #c62f2f;
-  }
-  .last-music,.next-music,.play-music{
-    line-height: 50px;
-  }
-  .play-list{
-    float:right;
-    margin-right:50px;
-    cursor: pointer;
-  }*/
   /*
       播放音乐面板
   */
@@ -172,7 +187,13 @@
     height:34px;
     overflow: hidden;
     margin: 7px 7px auto 15px;
+    background-color: #aaa;
     display: none;
+  }
+
+  #MusicPanel .pic img{
+    width:34px;
+    height:34px;
   }
 
   /*进度条*/
@@ -210,9 +231,7 @@
     border-radius: 50%;
   }
 
-  /*
-      进度时间
-  */
+  /* 进度时间 */
   .progress-num{
     float: left;
     color:#fff;
@@ -222,24 +241,18 @@
     display: none;
   }
 
-  /*
-      手机横屏
-  */
+  /* 手机横屏 */
   @media only screen and (min-width:500px) {
     .progress-num,#MusicPanel .pic{
       display: inline-block;
     }
   }
 
-  /*
-      ipad
-  */
+  /* ipad  */
   @media only screen and (min-width:760px) {
 
   }
-  /*
-      电脑屏幕,固定宽度
-  */
+  /* 电脑屏幕,固定宽度 */
   @media only screen and (min-width:1024px) {
     .wrap{
       width:1024px;
