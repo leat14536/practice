@@ -18,7 +18,6 @@ router.use((req,res,next)=>{
 })
 
 router.get('/',(req,res)=>{
-    console.log(req.userInfo)
     if(req.userInfo) {
         User.findOne({
             _id: req.userInfo._id,

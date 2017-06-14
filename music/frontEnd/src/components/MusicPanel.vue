@@ -1,44 +1,65 @@
 <template>
-  <div id="MusicPanel">
+  <div id="MusicPanel" v-if="current">
     <div class="wrap">
+      <!-- 控制音乐播放/暂停/下一首 -->
       <div class="btns">
-        <span class="last"></span>
+        <span class="last" @click="prev"></span>
         <span :class='{"play":isPause,"stop":!isPause}' @click="pauseMusic()"></span>
-        <span class="next"></span>
+        <span class="next" @click="next"></span>
       </div>
 
+      <!-- 音乐图片 -->
       <div class="pic">
-        <img :src=picSrc />
+        <img :src=picSrc
+             @click="showLyric" />
       </div>
 
+      <!-- 音乐播放面板 -->
       <div class="progress">
-        <div class="music-word">aaaa</div>
-        <div class="music-play">
+        <div class="music-word">{{current.name}} {{current.ar[0].name}}</div>
+        <div class="music-play" @click="switchProgress($event)">
           <div class="play-btn">
             <span class="now"></span>
           </div>
         </div>
       </div>
-      <div class="progress-num">05:05/05:14</div>
+      <div class="progress-num">
+        <span>{{currentTime}}</span>
+        <span>/</span>
+        <span>{{duration}}</span>
+      </div>
+    </div>
+
+    <!-- 显示歌词面板 -->
+    <div class="lyric-btn">
+      <img v-if="current"
+           :src=picSrc
+           class="btn-pic"
+           @click="showLyric">
     </div>
   </div>
 </template>
 
 <script>
-  var audio = null;
+  var audio = null,
+      timer=null;
   export default {
     name: 'MusicPanel',
     props:['current'],
     created(){
-        this.$nextTick(()=> {
-          this.bingWatcher();
-        });
+      this.$nextTick(()=> {
+        this.bingWatcher();
+      });
     },
     data(){
       return {
         currentUrl:'',
         isPause:false,
-        picSrc:''
+        picSrc:'',
+        currentTime:'00:00',
+        duration:'00:00',
+        currentPercentage:0,
+        musicBar:null
       }
     },
     methods:{
@@ -49,9 +70,23 @@
       * */
       bingWatcher(){
         var self = this;
-        this.$watch('current',function(){
+        this.$watch('current',function(nvl){
+          if(!this.current){
+            clearInterval(timer);
+            audio.pause();
+            return;
+          }
           self.loadMusic();
           self.loadPic();
+        })
+
+        this.$watch('currentPercentage',function(nvl){
+          if(!this.current)return;
+          if(nvl>=100){
+              this.next();
+              return;
+          }
+          this.$el.querySelector('.play-btn').style.width = nvl+'%';
         })
       },
 
@@ -76,8 +111,34 @@
 
             this.currentUrl = ret.data[0].url;
             audio.src=this.currentUrl;
+            this.setInterval();
           }
         }
+      },
+
+      /*
+      *   计时器,用于显示进度
+      *   todo: 歌词切换
+      * */
+      setInterval(){
+        clearInterval(timer);
+        timer = setInterval(()=>{
+          this.duration = this.getTime(Math.floor(audio.duration));
+          this.currentTime = this.getTime(Math.floor(audio.currentTime));
+          this.currentPercentage = audio.currentTime/audio.duration*100;
+        },200);
+      },
+
+      /*
+      *   传入时间() 返回字符串  例:61 => '01:01'
+      * */
+      getTime(seconds){
+        if(typeof seconds!=='number'||isNaN(-seconds)) return'00:00';
+        var minutes = Math.floor(seconds/60);
+        if(minutes<10)  minutes = '0'+minutes;
+        var seconds = seconds%60;
+        if(seconds<10) seconds = '0'+seconds;
+        return minutes+':'+seconds;
       },
 
       /*
@@ -105,7 +166,32 @@
       * */
       loadPic(){
         this.picSrc = this.current.al.picUrl;
+      },
+
+      /*
+      *   上一首/下一首
+      * */
+      prev(){
+        this.$emit('prev');
+      },
+      next(){
+        this.$emit('next');
+      },
+
+      /*
+      *   点击进度条切换进度
+      * */
+      switchProgress(e){
+        if(!this.musicBar) this.musicBar = this.$el.querySelector('.music-play');
+        if(!this.current) return;
+        var clientRect = this.musicBar.getBoundingClientRect();
+        audio.currentTime = Math.floor(((e.pageX-clientRect.left)/clientRect.width)*audio.duration);
+      },
+
+      showLyric(){
+        this.$emit('showLyric')
       }
+
     }
   }
 </script>
@@ -137,7 +223,7 @@
   /*上一首*/
   .btns span{
     display: inline-block;
-    background: url("http://s2.music.126.net/style/web2/img/frame/playbar.png?5fe3efede4f927e7aee9f431da3c0b5e") no-repeat;
+    background: url("/api/public/images/playbar.png") no-repeat;
   }
   .btns .last{
     background-position: 0 -130px;
@@ -209,6 +295,9 @@
     color:#fff;
     font-size: 0.9em;
     height:19px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
   .music-play{
     width:100%;
@@ -217,8 +306,8 @@
     margin-top:5px;
   }
   .play-btn{
-    width:15%;
-    height:3px;
+    width: 0;
+    height: 3px;
     background-color: red;
   }
   .play-btn .now{
@@ -229,6 +318,22 @@
     float: right;
     margin-top: -4px;
     border-radius: 50%;
+  }
+
+  /* 显示歌词面板 */
+  .lyric-btn{
+    width:2.5em;
+    height:2.5em;
+    position: fixed;
+    right:0;
+    bottom: 4em;
+    border-radius: 0.5em;
+    background-color: #aaa;
+    overflow: hidden;
+  }
+  .lyric-btn .btn-pic{
+    width:2.5em;
+    height:2.5em;
   }
 
   /* 进度时间 */
@@ -245,6 +350,9 @@
   @media only screen and (min-width:500px) {
     .progress-num,#MusicPanel .pic{
       display: inline-block;
+    }
+    .lyric-btn{
+      display: none;
     }
   }
 

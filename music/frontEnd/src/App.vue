@@ -7,7 +7,8 @@
       <!--导航-->
       <div class="header-music-list"
            @click="showClassify=true">分类列表</div>
-      <div class="header-play-list">播放列表</div>
+      <div class="header-play-list"
+           @click="showPlayList=true">播放列表</div>
       <div class="login-box" v-if="!isLogin">
         <span  @click="toLogin()">登录</span>
         <span>/</span>
@@ -32,18 +33,47 @@
 
     <!-- 分类列表和音乐列表 -->
     <container v-bind:showClassify="showClassify"
-               @playMusic="pushId"></container>
+               @playMusic="pushId"
+               @pushItem="pushItem"
+               v-if="!showLyric"></container>
+
+    <!-- 歌词面板 -->
+    <Lyric v-else
+           v-bind:current="playList[currentMusic]"></Lyric>
 
     <!-- 音乐播放面板 -->
     <!--v-bind:currentPicUrl="playList[currentMusic].al.picUrl"-->
     <MusicPanel v-bind:current="playList[currentMusic]"
-                ></MusicPanel>
+                @prev="prevMusic"
+                @next="nextMusic"
+                @showLyric="showLyric=true"></MusicPanel>
 
     <!-- 登录面板 -->
     <Login v-if="showLoginPanel"
            @hide="showLoginPanel=false"
            @loginSuccess="getLoginData"
            v-bind:todo='loginMessage'></Login>
+
+    <!-- 播放列表 -->
+    <div class="playList" :class="{show:showPlayList}">
+      <div class="listhd">播放列表({{playList.length}})
+        <span class="clear" title="清空"
+              @click="clearPlayList">清空</span>
+      </div>
+      <div class="playList-item"
+           v-for="(item,index) in playList">
+        <span class="wrap">
+          <span title="移除"
+                @click="delItem">×</span>
+          <span v-if="index===currentMusic" class="currentPlay">▶</span>
+        </span>
+        <span @click="switchMusic(index)"
+              class="details">
+          <span>{{item.name}}</span>
+          <span>{{item.ar[0].name}}</span>
+        </span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -51,35 +81,25 @@
 import Container from './components/container.vue';
 import MusicPanel from './components/MusicPanel.vue';
 import Login from './components/Login.vue';
+import Lyric from './components/Lyric.vue';
+
 export default {
   name: 'app',
   created(){
     //验证是否已登录
-    var xmlhttp=new XMLHttpRequest();
-    xmlhttp.open("GET","/api/",true);
-    xmlhttp.send();
+    this.logOn();
 
-    var promise = new Promise((res,rej)=>{
-      xmlhttp.onreadystatechange = (e)=>{
-        if(xmlhttp.readyState===4&&xmlhttp.status===200){
-          res(JSON.parse(xmlhttp.responseText))
-        }
-      }
-    })
-
-    promise.then((data)=>{
-        if (data.isLogged) {
-          this.loginData.username = data.username;
-          this.isLogin = true;
-          this.isAdmin = data.isAdmin;
-        }
-    })
+    //创建audio元素
+    this.createAudio();
 
     //分类关闭
     this.$nextTick(()=>{
         this.$el.addEventListener('click',(e)=>{
           if(e.target.className.indexOf('header-music-list')===-1){
             this.showClassify = false;
+          }
+          if(e.target.className.indexOf('header-play-list')===-1){
+            this.showPlayList = false;
           }
         })
     })
@@ -91,17 +111,48 @@ export default {
       loginData:{
           username:'',
       },
-
       isLogin:false,
       isAdmin:false,
       showSpaner:false,
       showClassify:false,
       playList:[],
-      currentMusic:0
+      currentMusic:0,
+      showPlayList:false,
+      showLyric:false
     }
   },
   methods:{
 
+    createAudio(){
+      var audio = document.createElement('audio');
+      audio.setAttribute('autoplay','');
+      audio.setAttribute('id','audio');
+      document.body.appendChild(audio);
+    },
+    /*
+    *   判断是否登陆
+    * */
+    logOn(){
+      var xmlhttp=new XMLHttpRequest();
+      xmlhttp.open("GET","/api/",true);
+      xmlhttp.send();
+
+      var promise = new Promise((res,rej)=>{
+        xmlhttp.onreadystatechange = (e)=>{
+          if(xmlhttp.readyState===4&&xmlhttp.status===200){
+            res(JSON.parse(xmlhttp.responseText))
+          }
+        }
+      })
+
+      promise.then((data)=>{
+        if (data.isLogged) {
+          this.loginData.username = data.username;
+          this.isLogin = true;
+          this.isAdmin = data.isAdmin;
+        }
+      })
+    },
     /*
     *   去登陆
     * */
@@ -121,7 +172,10 @@ export default {
       this.isLogin = true;
       this.loginData = data;
     },
-    //退出
+
+    /*
+    *   退出
+    * */
     logout(){
       var xmlhttp=new XMLHttpRequest();
       xmlhttp.open("GET","/api/api/user/logout",true);
@@ -130,7 +184,7 @@ export default {
       xmlhttp.onreadystatechange = (e)=>{
         if(xmlhttp.readyState===4&&xmlhttp.status===200){
           if(!xmlhttp.responseText.code){
-              window.location.reload();
+            window.location.reload();
           }
         }
       }
@@ -146,19 +200,59 @@ export default {
       }
       this.playList.unshift(item);
       this.currentMusic = 0;
-      console.log(this.playList);
+    },
+
+    pushItem(item){
+      for( var i=0; i<this.playList.length; i++ ){
+        if(this.playList[i].id===item.id){
+          return;
+        }
+      }
+      this.playList.push(item);
+    },
+
+    prevMusic(){
+      if(this.playList.length<2) return;
+      --this.currentMusic;
+      if(this.currentMusic<0) this.currentMusic += this.playList.length;
+    },
+
+    nextMusic(){
+      if(this.playList.length<2) return;
+      ++this.currentMusic;
+      if(this.currentMusic>=this.playList.length) this.currentMusic = this.playList.length%this.currentMusic;
+    },
+
+    clearPlayList(){
+      this.playList = [];
+      this.currentMusic=0;
+    },
+
+    /*
+    *   切换到指定歌曲
+    * */
+    switchMusic(num){
+      this.currentMusic = num;
+    },
+
+    /*
+    *   删除指定歌曲
+    * */
+    delItem(num){
+      this.playList.splice(num,1);
     }
   },
   components: {
     Container,
     MusicPanel,
-    Login
+    Login,
+    Lyric
   },
 }
 </script>
 
 <style>
-  html,body,div,span,header,footer,h1,h2,h3,h4,h5,h6,a,img,ul,li{
+  html,body,div,span,header,footer,h1,h2,h3,h4,h5,h6,a,img,ul,li,nav{
     padding:0;
     margin:0;
   }
@@ -173,15 +267,14 @@ export default {
     width:100%;
     height:100%;
   }
-  /*
-      头部
-  */
+  /* 头部 */
   .header{
     width:100%;
     height:3em;
     line-height: 3em;
     background-color: #000;
     color:#fff;
+    z-index: 10;
   }
   .logo{
     font-size:1.2em;
@@ -207,7 +300,7 @@ export default {
   }
   .login-box{
     float:right;
-    display: inline-block;
+    display: none;
     margin-right:1em;
   }
   .login-box span{
@@ -231,18 +324,74 @@ export default {
   .spinner li:hover{
     background-color: #eee;
   }
-  /*
-      手机横屏
-  */
+
+  /* 播放列表 */
+  .playList{
+    width:100%;
+    height:50%;
+    overflow-y: scroll;
+    position: absolute;
+    background-color: #000;
+    opacity: 0.8;
+    top:3em;
+    left:0;
+    z-index: 5;
+    display:none;
+  }
+  .playList.show{
+    display: block;
+    animation: entered 0.3s;
+  }
+  @keyframes entered {
+    from{  top:-50%  }
+    to{  top:3em  }
+  }
+  .listhd{
+    width:80%;
+    margin:0 auto;
+    height:2.5em;
+    line-height:2.5em;;
+    color:#fff;
+  }
+  .listhd .clear{
+    float:right;
+    cursor: pointer;
+  }
+  .playList-item{
+    height:1.5em;
+    width:80%;
+    margin:0 auto;
+    opacity: 0.5;
+    color:#fff;
+  }
+  .playList-item .wrap{
+    width:20%;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: top;
+  }
+  .playList-item .currentPlay{
+    float: right;
+  }
+  .playList-item .details{
+    width:70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+  }
+
+
+
+  /* 手机横屏 */
   @media only screen and (min-width:500px) {
-    .progress-num,.musicPanel .pic{
+    .login-box{
       display: inline-block;
     }
   }
 
-  /*
-      ipad
-  */
+  /* ipad */
   @media only screen and (min-width:760px) {
     .header-music-list{
       display: none;
@@ -250,10 +399,14 @@ export default {
     .logo{
       display: inline;
     }
+    .playList{
+      width:700px;
+      left:50%;
+      margin-left:-300px;
+    }
   }
-  /*
-      电脑屏幕,固定宽度
-  */
+
+  /* 电脑屏幕,固定宽度 */
   @media only screen and (min-width:1024px) {
     .container{
       width:1000px;

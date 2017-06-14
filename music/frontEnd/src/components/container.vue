@@ -1,55 +1,5 @@
 <template>
   <div id="container">
-    <!--<div class="nav-left">
-      <div class="list">
-        <div class="title">分类</div>
-        <a href="#" v-for="(item,index) in musicList">
-          <div class="list-item"
-               :class="{'active':nowActive===index}"
-               @click="nowActive=index">{{item.name}}</div>
-        </a>
-      </div>
-      <div class="list">
-        <div class="title">操作</div>
-        <a href="#">
-          <div class="list-item">管理播放列表</div>
-        </a>
-        <a href="#" v-if="isLogin">
-          <div class="list-item">管理我的歌单</div>
-        </a>
-        <a href="#" v-if="isLogin">
-          <div class="list-item">上传</div>
-        </a>
-      </div>
-      <div class="list" v-if="isAdmin">
-        <div class="title">管理员操作</div>
-        <a href="#">
-          <div class="list-item">前往管理界面</div>
-        </a>
-      </div>
-    </div>
-    <div class="nav-right">
-      <div class="music-list">
-        <ul class="music-list-header">
-          <li> </li>&nbsp;
-          <li>歌曲</li>&nbsp;
-          <li>歌手</li>&nbsp;
-          <li>时长</li>&nbsp;
-        </ul>
-        <ul class="music-list-container" v-if="musicList.length>0">
-          <li class="music-item" v-for="(item,index) in musicList[nowActive].list">
-              <span>
-                <span>{{index+1}}</span>
-                <span class="option">播,表,下</span>
-              </span>&nbsp;
-              <span>{{item.name}}</span>&nbsp;
-              <span>{{item.singer}}</span>&nbsp;
-              <span>{{item.time}}</span>&nbsp;
-          </li>
-        </ul>
-      </div>
-    </div>-->
-
     <!-- 分类列表 -->
     <nav class="classify-list"
          :class="{entered:showClassify}">
@@ -74,7 +24,10 @@
           <span>{{index+1}}</span>&nbsp;
           <span @click="saveMusicId(item)">{{item.name}}</span>&nbsp;
           <span>{{item.ar[0].name}}</span>&nbsp;
-          <span>操作</span>
+          <span>
+            <span title="加入播放列表"
+                  @click="pushItem(item)">+</span>
+          </span>
         </div>
       </div>
     </nav>
@@ -87,9 +40,6 @@
     created(){
       //获取分类列表
       this.getTypeList();
-      this.$nextTick(()=>{
-          console.log(this.showClassify);
-      })
     },
     props:['showClassify'],
     data(){
@@ -101,7 +51,8 @@
         isAdmin:false,
         now:0,
         typeList:[],
-        list:[]
+        list:[],
+        showLyric:false
       }
     },
     methods:{
@@ -110,6 +61,10 @@
             this.getMusicList();
         }
       },
+
+      /*
+      *   获取音乐列表
+      * */
       getMusicList(){
         var now = this.now;
         var xmlhttp=new XMLHttpRequest();
@@ -118,42 +73,48 @@
 
         xmlhttp.onreadystatechange = (e)=>{
           if(xmlhttp.readyState===4&&xmlhttp.status===200){
-            //this.musicData[now] = JSON.parse(xmlhttp.responseText);
-            //this.musicData = this.musicData.slice();
             var musicLists = JSON.parse(xmlhttp.responseText);
 
             this.musicData[now] = {
               names: musicLists.playlist.tracks,
               ids: musicLists.playlist.trackIds
             }
-            //console.log(this.musicData[now])
             this.musicData = this.musicData.slice();
           }
         }
       },
+
+      /*
+      *   获取分类列表
+      * */
       getTypeList(){
-        //获取分类列表
         var xmlhttp=new XMLHttpRequest();
-        //xmlhttp.open("GET","/api/main/singerList",true);
         xmlhttp.open("GET","/api/top/playlist/highquality?limit=10",true);
         xmlhttp.send();
 
         xmlhttp.onreadystatechange = (e)=>{
           if(xmlhttp.readyState===4&&xmlhttp.status===200){
-            //this.singerList = JSON.parse(xmlhttp.responseText);
-            //console.log(JSON.parse(xmlhttp.responseText))
             this.typeList = JSON.parse(xmlhttp.responseText);
             this.renderMusicList();
-            //console.log(this.typeList);
           }
         }
       },
+
+      /*
+      *   切换当前音乐列表
+      * */
       changeCurrentList(index){
         this.now = index;
         this.getMusicList();
       },
+
+
       saveMusicId(item){
         this.$emit('playMusic',item);
+      },
+
+      pushItem(item){
+        this.$emit('pushItem',item);
       }
     }
   }
@@ -168,9 +129,7 @@
     padding-bottom: 100px;
   }
 
-  /*
-      音乐列表
-  */
+  /* 音乐列表 */
   .music-list{
     width:100%;
     height:100%;
@@ -181,6 +140,8 @@
     background-color: #f2f2f6;
     margin:0 auto;
     text-align: justify;
+    width:100%;
+    overflow: hidden;
   }
   .music-list-item:after,.list-head:after{
     display: inline-block;
@@ -194,6 +155,9 @@
     width:27%;
     height:2em;
     line-height:2em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
   }
 
   .music-list-item:nth-child(even){
@@ -213,7 +177,6 @@
     margin:0 auto;
     text-align: justify;
   }
-
   .music-list-item span{
     text-align: center;
     display: inline-block;
@@ -221,6 +184,8 @@
     height:2em;
     line-height:2em;
     cursor:pointer;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     /*  暂时这样设置 */
     overflow: hidden;
   }
@@ -229,9 +194,7 @@
   }
 
 
-  /*
-      分类列表
-  */
+  /* 分类列表 */
   .classify-list{
     position: absolute;
     top:0;
@@ -267,16 +230,12 @@
     padding-bottom: 60px;
   }
 
-  /*
-      手机横屏
-  */
+  /* 手机横屏 */
   @media only screen and (min-width:500px) {
 
   }
 
-  /*
-      ipad
-  */
+  /* ipad */
   @media only screen and (min-width:760px) {
     .classify-list{
       width:20%;
@@ -298,9 +257,7 @@
     }
   }
 
-  /*
-      电脑屏幕,固定宽度
-  */
+  /* 电脑屏幕,固定宽度 */
   @media only screen and (min-width:1024px) {
     #container{
       width:1024px;

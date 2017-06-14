@@ -22,7 +22,8 @@ swig.setDefaults({cache:false});
 
 app.use( bodyParser.urlencoded({extended:true}) );
 
-
+//验证isAdmin
+//cookie
 app.use( ( req, res, next )=>{
     req.cookies = new Cookies( req, res );
     req.userInfo = {};
@@ -48,7 +49,9 @@ app.use('/public',express.static( __dirname+ '/public'));
 
 //路由
 app.use('/admin',require('./router/admin'));
+
 app.use('/api',require('./router/api'));
+
 app.use('/',require('./router/main'));
 
 //网易云
@@ -56,14 +59,16 @@ app.use('/',require('./router/main'));
 app.use('/artist/album', require('./router/artist_album'));
 
 //音乐url接口
-app.use('/music/url', require('./router/musicUrl'))
+app.use('/music/url', require('./router/musicUrl'));
 
 //精品歌单
-app.use("/top/playlist/highquality", require("./router/top_playlist_highquality"))
+app.use("/top/playlist/highquality", require("./router/top_playlist_highquality"));
 
 // 获取歌单内列表
-app.use('/playlist/detail', require('./router/playlist_detail'))
+app.use('/playlist/detail', require('./router/playlist_detail'));
 
+// 获取歌词
+app.use('/lyric', require('./router/lyric'));
 
 //连接数据库
 //登录用
