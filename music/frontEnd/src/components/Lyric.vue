@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  let audio,timer,lyricBox,wrap,side;
+  let audio,timer,wrap;
   export default {
     name: 'Lyric',
     props:['current'],
@@ -57,16 +57,17 @@
 
       },
       getLyric(){
-        var xmlhttp=new XMLHttpRequest();
-        xmlhttp.open("GET","/api/lyric?id="+this.current.id,true);
-        xmlhttp.send();
-
-        xmlhttp.onreadystatechange = (e)=>{
-          if(xmlhttp.readyState===4&&xmlhttp.status===200){
+        this.$http({
+          url:"/lyric?id="+this.current.id,
+          success(data){
             this.lyric=[];
-            this.resetLyric(JSON.parse(xmlhttp.responseText))
-          }
-        }
+            this.resetLyric(data)
+          },
+          fail(){
+            console.log('false')
+          },
+          ctx:this
+        })
       },
       switchLine(){
         if(!wrap) wrap = this.$el.querySelector('.lyric-wrap');

@@ -18,19 +18,12 @@ router.use((req,res,next)=>{
 })
 
 router.get('/',(req,res)=>{
-    if(req.userInfo) {
-        User.findOne({
-            _id: req.userInfo._id,
-            username: req.userInfo.username
-        }).then((userInfo)=>{
-            if(userInfo){
-                responseData.isLogged = true;
-                responseData.username = userInfo.username;
-                responseData.isAdmin = req.userInfo.isAdmin
-            }
-            res.json(responseData);
-        })
-    }
+    res.render('index');
+})
+
+router.get('/main/userInfo',(req,res)=>{
+    console.log(req.userInfo);
+    res.json(req.userInfo);
 })
 
 router.get('/main/singerList',(req,res)=>{

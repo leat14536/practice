@@ -25,7 +25,7 @@ app.use( bodyParser.urlencoded({extended:true}) );
 //验证isAdmin
 //cookie
 app.use( ( req, res, next )=>{
-    req.cookies = new Cookies( req, res );
+    /*req.cookies = new Cookies( req, res );
     req.userInfo = {};
     if(req.cookies.get('userInfo')){
         try{
@@ -38,6 +38,30 @@ app.use( ( req, res, next )=>{
             })
         }catch (e){
             throw error(e);
+        }
+    }else{
+        next();
+    }*/
+    req.cookies = new Cookies( req, res );
+    req.userInfo = {};
+    if( req.cookies.get('userInfo') ){
+        try{
+            req.userInfo = JSON.parse(req.cookies.get('userInfo'));
+
+            //获取登录用户类型
+            User.findById(req.userInfo._id).then((userInfo)=>{
+                req.userInfo.isAdmin = false;
+                req.userInfo.isLogged = false;
+                if(userInfo){
+                    req.userInfo.isAdmin = Boolean(userInfo.isAdmin)
+                    req.userInfo.username = userInfo.username;
+                    req.userInfo._id = userInfo._id;
+                    req.userInfo.isLogged = true;
+                }
+                next();
+            })
+        }catch(e){
+
         }
     }else{
         next();

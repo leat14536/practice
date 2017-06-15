@@ -66,7 +66,6 @@
       /*
       *   当current改变时
       *   改变audio和展示img的url
-      *   todo: 获取歌词
       * */
       bingWatcher(){
         var self = this;
@@ -101,24 +100,23 @@
           return;
         }
 
-        var xmlhttp=new XMLHttpRequest();
-        xmlhttp.open("GET","/api/music/url?id="+this.current.id,true);
-        xmlhttp.send();
-
-        xmlhttp.onreadystatechange = (e)=>{
-          if(xmlhttp.readyState===4&&xmlhttp.status===200){
-            var ret = JSON.parse(xmlhttp.responseText);
-
-            this.currentUrl = ret.data[0].url;
+        this.$http({
+          method:'get',
+          url:'/music/url?id='+this.current.id,
+          success(data){
+            this.currentUrl = data.data[0].url;
             audio.src=this.currentUrl;
             this.setInterval();
-          }
-        }
+          },
+          fail(){
+            console.log('false')
+          },
+          ctx:this
+        })
       },
 
       /*
       *   计时器,用于显示进度
-      *   todo: 歌词切换
       * */
       setInterval(){
         clearInterval(timer);
@@ -191,7 +189,6 @@
       showLyric(){
         this.$emit('showLyric')
       }
-
     }
   }
 </script>

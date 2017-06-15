@@ -2,12 +2,13 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import axios from 'axios'
+import ajax from './plugin/myAjax'
 
-Vue.config.productionTip = false
-Vue.prototype.$http = axios;
-//axios.defaults.baseURL = '/api';
-/* eslint-disable no-new */
+Vue.config.productionTip = false;
+
+ajax.proxyHead = '/api';      //代理的头部打包时删除此行
+Vue.prototype.$http = ajax;
+
 new Vue({
   el: '#app',
   template: '<App/>',

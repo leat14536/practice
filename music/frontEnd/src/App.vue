@@ -88,7 +88,6 @@ import Lyric from './components/Lyric.vue';
 export default {
   name: 'app',
   created(){
-      console.log('main')
     //验证是否已登录
     this.logOn();
 
@@ -136,25 +135,22 @@ export default {
     *   判断是否登陆
     * */
     logOn(){
-      var xmlhttp=new XMLHttpRequest();
-      xmlhttp.open("GET","/api/",true);
-      xmlhttp.send();
-
-      var promise = new Promise((res,rej)=>{
-        xmlhttp.onreadystatechange = (e)=>{
-          if(xmlhttp.readyState===4&&xmlhttp.status===200){
-            res(JSON.parse(xmlhttp.responseText))
+      var self = this;
+      this.$http({
+        method: 'get',
+        url: '/main/userInfo',
+        success(data){
+          if (data.isLogged) {
+            self.loginData.username = data.username;
+            self.isLogin = true;
+            self.isAdmin = data.isAdmin;
           }
+        },
+        fail(e){
+          console.log(e)
+          console.log('login false')
         }
-      })
-
-      promise.then((data)=>{
-        if (data.isLogged) {
-          this.loginData.username = data.username;
-          this.isLogin = true;
-          this.isAdmin = data.isAdmin;
-        }
-      })
+      });
     },
     /*
     *   去登陆
@@ -180,17 +176,19 @@ export default {
     *   退出
     * */
     logout(){
-      var xmlhttp=new XMLHttpRequest();
-      xmlhttp.open("GET","/api/api/user/logout",true);
-      xmlhttp.send();
-
-      xmlhttp.onreadystatechange = (e)=>{
-        if(xmlhttp.readyState===4&&xmlhttp.status===200){
-          if(!xmlhttp.responseText.code){
+      this.$http({
+        method:'get',
+        url:'/api/user/logout',
+        success(data){
+          if(!data.code){
             window.location.reload();
           }
+        },
+        fail(e){
+          console.log(e);
+          console.log('logout false')
         }
-      }
+      })
     },
 
     pushId(item){
@@ -215,13 +213,13 @@ export default {
     },
 
     prevMusic(){
-      if(this.playList.length<2) return;
+      if(this.playList.length<1) return;
       --this.currentMusic;
       if(this.currentMusic<0) this.currentMusic += this.playList.length;
     },
 
     nextMusic(){
-      if(this.playList.length<2) return;
+      if(this.playList.length<1) return;
       ++this.currentMusic;
       if(this.currentMusic>=this.playList.length) this.currentMusic = this.playList.length%this.currentMusic;
     },

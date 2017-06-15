@@ -58,7 +58,7 @@
     methods:{
       renderMusicList(){
         if(!this.musicData[this.now]){
-            this.getMusicList();
+          this.getMusicList();
         }
       },
 
@@ -67,37 +67,37 @@
       * */
       getMusicList(){
         var now = this.now;
-        var xmlhttp=new XMLHttpRequest();
-        xmlhttp.open("GET","/api/playlist/detail?id="+this.typeList.playlists[this.now].id,true);
-        xmlhttp.send();
-
-        xmlhttp.onreadystatechange = (e)=>{
-          if(xmlhttp.readyState===4&&xmlhttp.status===200){
-            var musicLists = JSON.parse(xmlhttp.responseText);
-
+        this.$http({
+          url:"/playlist/detail?id="+this.typeList.playlists[this.now].id,
+          success(data){
             this.musicData[now] = {
-              names: musicLists.playlist.tracks,
-              ids: musicLists.playlist.trackIds
+              names: data.playlist.tracks,
+              ids: data.playlist.trackIds
             }
             this.musicData = this.musicData.slice();
-          }
-        }
+          },
+          fail(){
+            console.log('false')
+          },
+          ctx:this
+        })
       },
 
       /*
       *   获取分类列表
       * */
       getTypeList(){
-        var xmlhttp=new XMLHttpRequest();
-        xmlhttp.open("GET","/api/top/playlist/highquality?limit=10",true);
-        xmlhttp.send();
-
-        xmlhttp.onreadystatechange = (e)=>{
-          if(xmlhttp.readyState===4&&xmlhttp.status===200){
-            this.typeList = JSON.parse(xmlhttp.responseText);
+        this.$http({
+          url:"/top/playlist/highquality?limit=10",
+          success(data){
+            this.typeList = data;
             this.renderMusicList();
-          }
-        }
+          },
+          fail(){
+            console.log('false')
+          },
+          ctx:this
+        })
       },
 
       /*

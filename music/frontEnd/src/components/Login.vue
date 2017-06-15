@@ -57,33 +57,31 @@
         if(this.loginData.username===''||this.loginData.password===''){
           alert('用户名和密码不能为空');
         }else{
-          var xmlhttp=new XMLHttpRequest();
-          xmlhttp.open("POST","/api/api/user/login",true);
-          xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-          xmlhttp.setRequestHeader("withCredentials",true)
-          xmlhttp.send(
-            "username="+this.loginData.username
-            +"&password="+this.loginData.password
-          );
-          var promise = new Promise((res,rej)=>{
-            xmlhttp.onreadystatechange = (e)=>{
-              if(xmlhttp.readyState===4&&xmlhttp.status===200){
-                res(JSON.parse(xmlhttp.responseText))
-              }
-            }
-          })
-
-          promise.then((data)=> {
-            if(data.code){
+          //登录
+          this.$http({
+            method:'post',
+            url:'/api/user/login',
+            head:{
+              'Content-type':'application/x-www-form-urlencoded',
+              'withCredentials':true
+            },
+            data:{
+              username: this.loginData.username,
+              password: this.loginData.password
+            },
+            success(data){
+              if(data.code){
                 alert(data.message);
                 return;
+              }
+              //登录成功
+              alert(data.message);
+              window.location.reload();
+            },
+            fail(e){
+              console.log(e)
+              console.log('false')
             }
-            //登录成功
-            alert(data.message);
-            window.location.reload();
-            /*this.loginData.password='';
-            this.$emit('hide');
-            this.$emit('loginSuccess',data.userInfo);*/
           })
         }
       },
@@ -94,34 +92,35 @@
           if(this.registerData.password!==this.registerData.confirmPassword){
             alert('两次密码输入不一致')
           }else{
-
-            var xmlhttp=new XMLHttpRequest();
-            xmlhttp.open("POST","/api/api/user/register",true);
-            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-            xmlhttp.send("username="+this.registerData.username+
-              "&password="+this.registerData.password+
-              "&repassword="+this.registerData.confirmPassword);
-
-            var promise = new Promise((res,rej)=>{
-              xmlhttp.onreadystatechange = (e)=>{
-                if(xmlhttp.readyState===4&&xmlhttp.status===200){
-                  res(JSON.parse(xmlhttp.responseText))
+            //注册
+            this.$http({
+              method:'post',
+              url:'/api/user/register',
+              head:{
+                'Content-type':'application/x-www-form-urlencoded'
+              },
+              data:{
+                username: this.registerData.username,
+                password: this.registerData.password,
+                repassword: this.registerData.confirmPassword
+              },
+              success(data){
+                //出错
+                if (data.code) {
+                  alert(data.message);
+                  return;
                 }
-              }
-            })
 
-            promise.then((data)=> {
-              //出错
-              if (data.code) {
-                alert(data.message);
-                return;
+                //切换为登陆页面
+                setTimeout(()=>{
+                  alert('注册成功')
+                  this.todo='login';
+                })
+              },
+              fail(e){
+                console.log(e)
+                console.log('false')
               }
-
-              //切换为登陆页面
-              setTimeout(()=>{
-                alert('注册成功')
-                this.todo='login';
-              })
             })
           }
         }
