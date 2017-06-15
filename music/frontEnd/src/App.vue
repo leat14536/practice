@@ -6,7 +6,8 @@
 
       <!--导航-->
       <div class="header-music-list"
-           @click="showClassify=true">分类列表</div>
+           @click="showClassify=true"
+            v-if="!showLyric">分类列表</div>
       <div class="header-play-list"
            @click="showPlayList=true">播放列表</div>
       <div class="login-box" v-if="!isLogin">
@@ -39,14 +40,15 @@
 
     <!-- 歌词面板 -->
     <Lyric v-else
-           v-bind:current="playList[currentMusic]"></Lyric>
+           v-bind:current="playList[currentMusic]"
+           v-bind:showLyric="showLyric"></Lyric>
 
     <!-- 音乐播放面板 -->
     <!--v-bind:currentPicUrl="playList[currentMusic].al.picUrl"-->
     <MusicPanel v-bind:current="playList[currentMusic]"
                 @prev="prevMusic"
                 @next="nextMusic"
-                @showLyric="showLyric=true"></MusicPanel>
+                @showLyric="toggleLyric"></MusicPanel>
 
     <!-- 登录面板 -->
     <Login v-if="showLoginPanel"
@@ -86,6 +88,7 @@ import Lyric from './components/Lyric.vue';
 export default {
   name: 'app',
   created(){
+      console.log('main')
     //验证是否已登录
     this.logOn();
 
@@ -240,6 +243,10 @@ export default {
     * */
     delItem(num){
       this.playList.splice(num,1);
+    },
+
+    toggleLyric(){
+        this.showLyric = !this.showLyric;
     }
   },
   components: {
@@ -289,6 +296,7 @@ export default {
     height:3em;
     padding: 0 1em;
     cursor: pointer;
+    font-size:0.5em;
   }
   .header-play-list{
     color:#fff;
@@ -297,11 +305,12 @@ export default {
     height:3em;
     padding: 0 1em;
     cursor: pointer;
+    font-size:0.5em;
   }
   .login-box{
     float:right;
-    display: none;
     margin-right:1em;
+    font-size: 0.5em;
   }
   .login-box span{
     cursor: pointer;
@@ -335,7 +344,7 @@ export default {
     opacity: 0.8;
     top:3em;
     left:0;
-    z-index: 5;
+    z-index: 100;
     display:none;
   }
   .playList.show{
@@ -386,8 +395,8 @@ export default {
 
   /* 手机横屏 */
   @media only screen and (min-width:500px) {
-    .login-box{
-      display: inline-block;
+    .login-box,.header-music-list,.header-play-list{
+      font-size: 1em;
     }
   }
 
