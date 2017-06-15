@@ -40,12 +40,12 @@ node需要自行创建连接mongoodb数据库
 各分辨率下显示效果:
 
 
-![Alt text](/images/4.png)
-![Alt text](/images/5.png)
-![Alt text](/images/6.png)
-![Alt text](/images/1.png)
-![Alt text](/images/3.png)
-![Alt text](/images/2.png)
+![Alt text](https://github.com/leat14536/practice/blob/gh-pages/music/images/4.png?raw=true)
+![Alt text](https://github.com/leat14536/practice/blob/gh-pages/music/images/5.png?raw=true)
+![Alt text](https://github.com/leat14536/practice/blob/gh-pages/music/images/6.png?raw=true)
+![Alt text](https://github.com/leat14536/practice/blob/gh-pages/music/images/1.png?raw=true)
+![Alt text](https://github.com/leat14536/practice/blob/gh-pages/music/images/3.png?raw=true)
+![Alt text](https://github.com/leat14536/practice/blob/gh-pages/music/images/2.png?raw=true)
 
 
 
