@@ -24,7 +24,7 @@ node: nodejs部分)
 	npm install
 	node app.js
 
-node需要自行创建连接mongoodb数据库
+node需要自行创建连接mongodb数据库
 		
 	mongoose.connect('mongodb://localhost:27018/music', ...
 	
