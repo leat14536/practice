@@ -14,15 +14,10 @@ todo: DEBUG、个人歌单、管理员功能
 
 歌单数据均来源于网易云音乐api,通过nodejs代理
 
-frontEnd:前端部分
-	
-	npm install
-	npm run dev
-
-node: nodejs部分)
+前后端已整合,下载node文件夹
 
 	npm install
-	node app.js
+	npm run dev 			(需要先开启数据库)
 
 node需要自行创建连接mongodb数据库
 		
@@ -36,6 +31,8 @@ node需要自行创建连接mongodb数据库
         type: Boolean,
         default:false
     }
+
+
 
 各分辨率下显示效果:
 

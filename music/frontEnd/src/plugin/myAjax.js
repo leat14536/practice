@@ -22,12 +22,12 @@ let __defaultOption__ = {
 
 ajax.proxyHead='';    //使用代理时的头部
 
-export default function ajax(options){
-  let option = Object.assign({},__defaultOption__,options);
-  if(!option.url) return;
+export default function ajax(opt){
+  if(!opt) return;
+  let option = Object.assign({},__defaultOption__,opt);
 
   var xmlhttp = new XMLHttpRequest();
-  xmlhttp.open(option.method,ajax.proxyHead+option.url,options);
+  xmlhttp.open(option.method,ajax.proxyHead+option.url,option.sync);
 
   //请求头
   if(option.head){
@@ -54,7 +54,7 @@ export default function ajax(options){
       if(xmlhttp.readyState===4&&xmlhttp.status===200){
         res(JSON.parse(xmlhttp.responseText))
       }
-    }
+    };
     setTimeout(()=>{
       rej('too late')
     },option.loadTime)

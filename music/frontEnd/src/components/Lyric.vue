@@ -1,7 +1,7 @@
 <template>
   <div id="Lyric">
     <div class="lyric-items"
-         v-if="lyric">
+         v-if="lyric.length">
       <div class="wrap-side">
         <div class="lyric-wrap">
           <div v-if="lyric.ti" class="ti">{{lyric.ti}}</div>
@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <div v-else class="lyric-items">无歌词</div>
+    <div v-else class="lyric-items">暂无歌词</div>
     <img :src="current.al.picUrl" class="img"/>
   </div>
 </template>
