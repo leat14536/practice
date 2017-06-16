@@ -17,6 +17,7 @@
 *    removeGetsure(num)         删除第num个手势
 *    setColor(color)            改变画笔颜色
 *    setLineWidth(size)         修改画笔粗细
+*    resize()                   重置画布大小
 * */
 
 
@@ -334,14 +335,46 @@
             this.type = options.getsurtType;
             this.fontColor = options.fontColor || '#000';
             this.lineWidth = options.lineWidth || 5;
-
+            this.isDrawLine = options.drawLine;
             this.callback = options.callback;
 
             this.$1 =  new DollarRecognizer();
+            el.appendChild(canvas);
 
             this.resize();
-            el.appendChild(canvas);
         },
+        /*
+        *   画网格
+        * */
+        drawLine(){
+            if(!this.isDrawLine) return;
+            var canvas = this.canvas,
+                ctx = this.ctx,
+                jx = this.isDrawLine.x,
+                jy = this.isDrawLine.y,
+                wid = this.isDrawLine.width;
+
+            ctx.lineWidth = wid;
+            ctx.strokeStyle = this.isDrawLine.color||'#ccc';
+            for( var i=wid+jx; i<canvas.width; i+=jx){
+                ctx.beginPath();
+                ctx.moveTo(i,0);
+                ctx.lineTo(i,canvas.height);
+                ctx.stroke();
+                ctx.closePath();
+            }
+            for( var i=wid+jy; i<canvas.height; i+=jy){
+                ctx.beginPath();
+                ctx.moveTo(0,i);
+                ctx.lineTo(canvas.width,i);
+                ctx.stroke();
+                ctx.closePath();
+            }
+        },
+
+        /*
+        *   点击事件
+        * */
         _bindEvent(){
             var canvas = this.canvas,
                 ctx = this.ctx,
@@ -355,6 +388,7 @@
                 this.points = [];
                 this.flag = true;
                 ctx.clearRect(0,0, canvas.width, canvas.height);
+                this.drawLine();
                 this.drawPen(e);
             })
 
@@ -381,6 +415,10 @@
                 })
             }
         },
+
+        /*
+        *   画线
+        * */
         drawPen(e){
             var ctx = this.ctx;
             if(this.devive){
@@ -413,19 +451,35 @@
             this.last = {x,y};
             ctx.closePath();
         },
+
+        /*
+        *   添加手势
+        * */
         addGetsure(name){
             if(name) {
                 this.$1.AddGesture(name, this.points);
                 alert('添加成功');
             }
         },
+
+        /*
+        *   导入配置
+        * */
         importSettings(settings){           //导入配置
             this.$1.ClearGestures();        //清空
             this.$1.PushGensture(settings); //导入
         },
+
+        /*
+        *   导出配置
+        * */
         exportSettings(){                   //导出配置
             return this.$1.Unistrokes;
         },
+
+        /*
+        *   获取手势信息
+        * */
         getList(){
             var ret = [];
             for( var i=0,prop; prop = this.$1.Unistrokes[i++];  ){
@@ -433,19 +487,36 @@
             }
             return ret;
         },
+
+        /*
+        *   删除手势
+        * */
         removeGetsure(num){
             this.$1.removeGensture(num);
-            alert('删除成功');
+            return true;
         },
+
+        /*
+        *   设置线的颜色
+        * */
         setColor(color){
             this.fontColor = color;
         },
+
+        /*
+        *   线的粗细
+        * */
         setLineWidth(size){
             this.lineWidth = size;
         },
+
+        /*
+        *   重置宽高
+        * */
         resize(){
             this.canvas.width = this.el.offsetWidth;
             this.canvas.height = this.el.offsetHeight;
+            this.drawLine()
         }
     };
 
