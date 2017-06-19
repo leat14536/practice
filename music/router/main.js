@@ -22,7 +22,6 @@ router.get('/',(req,res)=>{
 })
 
 router.get('/main/userInfo',(req,res)=>{
-    console.log(req.userInfo);
     res.json(req.userInfo);
 })
 

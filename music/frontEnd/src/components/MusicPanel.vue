@@ -220,7 +220,7 @@
   /*上一首*/
   .btns span{
     display: inline-block;
-    background: url("/api/public/images/playbar.png") no-repeat;
+    background: url("/public/images/playbar.png") no-repeat;
   }
   .btns .last{
     background-position: 0 -130px;

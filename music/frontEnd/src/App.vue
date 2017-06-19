@@ -32,19 +32,21 @@
       </div>
     </header>
 
-    <!-- 分类列表和音乐列表 -->
-    <container v-bind:showClassify="showClassify"
-               @playMusic="pushId"
-               @pushItem="pushItem"
-               v-if="!showLyric"></container>
+    <keep-alive>
+      <!-- 分类列表和音乐列表 -->
+      <container v-bind:showClassify="showClassify"
+                 @playMusic="pushId"
+                 @pushItem="pushItem"
+                 v-if="!showLyric"></container>
+    </keep-alive>
 
     <!-- 歌词面板 -->
-    <Lyric v-else
-           v-bind:current="playList[currentMusic]"
-           v-bind:showLyric="showLyric"></Lyric>
+    <keep-alive>
+      <Lyric v-bind:current="playList[currentMusic]"
+             v-if="showLyric"></Lyric>
+    </keep-alive>
 
     <!-- 音乐播放面板 -->
-    <!--v-bind:currentPicUrl="playList[currentMusic].al.picUrl"-->
     <MusicPanel v-bind:current="playList[currentMusic]"
                 @prev="prevMusic"
                 @next="nextMusic"

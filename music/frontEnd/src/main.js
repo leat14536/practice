@@ -6,7 +6,7 @@ import ajax from './plugin/myAjax'
 
 Vue.config.productionTip = false;
 
-ajax.proxyHead = '/api';      //代理的头部打包时删除此行
+//ajax.proxyHead = '/api';      //代理的头部打包时删除此行
 Vue.prototype.$http = ajax;
 
 new Vue({
