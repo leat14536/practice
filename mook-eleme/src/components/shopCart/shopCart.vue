@@ -11,36 +11,39 @@
         <div class="price" :class="{'hightlight': totalPrice>0}">￥{{totalPrice}}</div>
         <div class="desc">另需配送费￥{{deliveryPrice}}</div>
       </div>
-      <div class="content-right">
+      <div class="content-right" @click.stop.prevent="pay($event)">
         <div class="pay" :class="payClass">{{payDesc}}</div>
       </div>
-      <!--<transition name="drop">
-        <div class="ball-container" v-for="ball in balls" v-show="ball.show">
-          <div class="inner"></div>
-        </div>
-      </transition>-->
-      <transition name="fold">
-        <div class="shopcart-list fold-transition" v-show="listShow">
-          <div class="list-header">
-            <h1 class="title">购物车</h1>
-            <span class="empty" @click="empty">清空</span>
-          </div>
-          <div class="list-content" ref="listContent">
-            <ul>
-              <li class="food" v-for="food in selectFoods">
-                <span class="name">{{food.name}}</span>
-                <div class="price">
-                  <span>￥{{food.price * food.count}}</span>
-                </div>
-                <div class="cartcontrol-wrapper">
-                  <cartcontrol :food="food"></cartcontrol>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </transition>
     </div>
+    <!--<transition name="drop">
+      <div class="ball-container" v-for="ball in balls" v-show="ball.show">
+        <div class="inner"></div>
+      </div>
+    </transition>-->
+    <transition name="fold">
+      <div class="shopcart-list fold-transition" v-show="listShow">
+        <div class="list-header">
+          <h1 class="title">购物车</h1>
+          <span class="empty" @click="empty">清空</span>
+        </div>
+        <div class="list-content" ref="listContent">
+          <ul>
+            <li class="food" v-for="food in selectFoods">
+              <span class="name">{{food.name}}</span>
+              <div class="price">
+                <span>￥{{food.price * food.count}}</span>
+              </div>
+              <div class="cartcontrol-wrapper">
+                <cartcontrol :food="food"></cartcontrol>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </transition>
+    <transition name="fade">
+      <div class="list-mask" v-show="listShow" @click="hideList"></div>
+    </transition>
   </div>
 </template>
 
@@ -110,7 +113,7 @@
         if (show) {
           this.$nextTick(() => {
             if (!this.scroll) {
-              this.a = new BScroll(this.$refs.listContent, {
+              this.scroll = new BScroll(this.$refs.listContent, {
                 click: true
               });
             } else {
@@ -153,7 +156,15 @@
       empty () {
         this.selectFoods.forEach((food) => {
           food.count = 0;
-        })
+        });
+      },
+      hideList () {
+          this.fold = true;
+      },
+      pay (e) {
+        if (this.totalPrice < this.minPrice) return;
+        console.log(this);
+        alert(`支付${this.totalPrice + this.$parent.seller.deliveryPrice}元`);
       }
     },
     components: {
@@ -293,12 +304,12 @@
       z-index: -1;
       width: 100%;
       color: #000;
-      &.fold-transition {
-        transition: all 0.5s;
-        transform: translate3D(0, -100%, 0);
-      }
+      transform: translate3d(0, -100%, 0);
       &.fold-enter-active, &.fold-leave-active {
-        transform: translate3D(0, 0, 0);
+        transition: all 0.5s;
+      }
+      &.fold-enter, &.fold-leave-active {
+        transform: translate3d(0, 0, 0);
       }
       .list-header {
         height: 40px;
@@ -347,6 +358,24 @@
             bottom: 6px;
           }
         }
+      }
+    }
+    .list-mask {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      -webkit-backdrop-filter: blur(10px);
+      opacity: 1;
+      background-color: rgba(7,17,27,0.6);
+      &.fade-enter-active, &.fade-leave-active {
+        transition: all 0.5s
+      }
+      &.fade-enter, &.fade-leave-to {
+        opacity: 0;
+        background-color: rgba(7,17,27,0);
       }
     }
   }
