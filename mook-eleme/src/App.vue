@@ -12,27 +12,33 @@
         <router-link to="/seller" class="tab-btn">商家</router-link>
       </div>
     </div>
-    <router-view :seller="seller"></router-view>
+    <keep-alive>
+      <router-view :seller="seller"></router-view>
+    </keep-alive>
   </div>
 </template>
 <script>
-  import headers from './components/header/headers';
+  import headers from '@/components/header/headers';
+  import {urlParse} from '@/common/js/util';
 
   const ERR_OK = 0;
 
   export default{
     name: 'app',
     data () {
+      let id = urlParse().id;
       return {
-        seller: {}
+        seller: {
+          id
+        }
       };
     },
     created () {
       this.$http({
-        url: '/seller',
+        url: '/seller?id=' + this.seller.id,
         success (data) {
           if (data.errno === ERR_OK) {
-            this.seller = data.data;
+            this.seller = Object.assign({}, this.seller, data.data);
           }
         },
         ctx: this
@@ -45,7 +51,6 @@
 </script>
 
 <style lang="scss">
-  //@import "./common/styles/index.scss";
   @import "./common/styles/mixin.scss";
 
   #app {
@@ -54,7 +59,7 @@
       width: 100%;
       height: 40px;
       line-height: 40px;
-      @include border-1px(rgba(7, 17, 27, 0.4));
+      @include border-1px(rgba(7, 17, 27, 0.1));
       .tab-item {
         flex: 1;
         text-align: center;

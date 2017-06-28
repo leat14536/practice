@@ -5,7 +5,7 @@ import App from './App';
 import router from './router';
 import ajax from './common/js/myAjax';
 
-ajax.proxyHead = '/api';
+//ajax.proxyHead = '/api';
 Vue.prototype.$http = ajax;
 
 Vue.config.productionTip = false;

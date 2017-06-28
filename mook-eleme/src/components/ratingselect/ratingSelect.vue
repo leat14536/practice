@@ -50,12 +50,12 @@
     computed: {
       positives () {
         return this.ratings.filter((rating) => {
-          return rating.rateType === NEGATIVE;
+          return rating.rateType === POSITY;
         });
       },
       negatives () {
         return this.ratings.filter((rating) => {
-          return rating.rateType === POSITY;
+          return rating.rateType === NEGATIVE;
         });
       }
     },
