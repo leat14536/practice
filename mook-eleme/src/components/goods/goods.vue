@@ -40,8 +40,11 @@
         </li>
       </ul>
     </div>
-    <shopCart :select-foods="selectFoods" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopCart>
-    <food :food="currentFood" ref="food"></food>
+    <shopCart :select-foods="selectFoods"
+              :deliveryPrice="seller.deliveryPrice"
+              :minPrice="seller.minPrice"
+               ref="shopCart"></shopCart>
+    <food :food="currentFood" @drop="_drop" ref="food"></food>
   </div>
 </template>
 
@@ -110,8 +113,10 @@
       });
     },
     methods: {
-      _drop () {
-        console.log('drop');
+      _drop (target) {
+          this.$nextTick(() => {
+            this.$refs.shopCart.drop(target);
+          });
       },
       _initScroll () {
         this.menuScroll = new BScroll(this.$refs['menu-wrapper'], {

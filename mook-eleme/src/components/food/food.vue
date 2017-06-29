@@ -17,7 +17,7 @@
             <span class="now">￥{{food.price}}</span><span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
           </div>
           <div class="cartcontrol-wrapper">
-            <cartcontrol :food="food"></cartcontrol>
+            <cartcontrol :food="food" @cartAdd="_drop"></cartcontrol>
           </div>
           <transition name="fade">
             <div class="buy" v-show="!food.count || food.count===0" @click.stop.prevent="addFirst($event)">加入购物车</div>
@@ -111,6 +111,10 @@
         if (!e._constructed) return;
 
         this.$set(this.food, 'count', 1);
+        this._drop(e.target);
+      },
+      _drop (target) {
+        this.$emit('drop', target);
       },
       needShow (type, text) {
         if (this.onlyContent && !text) {

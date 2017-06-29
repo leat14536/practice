@@ -41,7 +41,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "../../common/styles/icon-style";
+  @import "../../common/styles/icon-style.scss";
 
   .cartcontrol {
     font-size: 0;

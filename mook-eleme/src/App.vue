@@ -52,6 +52,8 @@
 
 <style lang="scss">
   @import "./common/styles/mixin.scss";
+  @import "./common/styles/cssreset.scss";
+  @import "./common/styles/base.scss";
 
   #app {
     .tab {
