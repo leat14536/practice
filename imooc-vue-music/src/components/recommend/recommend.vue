@@ -1,49 +1,78 @@
 <template>
   <div class="recommend">
-    <div class="recommend-content">
-      <div class="slider-wrapper">
-        <slider v-if="recommends.length">
-          <div v-for="item in recommends">
-            <a :href="item.linkUrl">
-              <img :src="item.picUrl">
-            </a>
-          </div>
-        </slider>
+    <scroll class="recommend-content" :data="discList" ref="scroll">
+      <div>
+        <div class="slider-wrapper">
+          <slider v-if="recommends.length">
+            <div v-for="item in recommends">
+              <a :href="item.linkUrl">
+                <img @load="loadImg" :src="item.picUrl">
+              </a>
+            </div>
+          </slider>
+        </div>
+        <div class="recommend-list">
+          <h1 class="list-title">热门歌单推荐</h1>
+          <ul>
+            <li v-for="item in discList" class="item">
+              <div class="icon">
+                <img :src="item.imgurl" width="60" height="60">
+              </div>
+              <div class="text">
+                <h2 class="name" v-html="item.creator.name"></h2>
+                <p class="desc" v-html="item.dissname"></p>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <div class="recommend-list">
-      <h1 class="list-title">热门歌单推荐</h1>
-      <ul></ul>
-    </div>
+    </scroll>
   </div>
 </template>
 
 <script>
-  import {getRecommend} from 'api/recommend'
+  import {getRecommend, getDistList} from 'api/recommend'
   import {ERR_OK} from 'api/config'
   import Slider from 'base/slider/slider'
+  import Scroll from 'base/scroll/scroll'
 
   export default {
     name: 'recommend',
     created() {
-      this._getCommemd()
+      this._getCommend()
+      this._getDistList()
     },
     data() {
       return {
-        recommends: []
+        recommends: [],
+        discList: []
       }
     },
     methods: {
-      _getCommemd() {
+      _getCommend() {
         getRecommend().then((res) => {
           if (res.code === ERR_OK) {
             this.recommends = res.data.slider
           }
         })
+      },
+      _getDistList() {
+        getDistList().then((res) => {
+          if (res.code === ERR_OK) {
+            this.discList = res.data.list
+          }
+        })
+      },
+      loadImg() {
+        if (!this.checkLoaded) {
+          this.$refs.scroll.refresh()
+          this.checkLoaded = true
+        }
       }
     },
     components: {
-      Slider
+      Slider,
+      Scroll
     }
   }
 </script>
@@ -73,17 +102,17 @@
         font-size: $font-size-medium;
         color: $color-theme;
       }
-      .item{
+      .item {
         display: flex;
         box-sizing: border-box;
         align-items: center;
         padding: 0 20px 20px 20px;
-        .icon{
+        .icon {
           flex: 0 0 60px;
           width: 60px;
           padding-right: 20px;
         }
-        .text{
+        .text {
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -91,17 +120,17 @@
           line-height: 20px;
           overflow: hidden;
           font-size: $font-size-medium;
-          .name{
+          .name {
             margin-bottom: 10px;
             color: $color-text;
           }
-          .desc{
+          .desc {
             color: $color-text-d;
           }
         }
       }
     }
-    .loading-container{
+    .loading-container {
       position: absolute;
       width: 100%;
       top: 50%;
