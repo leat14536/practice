@@ -16,7 +16,7 @@
           <ul>
             <li v-for="item in discList" class="item">
               <div class="icon">
-                <img :src="item.imgurl" width="60" height="60">
+                <img width="60" height="60" v-lazy="item.imgurl">
               </div>
               <div class="text">
                 <h2 class="name" v-html="item.creator.name"></h2>
@@ -25,6 +25,9 @@
             </li>
           </ul>
         </div>
+      </div>
+      <div class="loading-container" v-show="!discList.length">
+        <loading></loading>
       </div>
     </scroll>
   </div>
@@ -35,6 +38,7 @@
   import {ERR_OK} from 'api/config'
   import Slider from 'base/slider/slider'
   import Scroll from 'base/scroll/scroll'
+  import Loading from 'base/loading/loading'
 
   export default {
     name: 'recommend',
@@ -72,7 +76,8 @@
     },
     components: {
       Slider,
-      Scroll
+      Scroll,
+      Loading
     }
   }
 </script>
