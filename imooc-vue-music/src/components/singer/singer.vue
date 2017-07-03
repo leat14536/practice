@@ -1,12 +1,14 @@
 <template>
   <div class="singer">
-    <listview :data="singers"></listview>
+    <listview :data="singers" @selectItem="selectSinger"></listview>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
   import {getSingerList} from 'api/singer'
   import {ERR_OK} from 'api/config'
+  import {mapMutations} from 'vuex'
   import Singer from 'common/js/singer'
   import Listview from 'base/listview/listview'
 
@@ -24,6 +26,12 @@
       this._getSingerList()
     },
     methods: {
+      selectSinger(singer) {
+        this.$router.push({
+          path: `/singer/${singer.id}`
+        })
+        this.setSinger(singer)
+      },
       _getSingerList() {
         getSingerList().then((res) => {
           if (res.code === ERR_OK) {
@@ -35,12 +43,12 @@
         let map = {
           hot: {
             title: HOT_NAME,
-            item: []
+            items: []
           }
         }
         list.forEach((item, index) => {
           if (index < HOT_SINGER_LEN) {
-            map.hot.item.push(new Singer({
+            map.hot.items.push(new Singer({
               id: item.Fsinger_mid,
               name: item.Fsinger_name
             }))
@@ -73,8 +81,11 @@
           return a.title.charCodeAt(0) - b.title.charCodeAt(0)
         })
 
-        return ret
-      }
+        return hot.concat(ret)
+      },
+      ...mapMutations({
+        setSinger: 'SET_SINGER'
+      })
     },
     components: {
       Listview
