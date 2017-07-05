@@ -68,7 +68,7 @@
     transition: all 0.3s;
   }
 
-  .slide-enter, .slide-leave-top {
+  .slide-enter, .slide-leave-to {
     transform: translate3d(100%, 0, 0);
   }
 </style>
