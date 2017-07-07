@@ -12,7 +12,7 @@ module.exports = {
         main: './src/main.js',
     },
     output: {
-        filename: 'scripts/[name].js',                           //出口文件名
+        filename: 'scripts/[name].js',                    //出口文件名
         //publicPath: '/assets/',
         path: path.resolve(__dirname, './dist'),         //出口路径
     },

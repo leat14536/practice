@@ -80,6 +80,9 @@
       this.probeType = 3
     },
     methods: {
+      refresh() {
+        this.$refs.listview.refresh()
+      },
       onShortcutTouchStart(e) {
         let anchorIndex = getData(e.target, 'index')
         let firstTouch = e.touches[0]

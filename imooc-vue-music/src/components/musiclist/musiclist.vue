@@ -34,6 +34,7 @@
   import SongList from 'base/song-list/song-list'
   import Loading from 'base/loading/loading'
   import {prefixStyle} from 'common/js/dom'
+  import {playlistMixin} from 'common/js/mixin'
   import {mapActions} from 'vuex'
 
   const RESERVED_HEIGHT = 40
@@ -42,6 +43,7 @@
 
   export default {
     name: 'music-list',
+    mixins: [playlistMixin],
     props: {
       bgImage: {
         String,
@@ -76,6 +78,11 @@
       }
     },
     methods: {
+      handlePlaylist(playlist) {
+        const bottom = playlist.length > 0 ? '60px' : ''
+        this.$refs.list.$el.style.bottom = bottom
+        this.$refs.list.refresh()
+      },
       scroll(pos) {
         this.scrollY = pos.y
       },
