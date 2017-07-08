@@ -34,13 +34,5 @@ node启动前需要自行打开mongodb数据库接口
         default:false
     }
 
-
-各分辨率下显示效果:
-
-
 ![Alt text](https://github.com/leat14536/practice/blob/gh-pages/music/images/4.png?raw=true)
-![Alt text](https://github.com/leat14536/practice/blob/gh-pages/music/images/5.png?raw=true)
-![Alt text](https://github.com/leat14536/practice/blob/gh-pages/music/images/6.png?raw=true)
 ![Alt text](https://github.com/leat14536/practice/blob/gh-pages/music/images/1.png?raw=true)
-![Alt text](https://github.com/leat14536/practice/blob/gh-pages/music/images/3.png?raw=true)
-![Alt text](https://github.com/leat14536/practice/blob/gh-pages/music/images/2.png?raw=true)
