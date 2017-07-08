@@ -1,1 +1,1 @@
-watch库
+## vue.js的observer模块
