@@ -4,6 +4,7 @@
 import jquery from 'jquery'
 import {shell} from './spa.shell'
 import {chat} from './spa.chat'
+import {model} from './spa.model'
 import urianchor from 'jquery.urianchor'
 
 urianchor(jquery)
@@ -19,4 +20,5 @@ export let spa = (function($) {
 
 spa.shell = shell(spa)
 spa.chat = chat(spa)
+spa.model = model(spa)
 
