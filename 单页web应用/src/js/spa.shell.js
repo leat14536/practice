@@ -69,13 +69,13 @@ export let shell = function (spa, $=jquery) {
     return bool_return
   }
 
-  setJqueryMap = function () {
+  /*setJqueryMap = function () {
     let $container = stateMap.$container
     jqueryMap = {
       $container,
       $chat: $container.find('.spa-shell-chat')
     }
-  }
+  }*/
 
   onHashchange = (e) => {
     let _s_chat_previous, _s_chat_proposed, s_chat_proposed,
