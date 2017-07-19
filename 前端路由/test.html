@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="#/index?index=1">首页</a>
+<a href="#/list?list=1">列表</a>
+<a href="#/detail?detail=1">详情1</a>
+<a href="#/detail?index=2">详情2</a>
+<div id="content"></div>
+
+<script src="router.js" type="text/javascript"></script>
+<script>
+    spaRouters.init();
+
+    spaRouters.map('/index', (transition) => {
+        spaRouters.syncFun('./index.js', transition)
+    })
+
+    spaRouters.map('/list', (transition) => {
+        spaRouters.syncFun('./list.js', transition)
+    })
+</script>
+</body>
+</html>
