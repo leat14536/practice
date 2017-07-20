@@ -1,0 +1,19 @@
+body {
+  font: 13px 'Trebuchet MS, Verdana, Helvetiva, Arial, sans-serif';
+  color: #444;
+  background-color: #888;
+}
+a{
+  text-decoration: none;
+  &:link, &:active{
+    color: inherit;
+  }
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
+strong{
+  font-weight: 900;
+  color: #000;
+}
