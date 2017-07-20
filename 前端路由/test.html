@@ -8,7 +8,7 @@
 <a href="#/index?index=1">首页</a>
 <a href="#/list?list=1">列表</a>
 <a href="#/detail?detail=1">详情1</a>
-<a href="#/detail?index=2">详情2</a>
+<a href="#/detail?detail=2">详情2</a>
 <div id="content"></div>
 
 <script src="router.js" type="text/javascript"></script>
@@ -22,6 +22,11 @@
     spaRouters.map('/list', (transition) => {
         spaRouters.syncFun('./list.js', transition)
     })
+
+    spaRouters.map('/detail', (transition) => {
+        spaRouters.syncFun('./detail.js', transition)
+    })
+
 </script>
 </body>
 </html>

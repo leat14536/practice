@@ -99,6 +99,5 @@ let SPA_RESOLVE_INIT;
         }
     }
 
-    window
-        .spaRouters = new spaRouters();
+    window.spaRouters = new spaRouters();
 })(window)
