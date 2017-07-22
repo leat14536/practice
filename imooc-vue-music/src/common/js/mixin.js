@@ -13,7 +13,7 @@ export const playlistMixin = {
     this.handlePlaylist(this.playlist)
   },
   activated() {
-
+    this.handlePlaylist(this.playlist)
   },
   watch: {
     playlist(newVal) {

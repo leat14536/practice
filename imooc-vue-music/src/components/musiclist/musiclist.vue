@@ -234,12 +234,12 @@
       .song-list-wrapper {
         padding: 20px 30px;
       }
-      .loading-container {
-        position: absolute;
-        width: 100%;
-        top: 50%;
-        transform: translateY(-50%);
-      }
+    }
+    .loading-container {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
     }
   }
 </style>
