@@ -52,7 +52,7 @@
       handlePlaylist(playlist) {
         const bottom = playlist.length ? '60px' : ''
         this.$refs.rank.style.bottom = bottom
-        this.$ref.toplist.refresh()
+        this.$refs.toplist.refresh()
       },
       selectItem(item) {
         this.$router.push({

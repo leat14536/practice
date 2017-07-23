@@ -25,9 +25,4 @@
 </script>
 
 <style lang="scss">
-  @import './common/styles/variable.scss';
-
-  #app {
-    color: $color-theme;
-  }
 </style>
