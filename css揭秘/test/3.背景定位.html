@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .div{
+            width: 400px;
+            height: 200px;
+            color:#fff;
+            margin: 50px auto;
+            background: url("../images/logo@3x.png") no-repeat bottom right #58a;
+            box-sizing: border-box;
+        }
+        .div1 {
+            background-position: right 20px bottom 10px;
+        }
+        .div2 {
+            background-position: right 10px bottom 10px;
+            padding: 10px;
+        }
+        .div3{
+            padding: 10px;
+            background-origin: content-box;
+        }
+        .div4{
+            width: 400px;
+            height: 200px;
+            color:#fff;
+            margin: 50px auto;
+            background: url("../images/logo@3x.png") no-repeat #58a;
+            background-position: calc(100% - 20px) calc(100% - 20px);
+        }
+    </style>
+</head>
+<body>
+<div class="div div1">背景定位</div>
+<div class="div div2">不使用background-origin</div>
+<div class="div div3">使用background-origin</div>
+<div class="div4">calc方案</div>
+</body>
+</html>
