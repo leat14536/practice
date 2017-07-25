@@ -29,13 +29,65 @@
             background: linear-gradient(#fb3 30%, #58a 30%);
             background-size: 100% 30px;
         }
+        .div6 {
+            background: linear-gradient(#fb3 30%, #58a 0);
+            background-size: 100% 30px;
+        }
+        .div7 {
+            background: linear-gradient(#fb3 33.3%, #58a 0, #58a 66.6%, yellowgreen 0);
+            background-size: 100% 45px;
+        }
+        .div8 {
+            background: linear-gradient(to right, #fb3 50%, #58a 0);
+            background-size: 30px 100%;
+        }
+        .div9 {
+            background: linear-gradient(45deg, #fb3 50%, #58a 0);
+            background-size: 30px 30px;
+        }
+        .div10 {
+            background: linear-gradient(45deg, #fb3 25%, #58a 0, #58a 50%, #fb3 0, #fb3 75%, #58a 0 );
+            background-size: 42.4px 42.4px;
+        }
+        .div11 {
+            background: repeating-linear-gradient(45deg, #fb3, #58a 30px);
+        }
+        .div12 {
+            background: repeating-linear-gradient(45deg, #fb3, #fb3 15px, #58a 0, #58a 30px);
+        }
+        .div13 {
+            background: repeating-linear-gradient(80deg, #fb3 0, #fb3 15px, #58a 0, #58a 30px);
+        }
+        .div14 {
+            background: repeating-linear-gradient(45deg, #fb3 0, #fb3 25%, #58a 0, #58a 50%);
+            background-size: 42.4px 42.4px;
+        }
+        .div15{
+            background: #58a;
+            background-image: repeating-linear-gradient(30deg,
+                              hsla(0, 0%, 100%, 0.1),
+                              hsla(0, 0%, 100%, 0.1) 15px,
+                              transparent 0,
+                              transparent 30px);
+        }
     </style>
 </head>
 <body>
+<h1 style="text-align: center">兼容ie10</h1>
 <div class="div div1"></div>
 <div class="div div2"></div>
 <div class="div div3"></div>
 <div class="div div4"></div>
 <div class="div div5"></div>
+<div class="div div6">background: linear-gradient(#fb3 30%, #58a 0)第二个值如果比第一个值小则取第一个值</div>
+<div class="div div7"></div>
+<div class="div div8"></div>
+<div class="div div9"></div>
+<div class="div div10"></div>
+<div class="div div11">使用repeating-linear-gradient(45deg, #fb3, #58a 30px)</div>
+<div class="div div12"></div>
+<div class="div div13">repeating-linear-gradient可以改变角度</div>
+<div class="div div14"></div>
+<div class="div div15">使用透明覆盖</div>
 </body>
 </html>

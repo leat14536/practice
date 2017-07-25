@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .div {
+            width: 400px;
+            height: 200px;
+            margin: 50px auto;
+        }
+
+        .div1 {
+            background: white;
+            background-image: linear-gradient(90deg,
+                                rgba(200, 0, 0, 0.5) 50%, transparent 0),
+                                linear-gradient(
+                                rgba(200, 0, 0, 0.5) 50%, transparent 0);
+            background-size: 30px 30px;
+        }
+
+        .div2 {
+            background: #58a;
+            background-image: linear-gradient(white 1px, transparent 0),
+                                linear-gradient(90deg, white 1px, transparent 0);
+            background-size: 30px 30px;
+        }
+
+        .div3 {
+            background: #58a;
+            background-image:
+                    linear-gradient(white 2px, transparent 0),
+                    linear-gradient(90deg, white 2px, transparent 0),
+                    linear-gradient(hsla(0, 0%, 100%, 0.3) 1px, transparent 0),
+                    linear-gradient(90deg, hsla(0, 0%, 100%, 0.3) 1px, transparent 0);
+            background-size:  75px 75px, 75px 75px,
+                                15px 15px, 15px 15px;
+        }
+        .div4 {
+            background: #655;
+            background-image: radial-gradient(tan 30%, transparent 0);
+            background-size: 30px 30px;
+        }
+        .div5{
+            background: #655;
+            background-image: radial-gradient(tan 30%, transparent 0),
+                                radial-gradient(tan 30%, transparent 0);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+        }
+    </style>
+</head>
+<body>
+<h1 style="text-align: center">兼容 >=ie10</h1>
+<div class="div div1">网格</div>
+<div class="div div2">固定粗细的网格</div>
+<div class="div div3"></div>
+<div class="div div4">波点</div>
+<div class="div div5">密集波点</div>
+</body>
+</html>
