@@ -2,6 +2,7 @@
  * Created by Administrator on 2017/7/3 0003.
  */
 import {playMode} from 'common/js/config'
+import {loadSearch} from 'common/js/cache'
 
 const state = {
   singer: {},
@@ -13,7 +14,7 @@ const state = {
   currentIndex: -1,
   disc: {},
   topList: {},
-  searchHistory: []
+  searchHistory: loadSearch()
 }
 
 export default state
