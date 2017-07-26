@@ -16,17 +16,16 @@
     spaRouters.init();
 
     spaRouters.map('/index', (transition) => {
-        spaRouters.syncFun('./index.js', transition)
+        spaRouters.syncFun('./js/index.js', transition)
     })
 
     spaRouters.map('/list', (transition) => {
-        spaRouters.syncFun('./list.js', transition)
+        spaRouters.syncFun('./js/list.js', transition)
     })
 
     spaRouters.map('/detail', (transition) => {
-        spaRouters.syncFun('./detail.js', transition)
+        spaRouters.syncFun('./js/detail.js', transition)
     })
-
 </script>
 </body>
 </html>
