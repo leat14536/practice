@@ -107,7 +107,7 @@
         if (index < 0) index = 0
         else if (index > this.listHeight - 2) index = this.listHeight - 2
         this.currentIndex = index
-        this.$refs.scroll.scrollToElement(this.$refs.listgroup[index], 0)
+        this.$refs.listview.scrollToElement(this.$refs.listgroup[index], 0)
       },
       _calculateHeight() {
         this.listHeight = []

@@ -42,27 +42,23 @@
   import Confirm from 'base/confirm/confirm'
   import {getHotKey} from 'api/search'
   import {ERR_OK} from 'api/config'
-  import {mapActions, mapGetters} from 'vuex'
-  import {playlistMixin} from 'common/js/mixin'
+  import {mapActions} from 'vuex'
+  import {playlistMixin, searchMixin} from 'common/js/mixin'
 
   export default {
     name: 'search',
-    mixins: [playlistMixin],
+    mixins: [playlistMixin, searchMixin],
     created() {
       this._getHotKey()
     },
     computed: {
       shortcut() {
         return this.hotKey.concat(this.searchHistory)
-      },
-      ...mapGetters([
-        'searchHistory'
-      ])
+      }
     },
     data() {
       return {
-        hotKey: [],
-        query: ''
+        hotKey: []
       }
     },
     methods: {
@@ -75,18 +71,6 @@
         this.$refs.searchResult.style.bottom = bottom
         this.$refs.suggest.refresh()
       },
-      blurInput() {
-        this.$refs.searchBox.blur()
-      },
-      addQuery(query) {
-        this.$refs.searchBox.setQuery(query)
-      },
-      onQueryChange(query) {
-        this.query = query
-      },
-      saveSearch() {
-        this.saveSearchHistory(this.query)
-      },
       showConfirm() {
         this.$refs.confirm.show()
       },
@@ -98,8 +82,6 @@
         })
       },
       ...mapActions([
-        'saveSearchHistory',
-        'deleteSearchHistory',
         'clearSearchHistory'
       ])
     },

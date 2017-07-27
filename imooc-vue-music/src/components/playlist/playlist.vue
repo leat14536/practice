@@ -4,26 +4,27 @@
       <div class="list-wrapper" @click.stop>
         <div class="list-header">
           <h1 class="title">
-            <i class="icon"></i>
-            <span class="text"></span>
-            <span class="clear"><i class="icon-clear"></i></span>
+            <i class="icon" :class="iconMode" @click="changeMode"></i>
+            <span class="text">{{modeText}}</span>
+            <span class="clear" @click="showConfirm"><i class="icon-clear"></i></span>
           </h1>
         </div>
-        <scroll class="list-content" :data="sequenceList" ref="listContent">
-          <ul>
-            <li ref="listItem" class="item" v-for="(item, index) in sequenceList" @click="selectItem(item, index)">
+        <scroll class="list-content" :refreshDelay="refreshDelay" :data="sequenceList" ref="listContent">
+          <transition-group name="list" tag="ul">
+            <li :key="item.id" ref="listItem" class="item" v-for="(item, index) in sequenceList"
+                @click="selectItem(item, index)">
               <i class="current" :class="getCurretnIcon(item)"></i>
               <span class="text">{{item.name}}</span>
-              <span class="like">
-                <span class="icon-not-favorite"></span>
+              <span class="like" @click.stop="toggleFavorite(item)">
+                <span :class="getFavoriteIcon(item)"></span>
               </span>
               <span class="delete" @click.stop="deleteOne(item)">
                 <i class="icon-delete"></i>
               </span>
             </li>
-          </ul>
+          </transition-group>
         </scroll>
-        <div class="list-operate">
+        <div class="list-operate" @click="addSong">
           <div class="add">
             <i class="icon-add"></i>
             <span class="text">添加歌曲到列表</span>
@@ -33,32 +34,49 @@
           <span>关闭</span>
         </div>
       </div>
+      <confirm ref="confirm" @confirm="confirmClear" text="是否清空播放列表" confirmBtnText="清空"></confirm>
+      <add-song ref="addSong"></add-song>
     </div>
   </transition>
 </template>
 
 <script>
-  import {mapGetters, mapMutations, mapActions} from 'vuex'
+  import {mapActions} from 'vuex'
   import Scroll from 'base/scroll/scroll'
+  import Confirm from 'base/confirm/confirm'
+  import AddSong from 'components/add-song/add-song'
   import {playMode} from 'common/js/config'
+  import {playerMixin} from 'common/js/mixin'
 
   export default {
-    computed: {
-      ...mapGetters([
-        'sequenceList',
-        'currentSong',
-        'playlist',
-        'mode'
-      ])
-    },
+    mixins: [playerMixin],
     data() {
       return {
-        showFlag: false
+        showFlag: false,
+        refreshDelay: 100
+      }
+    },
+    computed: {
+      modeText() {
+        return this.mode === playMode.sequence ? '顺序播放' : this.mode === playMode.random ? '随机播放' : '单曲循环'
       }
     },
     methods: {
+      addSong() {
+        this.$refs.addSong.show()
+      },
+      confirmClear() {
+        this.deleteSongList()
+        this.hide()
+      },
+      showConfirm() {
+        this.$refs.confirm.show()
+      },
       deleteOne(item) {
         this.deleteSong(item)
+        if (!this.playlist.length) {
+          this.hide()
+        }
       },
       selectItem(item, index) {
         if (this.mode === playMode.random) {
@@ -91,12 +109,9 @@
       hide() {
         this.showFlag = false
       },
-      ...mapMutations({
-        setCurrentIndex: 'SET_CURRENT_INDEX',
-        setPlayingState: 'SET_PLAYING_STATE'
-      }),
       ...mapActions([
-        'deleteSong'
+        'deleteSong',
+        'deleteSongList'
       ])
     },
     watch: {
@@ -106,7 +121,9 @@
       }
     },
     components: {
-      Scroll
+      Scroll,
+      Confirm,
+      AddSong
     }
   }
 </script>
@@ -150,7 +167,7 @@
           .icon {
             margin-right: 10px;
             font-size: 30px;
-            color: $color-text-l;
+            color: $color-theme-d;
           }
           .text {
             flex: 1;
@@ -216,6 +233,7 @@
           display: flex;
           align-items: center;
           padding: 8px 16px;
+          border: 1px solid $color-text-l;
           border-radius: 100px;
           color: $color-text-l;
           .icon-add {
