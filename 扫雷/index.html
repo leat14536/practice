@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #app {
+            white-space:nowrap;
+        }
+        #app ul {
+            list-style-type: none;
+            line-height: 0;
+            font-size: 0;
+        }
+        #app ul li {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: #aaa;
+            margin: 2px;
+            color: #fff;
+            font-size: 10px;
+            line-height: 50px;
+            text-align: center;
+            vertical-align:top;
+        }
+        #app ul li:hover{
+            background-color: #ddd;
+        }
+        #app ul li.mine {
+            background-color: red;
+        }
+        #app ul li.open {
+            background-color: #2f2f38;
+        }
+    </style>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript" src="mineMap.js"></script>
+<script type="text/javascript" src="ClearanceMap.js"></script>
+<script>
+    var transverse = 10;
+    var portrait = 10;
+    var mine = 10;
+
+    new ClearanceMap(transverse, portrait, mine)
+</script>
+</body>
+</html>
