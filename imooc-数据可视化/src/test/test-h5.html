@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width,
+                 initial-scale=1.0,
+                 maximum-scale=1.0,
+                 minimum-scale=1.0,
+                 user-scalable=no">
+  <title>Title</title>
+  <link rel="stylesheet" href="../styles/jquery.fullpage.css">
+  <link rel="stylesheet" href="../styles/H5component.css">
+  <link rel="stylesheet" href="../styles/H5.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+<!-- 测试内容组织功能, 以及fullpage页面切换&组件功能 -->
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.fullpage/2.9.4/jquery.fullpage.min.js"></script>
+<script type="text/javascript" src="../js/H5componentBase.js"></script>
+<script type="text/javascript" src="../js/H5.js"></script>
+<script>
+  $(function () {
+    let h5 = new H5()
+
+    h5.addPage('face')
+      .addComponent('logo', {
+        text: 'logo',
+        width: 400,
+        height: 100,
+        css: {
+          backgroundColor: 'red',
+          top: 200,
+          opacity: 0
+        },
+        animateIn: {opacity: 1},
+        animateOut: {opacity: 0},
+        center: true
+      })
+      .addComponent('slogan', {
+        text: 'slogan',
+        width: 400,
+        height: 100,
+        css: {
+          backgroundColor: 'red',
+          top: 350
+        },
+        center: true
+      })
+      .addPage('desc')
+      .addComponent('caption', {
+        text: '核心理念',
+        width: 400,
+        height: 100,
+        css: {
+          backgroundColor: 'green',
+          top: 350
+        },
+        center: true
+      })
+      .addPage('page-3')
+      .addComponent('caption', {text: '课程方向分布'})
+      .loader()
+
+  })
+</script>
+</body>
+</html>
