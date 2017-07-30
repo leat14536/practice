@@ -24,13 +24,13 @@
     }
 
     component.on('onLoad', function () {
-      component.addClass(nameCls + '_load').removeClass(nameCls + '_leave')
+      component.addClass(typeCls + '_load').removeClass(typeCls + '_leave')
       cfg.animateIn && component.animate(cfg.animateIn)
       return false
     })
 
     component.on('onLeave', function () {
-      component.addClass(nameCls + '_leave').removeClass(nameCls + '_load')
+      component.addClass(typeCls + '_leave').removeClass(typeCls + '_load')
       cfg.animateOut && component.animate(cfg.animateOut)
       return false
     })

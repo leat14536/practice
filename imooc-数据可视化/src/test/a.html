@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box" width="500" height="500"></div>
+<script>
+  var cvs = document.createElement('canvas')
+  cvs.width = 500
+  cvs.height = 500
+  box.appendChild(cvs)
+  var ctx = cvs.getContext('2d')
+  ctx.beginPath()
+  ctx.moveTo(0,0)
+  ctx.lineTo(100,100)
+  ctx.stroke()
+</script>
+</body>
+</html>
