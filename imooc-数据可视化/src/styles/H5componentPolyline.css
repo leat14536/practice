@@ -17,12 +17,22 @@
   line-height: 20px;
   transform: scale(.8);
   text-align: center;
-}
-
-.h5_component_polyline .text:nth-child(odd) {
-  bottom: -20px;
+  opacity: 0;
+  transition: all 1s 1.5s;
 }
 
 .h5_component_polyline .text:nth-child(even) {
+  bottom: -20px;
+}
+
+.h5_component_polyline .text:nth-child(odd) {
   bottom: -30px;
+}
+
+.h5_component_polyline_load .text {
+  opacity: 1;
+}
+
+.h5_component_polyline_leave .text {
+  opacity: 0;
 }

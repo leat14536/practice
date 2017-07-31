@@ -27,7 +27,7 @@
     }
   </style>
   <link rel="stylesheet" href="../styles/H5component.css">
-  <link rel="stylesheet" href="../styles/H5componentPolyline.css">
+  <link rel="stylesheet" href="../styles/H5componentRadar.css">
 </head>
 <body>
 <!-- 用于开发测试 H5componentBase 对象(基本图文组件) -->
@@ -36,37 +36,37 @@
 <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="../js/H5componentBase.js"></script>
 
-<!-- 折线图 -->
-<script src="../js/H5componentPolyline.js"></script>
+<!-- 雷达图 -->
+<script src="../js/H5componentRadar.js"></script>
 <script>
   let cfg = {
-    type: 'polyline',
-    width: 530,
-    height: 400,
+    type: 'radar',
+    width: 500,
+    height: 500,
     data: [
-      ['javascript', .4, '#f00'],
-      ['jQuery', .3],
-      ['CSS3', .35],
-      ['Bootstrap', .05],
-      ['Vue', .09],
+      ['javascript', .8, '#f00'],
+      ['jQuery', .7],
+      ['CSS3', .6],
+      ['Bootstrap', .5],
+      ['Vue', .4],
       ['HTML5', .3]
     ],
     css: {
-      top: 100,
+      top: 300,
       opacity: 0
     },
     animateIn: {
-      top: 200,
+      top: 100,
       opacity: 1
     },
     animateOut: {
-      top: 100,
+      top: 300,
       opacity: 0
     },
     center: true
   }
 
-  let h5 = new H5ComponentPolyline('myBarComponent', cfg)
+  let h5 = new H5ComponentRadar('myBarComponent', cfg)
   $('.iphone').append(h5)
 
   let load = true
