@@ -41,12 +41,43 @@
             background-image: radial-gradient(tan 30%, transparent 0);
             background-size: 30px 30px;
         }
-        .div5{
+        .div5 {
             background: #655;
             background-image: radial-gradient(tan 30%, transparent 0),
                                 radial-gradient(tan 30%, transparent 0);
             background-size: 30px 30px;
             background-position: 0 0, 15px 15px;
+        }
+        .div6 {
+            background: #eee;
+            background-image:
+                    linear-gradient(45deg, transparent 75%, #bbb 0),
+                    linear-gradient(45deg, #bbb 25%, transparent 0),
+                    linear-gradient(45deg, transparent 75%, #bbb 0),
+                    linear-gradient(45deg, #bbb 25%, transparent 0);
+            background-position: 0 0, 15px 15px,
+                                    15px 15px, 30px 30px;
+            background-size: 30px 30px;
+        }
+        .div7 {
+            background-color: #eee;
+            background-image:
+                    linear-gradient(45deg, rgba(0,0,0,.25) 25%, transparent 0,
+                                            transparent 75%, rgba(0,0,0,.25) 0),
+                    linear-gradient(45deg, rgba(0,0,0,.25) 25%, transparent 0,
+                                            transparent 75%, rgba(0,0,0,.25) 0);
+            background-position: 0 0, 15px 15px;
+            background-size: 30px 30px;
+        }
+        .div9 {
+            background: #eee url('data:image/svg+xml,\
+                                    <svg xmlns="http://www.w3.org/2000/svg" \
+                                    width="100" height="100" \
+                                    fill-opacity=".25">\
+                                    <rect x="50" width="50" height="50" /> \
+                                    <rect y="50" width="50" height="50" /> \
+                                    </svg>');
+            background-size: 30px 30px;
         }
     </style>
 </head>
@@ -57,5 +88,16 @@
 <div class="div div3"></div>
 <div class="div div4">波点</div>
 <div class="div div5">密集波点</div>
+<div class="div div6">棋盘</div>
+<div class="div div7">优化棋盘</div>
+<div class="div div8">
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width="100" height="100" fill-opacity=".25" >
+        <rect x="50" width="50" height="50" />
+        <rect y="50" width="50" height="50" />
+    </svg>
+</div>
+<div class="div div9">svg</div>
+
 </body>
 </html>
