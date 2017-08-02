@@ -1,1 +1,49 @@
 @import 'jquery.fullpage.css';
+
+@import './H5.css';
+
+@import './H5component.css';
+
+@import './H5componentPie.css';
+
+@import './H5componentBar.css';
+
+@import './H5componentPoint.css';
+
+@import './H5componentPolyline.css';
+
+@import './H5componentRadar.css';
+
+.h5_page {
+  background-image: url(../images/page_bg.png);
+}
+
+.h5_page_face {
+  background-image: url(../images/face_bg.png);
+}
+
+.h5_component_name_slogan {
+  animation: rock 2s infinite 2s;
+}
+
+@keyframes rock {
+  0% { transform: rotate(0deg)}
+  5% { transform: rotate(3deg)}
+  10% { transform: rotate(-4deg)}
+  15% { transform: rotate(3deg)}
+  20% { transform: rotate(-2deg)}
+  25% { transform: rotate(1deg)}
+  30% { transform: rotate(-1deg)}
+  70% { transform: rotate(0deg)}
+  100% { transform: rotate(0deg)}
+}
+
+.h5_component_name_caption {
+  background-image: url(../images/page_caption_bg.png);
+  width: 283px;
+  height: 160px;
+  text-align: center;
+  line-height: 140px;
+  font-size: 20px;
+  color:#FFF;
+}

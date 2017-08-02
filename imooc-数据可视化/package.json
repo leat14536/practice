@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel-plugin-transform-runtime": "^6.23.0",
     "fullpage.js": "^2.9.4",
     "jquery": "^3.2.1"
   },

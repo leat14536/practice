@@ -7,8 +7,9 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var autoprefixer = require('autoprefixer');
 var ExtractPlugin = require("extract-text-webpack-plugin");
 
+
 function resolve (dir) {
-  return path.join(__dirname, '..', dir)
+  return path.join(__dirname, dir)
 }
 
 module.exports = {
@@ -20,20 +21,15 @@ module.exports = {
         //publicPath: '/assets/',
         path: path.resolve(__dirname, './dist'),         //出口路径
     },
+  resolve: {
+    alias: {
+    }
+  },
     module: {
         rules: [
             {
                 test: /\.html$/,
                 loader: 'html-withimg-loader'
-            },
-            {
-              test: /\.js$/,
-              loader: 'eslint-loader',
-              enforce: 'pre',
-              include: [resolve('src')],
-              options: {
-                formatter: require('eslint-friendly-formatter')
-              }
             },
             {
                 test: /\.js$/,
