@@ -81,7 +81,7 @@ export default class H5ComponentPie extends H5ComponentBase {
     }
 
     let wrapCns = document.createElement('canvas')
-    let wrapCtx = dataCns.getContext('2d')
+    let wrapCtx = wrapCns.getContext('2d')
     wrapCns.width = w
     wrapCns.height = h
     sAngel = 1.5 * Math.PI
@@ -98,7 +98,7 @@ export default class H5ComponentPie extends H5ComponentBase {
       wrapCtx.moveTo(r, r)
       if (per <= 0) {
         wrapCtx.arc(r, r, r, 0, 2 * Math.PI, true)
-      } else if (per < 1) {
+      } else if (per <= 1) {
         wrapCtx.arc(r, r, r, sAngel, sAngel + 2 * Math.PI * per, true)
       }
 
@@ -111,6 +111,8 @@ export default class H5ComponentPie extends H5ComponentBase {
         component.find('.text').css('opacity', 0)
       }
     }
+
+    draw(0)
 
     component.on('onLoad', () => {
       let s = 0;
@@ -131,7 +133,6 @@ export default class H5ComponentPie extends H5ComponentBase {
         }, i * 10 + 500)
       }
     })
-
     component.append(cns)
     component.append(dataCns)
     component.append(wrapCns)

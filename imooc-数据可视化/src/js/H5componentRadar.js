@@ -4,7 +4,7 @@
 import $ from 'jquery'
 import H5ComponentBase from './H5componentBase.js'
 
-export default class H5ComponentRadar extends H5componentBase {
+export default class H5ComponentRadar extends H5ComponentBase {
   constructor(name, cfg) {
     let component = super(...arguments)
 

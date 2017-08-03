@@ -22,6 +22,10 @@ let H5ComponentBase = function (name, cfg) {
     })
   }
 
+  if(typeof cfg.onclick=== 'function') {
+    component.on('click', cfg.onclick)
+  }
+
   component.on('onLoad', function () {
     setTimeout(() => {
       component.addClass(typeCls + '_load').removeClass(typeCls + '_leave')

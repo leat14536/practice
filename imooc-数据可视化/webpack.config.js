@@ -20,6 +20,7 @@ module.exports = {
         filename: 'scripts/[name].js',                    //出口文件名
         //publicPath: '/assets/',
         path: path.resolve(__dirname, './dist'),         //出口路径
+        chunkFilename: "[id].chunk.js"
     },
   resolve: {
     alias: {

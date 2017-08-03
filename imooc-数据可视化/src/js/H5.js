@@ -3,7 +3,16 @@
  */
 /* 内容管理 */
 import H5componentBase from './H5componentBase.js'
-import {Bar, Pie, Point, Polyline, Radar} from './module.js'
+
+const bar = () => import('./H5componentBar.js')
+
+const pie = () => import('./H5componentPie.js')
+
+const point = () => import('./H5componentPoint.js')
+
+const polyline = () => import('./H5componentPolyline.js')
+
+const radar = () => import('./H5componentRadar.js')
 
 let _id = 0
 let H5 = function () {
@@ -26,6 +35,10 @@ H5.prototype = {
 
     this.el.append(page)
     this.page.push(page)
+
+    if (typeof this.whenAddPage === 'function') {
+      this.whenAddPage()
+    }
     return this
   },
   addComponent(name, cfg){
@@ -37,11 +50,41 @@ H5.prototype = {
     switch (cfg.type) {
       case 'base':
         component = new H5componentBase(name, cfg)
+        page.append(component)
+        break;
+      case 'polyline':
+        polyline().then((module) => {
+          component = new module.default(name, cfg)
+          page.append(component)
+        })
+        break;
+      case 'pie':
+        pie().then((module) => {
+          component = new module.default(name, cfg)
+          page.append(component)
+        })
+        break;
+      case 'bar':
+        bar().then((module) => {
+          component = new module.default(name, cfg)
+          page.append(component)
+        })
+        break;
+      case 'radar':
+        radar().then((module) => {
+          component = new module.default(name, cfg)
+          page.append(component)
+        })
+        break;
+      case 'point':
+        point().then((module) => {
+          component = new module.default(name, cfg)
+          page.append(component)
+        })
         break;
       default:
         console.log('addcomponent', 'error')
     }
-    page.append(component)
     return this
   },
 
