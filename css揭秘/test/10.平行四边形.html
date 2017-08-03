@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .div {
+            width: 400px;
+            height: 200px;
+            background-color: #00d6b2;
+            margin: 50px auto;
+            font-size: 20px;
+            line-height: 200px;
+            text-align: center;
+        }
+
+        .div1 {
+            transform: skew(-45deg);
+        }
+
+        .div1 .inner {
+            transform: skew(45deg);
+        }
+
+        .div2 {
+            position: relative;
+            background-color: inherit;
+        }
+
+        .div2::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            z-index: -1;
+            background-color: #58a;
+            transform: skew(45deg);
+        }
+    </style>
+</head>
+<body>
+<div class="div div1">
+    <div class="inner">click</div>
+</div>
+<div class="div div2">click</div>
+</body>
+</html>

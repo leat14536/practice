@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .div {
+            width: 400px;
+            min-height: 2em;
+            overflow: hidden;
+            margin: 50px auto;
+            position: relative;
+        }
+
+        .div1 {
+            background-image: url(../images/stone-art.jpg);
+            background-size: cover;
+            padding: 1em;
+        }
+
+        .div1 .inner {
+            background-color: white;
+            padding: 1em;
+        }
+
+        .div2{
+            padding: 1em;
+            border: 1em solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        url(../images/stone-art.jpg) border-box 0 / cover;
+        }
+
+        .div3 {
+            padding: 1em;
+            border: 1em solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        repeating-linear-gradient(-45deg,
+                                        red 0, red 12.5%,
+                                        transparent 0, transparent 25%,
+                                        #58a 0, #58a 37.5%,
+                                        transparent 0, transparent 50%)
+                                        0 / 5em 5em;
+        }
+
+        @keyframes ants {
+            to{background-position: 100%}
+        }
+
+        .div4{
+            padding: 1em;
+            border: 1px solid transparent;
+            background:
+                    linear-gradient(white, white) padding-box,
+                    repeating-linear-gradient(-45deg,
+                    black 0, black 25%, white 0, white 50%
+                    ) 0 / .6em .6em;
+            animation: ants 12s linear infinite;
+        }
+        .div5 {
+            border-top: .2em solid transparent;
+            border-image: 100% 0 0 linear-gradient(90deg,
+                                    currentColor 4em,
+                                    transparent 0);
+            padding-top: 1em;
+        }
+
+    </style>
+</head>
+<body>
+<div class="div div1">
+    <div class="inner">aaaadgfgfgfgfgfgfgfgfgfgfgfgfa</div>
+</div>
+<div class="div div2">asddddddddd</div>
+<div class="div div3"></div>
+<div class="div div4"></div>
+<div class="div div5">aaaaaaaaaaaaaaa</div>
+</body>
+</html>
