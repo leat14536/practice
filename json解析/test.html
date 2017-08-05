@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>f12查看测试数据</h1>
+
+<script src="IJSON.js" type="text/javascript"></script>
+<script>
+    let obj = {
+        a: '\a\n',
+        b: '\u0007',
+        c: 5,
+        d: 1e5,
+        e: '哈哈哈\u2028',
+        f: function () {
+            return 0
+        },
+        g: NaN
+    }
+    console.log(JSON.stringify(obj,null,5))
+    console.log(IJSON.stringify(obj))
+
+    let arr = ['a', 1, false, true, () => 1, undefined, null]
+    console.log(JSON.stringify(arr,null,5))
+    console.log(IJSON.stringify(arr))
+
+    let num = 123456
+    console.log(JSON.stringify(num,null,5))
+    console.log(IJSON.stringify(num))
+
+    let num2 = NaN
+    console.log(JSON.stringify(num2))
+    console.log(IJSON.stringify(num2))
+
+    function fn() {
+        return 0
+    }
+    console.log(JSON.stringify(fn))
+    console.log(IJSON.stringify(fn))
+
+
+
+
+
+</script>
+</body>
+</html>
