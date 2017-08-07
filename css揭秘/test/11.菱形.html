@@ -34,6 +34,22 @@
             height: 100%;
             transform: rotate(-45deg) scale(1.42);
         }
+
+        .div3 {
+            width: 400px;
+            height: 400px;
+            clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+            transition: 1s clip-path;
+        }
+
+        .div3 img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .div3:hover {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%)
+        }
     </style>
 </head>
 <body>
@@ -41,6 +57,9 @@
     <img src="../images/stone-art.jpg" alt="">
 </div>
 <div class="div div2">
+    <img src="../images/stone-art.jpg" alt="">
+</div>
+<div class="div div3">
     <img src="../images/stone-art.jpg" alt="">
 </div>
 </body>
