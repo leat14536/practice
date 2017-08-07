@@ -20,26 +20,39 @@
         },
         g: NaN
     }
-    console.log(JSON.stringify(obj,null,5))
     console.log(IJSON.stringify(obj))
+    console.log(obj = JSON.stringify(obj))
+
+    console.log(JSON.parse(obj))
+    console.log(IJSON.parse(obj))
 
     let arr = ['a', 1, false, true, () => 1, undefined, null]
-    console.log(JSON.stringify(arr,null,5))
+    console.log('-----------------------------------------------------')
     console.log(IJSON.stringify(arr))
+    console.log(arr = JSON.stringify(arr))
+
+    console.log(JSON.parse(arr))
+    console.log(IJSON.parse(arr))
 
     let num = 123456
-    console.log(JSON.stringify(num,null,5))
-    console.log(IJSON.stringify(num))
+    console.log('-----------------------------------------------------')
+    console.log(JSON.stringify(num))
+    console.log(num = IJSON.stringify(num))
+
+    console.log(JSON.parse(num))
+    console.log(IJSON.parse(num))
 
     let num2 = NaN
+    console.log('-----------------------------------------------------')
     console.log(JSON.stringify(num2))
-    console.log(IJSON.stringify(num2))
+    console.log(num2 = IJSON.stringify(num2))
 
     function fn() {
         return 0
     }
+    console.log('-----------------------------------------------------')
     console.log(JSON.stringify(fn))
-    console.log(IJSON.stringify(fn))
+    console.log(fn = IJSON.stringify(fn))
 
 
 
