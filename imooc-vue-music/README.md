@@ -2,7 +2,7 @@
 
 > 音乐播放器
 
-## demo test
+## test
 npm run start
 
 ## Build Setup
