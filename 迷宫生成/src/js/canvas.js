@@ -66,6 +66,24 @@ export default class Canvas {
     this.context.fillStyle = color || '#f00'
     this.context.fillRect(x * PROPORTION, y * PROPORTION, PROPORTION, PROPORTION)
   }
+
+  drawMap(maze) {
+    let i, j
+    let w = this.width
+    let h = this.height
+    let ctx = this.context
+    ctx.clearRect(0, 0, w * PROPORTION, h * PROPORTION)
+    ctx.fillStyle = '#fff'
+    const map = maze.map
+    for (i = 0; i < w; i++) {
+      for (j = 0; j < h; j++) {
+        if (map[i][j].type !== 0) {
+          ctx.fillRect(i * PROPORTION, j * PROPORTION, PROPORTION, PROPORTION)
+          ctx.fill()
+        }
+      }
+    }
+  }
 }
 
 function randomColor() {

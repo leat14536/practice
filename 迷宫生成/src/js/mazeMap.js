@@ -38,7 +38,7 @@ const CORRIDOR_DIR = {
     return [x - 1, y]
   }
 }
-/* eslint-disable */
+
 const CONNECT_TYPE = {
   transverse: 0,
   portrait: 1
@@ -52,9 +52,13 @@ function random(min, max) {
 
 function getTag(x, y) {
   if (x.cid > y.cid) {
-    return `${y.cid}-${x.cid}`
+    return `${getNormalizeCid(y.cid)}-${getNormalizeCid(x.cid)}`
   }
-  return `${x.cid}-${y.cid}`
+  return `${getNormalizeCid(x.cid)}-${getNormalizeCid(y.cid)}`
+}
+
+function getNormalizeCid(cid) {
+  return (cid + '').padStart(4, '0')
 }
 
 export default class MazeMap {
@@ -71,9 +75,12 @@ export default class MazeMap {
     this.height = height
     this.room = []
     this.routes = []
+
+    // 所有可连接的点
     this.contectPoints = []
-    let canvas = draw ? this.initCanvas(el) : null
-    this.canvas = canvas
+
+    // 选中的连接点
+    this.connectPoints = []
 
     // 获取初始地图
     this.createEmptyMap(width, height)
@@ -84,11 +91,20 @@ export default class MazeMap {
     // 用路径填满地图
     this.setRoute()
 
-    canvas && this.drawRoom()
-    canvas && this.drawRoute()
     // 连接地图和房间
     this.findPoints()
     this.connect()
+
+    // 回溯移除无用点
+    this.recallUselessPoint()
+
+    let canvas = draw ? this.initCanvas(el) : null
+    canvas && canvas.drawMap(this)
+    /*
+     canvas && this.drawRoom()
+     canvas && this.drawRoute()
+     canvas && this.drawConnectPoint()
+     */
   }
 
   initCanvas(el) {
@@ -103,6 +119,7 @@ export default class MazeMap {
     return canvas
   }
 
+  /*
   drawRoom() {
     let canvas = this.canvas
     this.room.forEach((item) => {
@@ -130,16 +147,14 @@ export default class MazeMap {
     })
   }
 
-  drawPoint() {
+  drawConnectPoint() {
     let canvas = this.canvas
-    let points = this.contectPoints
-    for (let item in points) {
-      points[item].forEach(({x, y}) => {
-        canvas.drawOneRect(x, y)
-      })
-    }
+    let points = this.connectPoints
+    points.forEach(({x, y}) => {
+      canvas.drawOneRect(x, y, '#000')
+    })
   }
-
+  */
   createEmptyMap() {
     const width = this.width
     const height = this.height
@@ -197,7 +212,8 @@ export default class MazeMap {
       for (j = y; j < h + y; j++) {
         map[i][j] = {
           type: RECT_TYPE.room,
-          cid
+          cid,
+          cidTag: getNormalizeCid(cid)
         }
       }
     }
@@ -245,7 +261,8 @@ export default class MazeMap {
 
     map[routeData[0]][routeData[1]] = {
       type: RECT_TYPE.rect,
-      cid
+      cid,
+      cidTag: getNormalizeCid(cid)
     }
 
     !last && routes.push(route)
@@ -261,13 +278,15 @@ export default class MazeMap {
       next = new Route(...routeData, route)
       map[routeData[0]][routeData[1]] = {
         type: RECT_TYPE.rect,
-        cid
+        cid,
+        cidTag: getNormalizeCid(cid)
       }
 
       corridorData = CORRIDOR_DIR[routeData.type](routeData[0], routeData[1])
       map[corridorData[0]][corridorData[1]] = {
         type: RECT_TYPE.rect,
-        cid
+        cid,
+        cidTag: getNormalizeCid(cid)
       }
 
       route.pushNext(next)
@@ -338,35 +357,28 @@ export default class MazeMap {
 
   connect() {
     let points = Object.assign({}, this.contectPoints)
-    let rooms = this.room.slice(0)
+    let connectPoint = []
     let map = this.map
-    let room = rooms.pop()
-    let cachePoint = []
-    const canvas = this.canvas
+    let cachePoint
     let minCid
     let maxCid
 
-    while (room) {
+    while (Object.keys(points).length) {
+      // 随即获取连接点
+      let point = randomConnect()
 
-      // 获取房间周围的可连接点
-      let connect = this.getRoomConnect(room)
-
-      // 随机取一个
-      let point = connect[random(0, connect.length)]
-
-      // remove掉所有 point相关的点
+      // 设为连接点
+      // remove掉两个区域直接连接点
+      setConnect(point)
       removePoint(point)
 
-      if(point.cid1 < point.cid2) {
-        minCid = point.cid1
-        maxCid = point.cid2
-      } else {
-        minCid = point.cid2
-        maxCid = point.cid1
-      }
+      // 合并两个区域
+      minCid = point.cid1
+      maxCid = point.cid2
 
-      for(let key in points) {
-        if(key.indexOf(maxCid) > -1) {
+      cachePoint = []
+      for (let key in points) {
+        if (key.indexOf(maxCid) > -1) {
           cachePoint.push(key)
         }
       }
@@ -374,108 +386,88 @@ export default class MazeMap {
       cachePoint.forEach((key) => {
         let val = points[key]
         let cids = key.replace(maxCid, minCid).split('-')
-        let tag = getTag({cid: cids[0]},{cid: cids[1]})
-        if(points[tag]) {
+        let tag = getTag({cid: parseInt(cids[0], 10)}, {cid: parseInt(cids[1], 10)})
+        if (points[tag]) {
           points[tag].push(...val)
         } else {
           points[tag] = val
         }
         delete points[key]
       })
-      debugger
-     /* setConnect(point)
-      removePoint(point)
-      connect.forEach((point) => {
-        if (random(0, 20) === 0) {
-          setConnect(point)
-        }
-        removePoint(point)
-      }) */
-      room = rooms.pop()
     }
 
-    /* if (Object.keys(points).length) {
-      debugger
-      for (let item in points) {
-        points[item].forEach((point) => {
-          canvas.drawOneRect(point.x, point.y, 'blue')
-        })
-      }
-    } */
+    this.connectPoints = connectPoint
 
-    function setConnect({x, y}) {
-      map[x][y].type = RECT_TYPE.connect
-      canvas.drawOneRect(x, y)
+    function randomConnect() {
+      let keys = Object.keys(points)
+      let x = random(0, keys.length)
+      let y = random(0, points[keys[x]].length)
+      let ret = Object.assign({}, points[keys[x]][y])
+      ret.cid1 = keys[x].split('-')[0]
+      ret.cid2 = keys[x].split('-')[1]
+      return ret
     }
 
-    function removePoint({cid1, cid2, x, y}) {
-      if (!cid1 || !cid2) {
-        // 这里不知道为什么有 bug
-        // 先放下
-        return
-      }
-      let cid = cid1 < cid2 ? `${cid1}-${cid2}` : `${cid2}-${cid1}`
-      if(points[cid]) {
+    function setConnect(point) {
+      // 存储点 设为可连接
+      connectPoint.push(point)
+      map[point.x][point.y].type = RECT_TYPE.connect
+    }
+
+    function removePoint({cid1, cid2}) {
+      let cid = cid1 + '-' + cid2
+      if (points[cid]) {
+        // 移除每个点时都有小概率开放
         points[cid].forEach((item) => {
-          canvas.drawOneRect(item.x, item.y, '#ff0')
+          if (random(0, 50) === 0) setConnect(item)
         })
         delete points[cid]
       }
     }
   }
 
-  getRoomConnect([x, y, w, h]) {
-    let i, j
-    let points = []
-    const map = this.map
-    for (i = x; i < w + x; i++) {
-      if (validate(i, y - 2)) {
-        points.push({
-          x: i,
-          y: y - 1,
-          cid1: map[i][y].cid,
-          cid2: map[i][y - 2].cid
-        })
-      }
-      if (validate(i, y + h + 1)) {
-        points.push({
-          x: i,
-          y: y + h,
-          cid1: map[i][y + h + 1].cid,
-          cid2: map[i][y + h - 1].cid
-        })
+  recallUselessPoint() {
+    let map = this.map
+    const width = this.width
+    const height = this.height
+    let uselessPoint = []
+
+    // 寻找到所有周围3个点是空白的过道
+    findUselessPoint()
+    while (uselessPoint.length) {
+      uselessPoint = removeUselessPoint()
+    }
+
+    function findUselessPoint() {
+      let i, j
+      for (i = 1; i < width; i += 2) {
+        for (j = 1; j < height; j += 2) {
+          validatePoint(i, j, uselessPoint)
+        }
       }
     }
 
-    for (j = y; j < h + y; j++) {
-      if (validate(x - 2, j)) {
-        points.push({
-          x: x - 1,
-          y: j,
-          cid1: map[x][j].cid,
-          cid2: map[x - 2][j].cid
-        })
+    function validatePoint(i, j, points) {
+      if (map[i][j].type !== RECT_TYPE.rect && map[i][j].type !== RECT_TYPE.connect) return
+      let count = 0
+      let next, x, y
+      for (let key in CORRIDOR_DIR) {
+        [x, y] = CORRIDOR_DIR[key](i, j)
+        if (map[x][y].type === RECT_TYPE.blank) count++
+        else next = [x, y]
       }
-      if (validate(x + w + 1, j)) {
-        points.push({
-          x: x + w,
-          y: j,
-          cid1: map[x + w - 1][j].cid,
-          cid2: map[x + w + 1][j].cid
-        })
+      if (count === 3) {
+        points.push(Object.assign({next, x: i, y: j}, map[i][j]))
       }
     }
 
-    return points
-
-    function validate(x, y) {
-      if (x >= map.length - 1 || y >= map[0].length - 1 || x <= 1 || y <= 1) {
-        return false
-      }
-      if (map[x][y].type !== RECT_TYPE.blank && map[x][y].type !== RECT_TYPE.connect) {
-        return true
-      }
-      return false
+    function removeUselessPoint() {
+      let cache = []
+      uselessPoint.forEach(({x, y, next}) => {
+        map[x][y].type = RECT_TYPE.blank
+        validatePoint(...next, cache)
+      })
+      return cache
     }
   }
 }
