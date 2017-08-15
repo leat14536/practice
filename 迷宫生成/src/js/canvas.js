@@ -28,19 +28,19 @@ export default class Canvas {
     return this.context
   }
 
-  drawRoom(x1, y1, width, height) {
+  drawRoom(x1, y1, width, height, color) {
     x1 = x1 * PROPORTION
     y1 = y1 * PROPORTION
     width = width * PROPORTION
     height = height * PROPORTION
     let ctx = this.context
-    ctx.fillStyle = randomColor()
+    ctx.fillStyle = color || randomColor()
     ctx.fillRect(x1, y1, width, height)
     ctx.fill()
 
     ctx.lineWidth = 0.5
     ctx.strokeStyle = 'rgba(155,155,155,0.1)'
-    for (let i = x1 + PROPORTION; i < width + x1; i += PROPORTION) {
+    /* for (let i = x1 + PROPORTION; i < width + x1; i += PROPORTION) {
       ctx.moveTo(i, y1)
       ctx.lineTo(i, y1 + height)
     }
@@ -49,7 +49,7 @@ export default class Canvas {
       ctx.moveTo(x1, i)
       ctx.lineTo(x1 + width, i)
     }
-    ctx.stroke()
+    ctx.stroke() */
   }
 
   drawRect(x1, y1, x2, y2, color) {
@@ -83,6 +83,49 @@ export default class Canvas {
         }
       }
     }
+  }
+
+  draw({rooms, routes, connectPoints, uselessPoints}) {
+    function draw(n, cb, end, time) {
+      let i = 0;
+      (function drawOnce() {
+        setTimeout(() => {
+          cb(i)
+          if (++i < n) drawOnce()
+          else end()
+        }, time)
+      })()
+    }
+
+    let promise = new Promise((resolve, reject) => {
+      draw(rooms.length, (i) => {
+        this.drawRoom(...rooms[i], '#fff')
+      }, resolve, 25)
+    })
+
+    let arr = Array.prototype.concat.apply([], routes)
+    promise.then(() => {
+      return new Promise((resolve) => {
+        draw(arr.length, (i) => {
+          if (arr[i].last) {
+            this.drawRect(arr[i].x, arr[i].y, arr[i].last.x, arr[i].last.y, '#fff')
+          } else {
+            this.drawOneRect(arr[i].x, arr[i].y, '#fff')
+          }
+        }, resolve, 16)
+      })
+    }).then(() => {
+      return new Promise((resolve) => {
+        draw(connectPoints.length, (i) => {
+          this.drawOneRect(connectPoints[i].x, connectPoints[i].y, '#fff')
+        }, resolve, 16)
+      })
+    }).then(() => {
+      console.log(uselessPoints)
+      draw(uselessPoints.length, (i) => {
+        this.drawOneRect(uselessPoints[i].x, uselessPoints[i].y, '#000')
+      }, () => {}, 16)
+    })
   }
 }
 
