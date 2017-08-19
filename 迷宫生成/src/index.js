@@ -1,13 +1,31 @@
 /* eslint-disable */
 import 'babel-polyfill'
-/* import MazeMap from './js/mazeMap'
-
-new MazeMap() */
-
 import mazeMap from './js/maze'
 import Canvas from './js/canvas'
 
-let map = mazeMap()
-let canvas = new Canvas({width: 51, height: 31})
-document.querySelector('.wrap').appendChild(canvas.getCanvas())
-canvas.draw(map.getPoints())
+/* width height minSize maxSize 必须是奇数 */
+const option = {
+  width: 51,
+  height: 31,
+  room: 200,
+  minSize: 3,
+  maxSize: 7
+}
+let btn = document.querySelector('#btn')
+let canvas = new Canvas(option)
+let wrap = document.querySelector('.wrap')
+
+wrap.appendChild(canvas.getCanvas())
+show()
+
+btn.onclick = () => {
+  btn.setAttribute('disabled','')
+  show()
+}
+
+function show() {
+  let map = mazeMap(option)
+  canvas.draw(map.getPoints()).then(() => {
+    btn.removeAttribute('disabled')
+  })
+}

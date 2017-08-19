@@ -86,25 +86,24 @@ export default class Canvas {
   }
 
   draw({rooms, routes, connectPoints, uselessPoints}) {
-    function draw(n, cb, end, time) {
+    function draw(n, cb, callback, time) {
       let i = 0;
       (function drawOnce() {
         setTimeout(() => {
           cb(i)
           if (++i < n) drawOnce()
-          else end()
+          else callback()
         }, time)
       })()
     }
+    this.context.clearRect(0, 0, this.width * PROPORTION, this.height * PROPORTION)
 
-    let promise = new Promise((resolve, reject) => {
+    let arr = Array.prototype.concat.apply([], routes)
+    return new Promise((resolve, reject) => {
       draw(rooms.length, (i) => {
         this.drawRoom(...rooms[i], '#fff')
       }, resolve, 25)
-    })
-
-    let arr = Array.prototype.concat.apply([], routes)
-    promise.then(() => {
+    }).then(() => {
       return new Promise((resolve) => {
         draw(arr.length, (i) => {
           if (arr[i].last) {
@@ -121,10 +120,11 @@ export default class Canvas {
         }, resolve, 16)
       })
     }).then(() => {
-      console.log(uselessPoints)
-      draw(uselessPoints.length, (i) => {
-        this.drawOneRect(uselessPoints[i].x, uselessPoints[i].y, '#000')
-      }, () => {}, 16)
+      return new Promise(resolve => {
+        draw(uselessPoints.length, (i) => {
+          this.drawOneRect(uselessPoints[i].x, uselessPoints[i].y, '#000')
+        }, resolve, 16)
+      })
     })
   }
 }
