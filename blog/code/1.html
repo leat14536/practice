@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="div">
+    <p id="1">
+        <a href="">
+            <img src="" alt="" class="img1">
+        </a>
+    </p>
+    <div></div>
+    <p id="2">
+        <span></span>
+        <img src="" alt="" class="img2">
+        <a href=""></a>
+    </p>
+    <p id="3">
+        <img src="" alt="" class="img3">
+    </p>
+    <p id="4">
+        <a href="#"></a>
+    </p>
+</div>
+
+<script>
+    function clearPTag(html) {
+        const spaceReg = />(\s+)</g
+        const htmlReg = /<p[^>]*>(.*?)<\/p>/gi
+        const imgReg = /<img[^>]*>/i
+
+        return html
+            .replace(spaceReg, (str, capture) => str.replace(capture, ''))
+            .replace(htmlReg, (str, capture) => imgReg.test(capture) ? capture : str)
+    }
+    const html = div.outerHTML
+    console.log(html)
+    console.log(clearPTag(html))
+</script>
+</body>
+</html>
