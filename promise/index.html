@@ -23,6 +23,41 @@
     var PENDING = 0;
     var FULFILLED = 1;
     var REJECTED = 2;
+    var immediates = [
+        {
+            test() {
+                return window.MessageChannel
+            },
+            install(fn) {
+                var channel = new window.MessageChannel()
+                channel.port1.onmessage = fn
+                channel.port2.postMessage(0);
+            }
+        },
+        {
+            test() {
+                return 'document' in window && 'onreadystatechange' in document.createElement('script')
+            },
+            install(fn) {
+                var scriptEl = document.createElement('script')
+                scriptEl.onreadystatechange = function () {
+                    fn();
+
+                    scriptEl.onreadystatechange = null;
+                    scriptEl.parentNode.removeChild(scriptEl);
+                    scriptEl = null;
+                };
+            }
+        },
+        {
+            test() {
+                return window.setTimeout
+            },
+            install(fn) {
+                setTimeout(fn, 0)
+            }
+        }
+    ]
 
     function Promise(resolver) {
         if (!isFunction(resolver)) console.error('resolve not a Function')
@@ -226,23 +261,13 @@
     }
 
     function immediate(fn) {
-        if (window.MessageChannel) {
-            var channel = new window.MessageChannel()
-            channel.port1.onmessage = fn
-            channel.port2.postMessage(0);
-        } else if ('document' in window && 'onreadystatechange' in document.createElement('script')) {
-            var scriptEl = document.createElement('script')
-            scriptEl.onreadystatechange = function () {
-                fn();
-
-                scriptEl.onreadystatechange = null;
-                scriptEl.parentNode.removeChild(scriptEl);
-                scriptEl = null;
-            };
-            document.documentElement.appendChild(scriptEl);
-        } else {
-            setTimeout(fn, 0)
+        for (var i = 0, l; l = immediates[i++];) {
+            if (l.test()) {
+                immediate = l.install
+                break
+            }
         }
+        immediate(fn)
     }
 </script>
 
