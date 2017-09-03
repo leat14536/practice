@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>原作者: <a href="https://github.com/jawil/blog/issues/16">https://github.com/jawil/blog/issues/16</a></div>
+<div>按f12查看代码</div>
+<script>
+    function mySymbol(target) {
+        while (1) {
+            let unique = '000' + Math.random()
+            if (target.hasOwnProperty(unique)) return mySymbol(target)
+            return unique
+        }
+    }
+
+    Function.prototype.bindOne = Function.prototype.bindOne
+        || function bindOne(context) {
+            if (typeof this !== "function") {
+                throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+            }
+            var me = this;
+            var args = Array.prototype.slice.callOne(arguments, 1);
+            var F = function () {};
+            F.prototype = this.prototype || {}
+            var bound = function () {
+                var innerArgs = Array.prototype.slice.callOne(arguments);
+                var finalArgs = args.concat(innerArgs);
+                return me.applyOne(this instanceof F ? this : context || this, finalArgs);
+            }
+            bound.prototype = new F();
+            return bound;
+        }
+
+    Function.prototype.callOne = Function.prototype.callOne
+        || function callOne(target) {
+            return this.applyOne(([].shift.applyOne(arguments)), arguments)
+        }
+
+    Function.prototype.applyOne = Function.prototype.applyOne
+        || function applyOne(target, args) {
+            target = target || window
+            const unique = mySymbol(target)
+            target[unique] = this
+            // const ret = target[unique](...args)
+            if (args === undefined || args === null) {
+                return target[unique]()
+            }
+            let fnStr = 'target[unique]('
+            for (let i = 0; i < args.length; i++) {
+                fnStr += (i === args.length - 1) ? args[i] : (args[i] + ',')
+            }
+            fnStr += ')'
+
+            const ret = eval(fnStr)
+            delete target[unique]
+            return ret
+        }
+</script>
+<script>
+    const obj = {
+        0: 'z',
+        1: 'a',
+        2: 'b',
+        3: 'c',
+        length: 4
+    }
+
+    const map = Array.prototype.map.bind(obj, item => {
+        console.log(item)
+    })
+    map()
+
+    console.log('================')
+    const map2 = Array.prototype.map.bindOne(obj, function (item) {
+        console.log(item)
+    })
+    map2()
+</script>
+</body>
+</html>
