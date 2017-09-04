@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    var immediates = [
+        {
+            test() {
+                return window.MessageChannel
+            },
+            install(fn) {
+                var channel = new window.MessageChannel()
+                channel.port1.onmessage = fn
+                channel.port2.postMessage(0);
+            }
+        },
+        {
+            test() {
+                return 'document' in window && 'onreadystatechange' in document.createElement('script')
+            },
+            install(fn) {
+                var scriptEl = document.createElement('script')
+                scriptEl.onreadystatechange = function () {
+                    fn();
+
+                    scriptEl.onreadystatechange = null;
+                    scriptEl.parentNode.removeChild(scriptEl);
+                    scriptEl = null;
+                };
+            }
+        },
+        {
+            test() {
+                return window.setTimeout
+            },
+            install(fn) {
+                setTimeout(fn, 0)
+            }
+        }
+    ]
+    function immediate(fn) {
+        for (var i = 0, l; l = immediates[i++];) {
+            if (l.test()) {
+                immediate = l.install
+                break
+            }
+        }
+        immediate(fn)
+    }
+
+    window.Promise = function (fn) {
+        var state = "pending";
+        var callbacks = [];
+        var result = null;
+
+        function res_rej(a, b, c) {
+            if (state !== "pending") {
+                return;
+            }
+            if (b && b["then"] && typeof b["then"] === 'function') {
+                b["then"](resolve, reject);
+                return;
+            }
+            state = a;
+            result = b;
+                callbacks.forEach(function (obj) {
+                    obj[c](result);
+                })
+        }
+
+        function resolve(value) {
+            res_rej("fulfilled", value, 0);
+        }
+
+        function reject(reason) {
+            res_rej("rejected", reason, 1);
+        }
+
+        this.then = function (onFulfilled, onRejected) {
+            return new Promise(function (resolve, reject) {
+                switch (state) {
+                    case "pending":
+                        callbacks.push([
+                            function () {
+                                resolve(onFulfilled(result));
+                            },
+                            function () {
+                                reject(onRejected(result));
+                            }
+                        ]);
+                        break;
+                    case "fulfilled":
+                        resolve(onFulfilled(result));
+                        break;
+                    case "rejected":
+                        reject(onRejected(result));
+                        break;
+                }
+            });
+        };
+
+        var _then = this.then
+        this.then = function(onFulfilled, onRejected) {
+            onFulfilled = onFulfilled && immediate.bind(null, onFulfilled)
+            onRejected = onRejected && immediate.bind(null, onRejected)
+            _then.call(this, onFulfilled, onRejected)
+        }
+
+        this.catch = function (onRejected) {
+            return this.then(null, onRejected);
+        };
+        fn(resolve, reject);
+    };
+    Promise.resolve = function (value) {
+        return new Promise(function (resolve) {
+            resolve(value);
+        });
+    };
+    Promise.reject = function (reason) {
+        return new Promise(function (resolve, reject) {
+            reject(reason);
+        });
+    };
+    Promise.all = function (promises) {
+        return new Promise(function (resolve, reject) {
+            var count = 0;
+            var values = [];
+            for (var i = 0; i < promises.length; i++) {
+                Promise.resolve(promises[i]).then(function (value) {
+                    values.push(value);
+                    if (count === promises.length - 1) {
+                        resolve(values);
+                    }
+                    else {
+                        count++;
+                    }
+                }, function (reason) {
+                    reject(reason);
+                });
+            }
+        });
+    };
+    Promise.race = function (promises) {
+        return new Promise(function (resolve, reject) {
+            for (var i = 0; i < promises.length; i++) {
+                Promise.resolve(promises[i]).then(function (value) {
+                    resolve(value);
+                }, function (reason) {
+                    reject(reason);
+                })
+            }
+        });
+    };
+
+</script>
+<script>
+
+    new Promise(function (res, rej) {
+        console.log(1)
+        res()
+    }).then(function () {
+        console.log(2)
+    })
+
+    setTimeout(function () {
+        console.log(3)
+    }, 0)
+
+    console.log(4)
+</script>
+</body>
+</html>
