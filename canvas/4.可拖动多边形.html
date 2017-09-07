@@ -7,11 +7,12 @@
 <body>
 
 
-<canvas id="canvas" width="800" height="500" style="border:1px solid #666"></canvas></br>
+<canvas id="canvas" width="800" height="500" style="border:1px solid #666"></canvas>
+</br>
 拖动:<input type="checkbox" id="drag">
 边数: <select id="side">
     <option value="3">3</option>
-    <option value="4" selected = "selected">4</option>
+    <option value="4" selected="selected">4</option>
     <option value="5">5</option>
     <option value="6">6</option>
     <option value="7">7</option>
@@ -22,13 +23,13 @@
     <option value="orange">orange</option>
     <option value="yellow">yellow</option>
     <option value="green">green</option>
-    <option value="blue" selected = "selected">blue</option>
+    <option value="blue" selected="selected">blue</option>
     <option value="purple">purple</option>
 </select>
 填充颜色:<select id="fillStyle">
     <option value="red">red</option>
     <option value="Orange">orange</option>
-    <option value="yellow" selected = "selected">yellow</option>
+    <option value="yellow" selected="selected">yellow</option>
     <option value="green">green</option>
     <option value="blue">blue</option>
     <option value="purple">purple</option>
@@ -36,7 +37,7 @@
 辅助线颜色: <select id="assistStyle">
     <option value="red">red</option>
     <option value="orange">orange</option>
-    <option value="yellow" selected = "selected">yellow</option>
+    <option value="yellow" selected="selected">yellow</option>
     <option value="green">green</option>
     <option value="blue">blue</option>
     <option value="purple">purple</option>
@@ -49,8 +50,8 @@
         start = {},
         now = {},
         imgCatch,
-        side=4,
-        startAngle=0,
+        side = 4,
+        startAngle = 0,
         assistStyle = 'red',
         lineStyle = 'blue',
         polygnFillStyle = 'yellow',
@@ -58,157 +59,159 @@
         isMouseDown = false,
         isDrag = false,
         nowPolygn,
-        polygns=[];
+        polygns = [];
 
-    function drawGrid(color, stepx, stepy){
+    function drawGrid(color, stepx, stepy) {
         ctx.strokeStyle = color;
-        for( var i=0.5+stepx; i<canvas.width; i+=stepx){
+        for (var i = 0.5 + stepx; i < canvas.width; i += stepx) {
             ctx.beginPath();
-            ctx.moveTo(i,0);
-            ctx.lineTo(i,canvas.height);
+            ctx.moveTo(i, 0);
+            ctx.lineTo(i, canvas.height);
             ctx.stroke();
             ctx.closePath();
         }
-        for( var i=0.5+stepy; i<canvas.height; i+=stepy){
+        for (var i = 0.5 + stepy; i < canvas.height; i += stepy) {
             ctx.beginPath();
-            ctx.moveTo(0,i);
-            ctx.lineTo(canvas.width,i);
+            ctx.moveTo(0, i);
+            ctx.lineTo(canvas.width, i);
             ctx.stroke();
             ctx.closePath();
         }
     }
 
-    drag.onchange = function(){
+    drag.onchange = function () {
         isDrag = drag.checked;
     }
 
-    canvas.onmousedown = function(e){
+    canvas.onmousedown = function (e) {
         e.preventDefault();
-        if(isMouseDown) return;
+        if (isMouseDown) return;
         isMouseDown = true;
-        start = windowToCanvas(e.clientX,e.clientY)
-        if(isDrag){
+        start = windowToCanvas(e.clientX, e.clientY)
+        if (isDrag) {
             //拖动
             //判断拖动哪个
             nowPolygn = null;
-           for( var i=polygns.length; --i>=0;){
-               var len = Math.sqrt(Math.pow((start.x-polygns[i].x),2)
-                                    +Math.pow((start.y-polygns[i].y),2));
-               if(len<polygns[i].radius) {
-                   //取出拖动的元素
-                   nowPolygn = polygns.splice(i, 1)[0];
-                   //重绘
-                   reDrawAllPolygn();
-                   break;
-               }
-           }
-        }else{
+            for (var i = polygns.length; --i >= 0;) {
+                var len = Math.sqrt(Math.pow((start.x - polygns[i].x), 2)
+                    + Math.pow((start.y - polygns[i].y), 2));
+                if (len < polygns[i].radius) {
+                    //取出拖动的元素
+                    nowPolygn = polygns.splice(i, 1)[0];
+                    //重绘
+                    reDrawAllPolygn();
+                    break;
+                }
+            }
+        } else {
             //绘制
-            nowPolygn = new Polygn(start.x,start.y,0,side,startAngle,polygnStrokeStyle,polygnFillStyle);
+            nowPolygn = new Polygn(start.x, start.y, 0, side, startAngle, polygnStrokeStyle, polygnFillStyle);
         }
-        if(nowPolygn) {
+        if (nowPolygn) {
             saveData();
             drawPolygn(nowPolygn)
         }
     }
 
-    canvas.onmousemove = function(e){
+    canvas.onmousemove = function (e) {
         e.preventDefault();
-        if(!isMouseDown)return;
-        now =windowToCanvas(e.clientX,e.clientY);
-        if(nowPolygn){
+        if (!isMouseDown)return;
+        now = windowToCanvas(e.clientX, e.clientY);
+        if (nowPolygn) {
             loadData();
-            if(isDrag){
-                nowPolygn.move(nowPolygn.x+now.x-start.x,nowPolygn.y+now.y-start.y);
+            if (isDrag) {
+                nowPolygn.move(nowPolygn.x + now.x - start.x, nowPolygn.y + now.y - start.y);
                 start = now;
-            }else{
+            } else {
                 updatePolynRadiu(e);
             }
             drawPolygn(nowPolygn);
-            !isDrag && drawAssist(assistStyle,start.x,start.y)
+            !isDrag && drawAssist(assistStyle, start.x, start.y)
         }
     }
 
-    canvas.onmouseup = function(e){
+    canvas.onmouseup = function (e) {
         e.preventDefault();
-        if(!isMouseDown)return;
-        if(nowPolygn) {
+        if (!isMouseDown)return;
+        if (nowPolygn) {
             loadData();
             drawPolygn(nowPolygn)
             polygns.push(nowPolygn);
         }
         isMouseDown = false;
         nowPolygn = null;
-        start={};
-        now={};
+        start = {};
+        now = {};
     }
 
-    function reDrawAllPolygn(){
-        if(!nowPolygn) return;
-        ctx.clearRect(0,0,canvas.width,canvas.height)
-        drawGrid('#ccc',10,10);
-        polygns.forEach((polygn)=>{
+    function reDrawAllPolygn() {
+        if (!nowPolygn) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        drawGrid('#ccc', 10, 10);
+        polygns.forEach((polygn) => {
             drawPolygn(polygn)
         })
     }
 
-    function  updatePolynRadiu(e){
-        now = windowToCanvas(e.clientX,e.clientY);
-        var radius = Math.min(Math.abs(now.x-start.x),Math.abs(now.y-start.y));
+    function updatePolynRadiu(e) {
+        now = windowToCanvas(e.clientX, e.clientY);
+        var radius = Math.min(Math.abs(now.x - start.x), Math.abs(now.y - start.y));
         nowPolygn.radius = radius
     }
 
-    function drawAssist(color,x,y){
+    function drawAssist(color, x, y) {
         ctx.save();
 
         ctx.strokeStyle = color;
         ctx.beginPath();
-        ctx.moveTo(x,0);
-        ctx.lineTo(x,canvas.height);
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.moveTo(0,y);
-        ctx.lineTo(canvas.width,y);
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
         ctx.stroke();
         ctx.closePath();
 
         ctx.stroke();
     }
 
-    function  windowToCanvas(x,y){
+    function windowToCanvas(x, y) {
         var bbox = canvas.getBoundingClientRect();
-        return { x: x - bbox.left * (canvas.width  / bbox.width),
-            y: y - bbox.top  * (canvas.height / bbox.height) };
+        return {
+            x: x - bbox.left * (canvas.width / bbox.width),
+            y: y - bbox.top * (canvas.height / bbox.height)
+        };
     }
 
 
-    function saveData(){
-        imgCatch = ctx.getImageData(0, 0,canvas.width,canvas.height);
+    function saveData() {
+        imgCatch = ctx.getImageData(0, 0, canvas.width, canvas.height);
     }
 
-    function loadData(){
-        if(imgCatch)
-        ctx.putImageData(imgCatch,0,0);
+    function loadData() {
+        if (imgCatch)
+            ctx.putImageData(imgCatch, 0, 0);
     }
 
-    function drawPolygn(polygn){
+    function drawPolygn(polygn) {
         polygn.strokeAndFill(ctx);
     }
 
-    document.querySelector('#side').onchange = function(){
+    document.querySelector('#side').onchange = function () {
         side = this.value;
     }
-    document.querySelector('#strokeStyle').onchange = function(){
+    document.querySelector('#strokeStyle').onchange = function () {
         polygnStrokeStyle = this.value;
     }
-    document.querySelector('#fillStyle').onchange = function(){
+    document.querySelector('#fillStyle').onchange = function () {
         polygnFillStyle = this.value;
     }
-    document.querySelector('#assistStyle').onchange = function(){
+    document.querySelector('#assistStyle').onchange = function () {
         assistStyle = this.value;
     }
-    drawGrid('#ccc',10,10);
+    drawGrid('#ccc', 10, 10);
 </script>
 </body>
 </html>
