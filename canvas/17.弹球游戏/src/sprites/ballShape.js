@@ -5,14 +5,12 @@ import {Sprite} from 'plugins/sprite'
 import {SpriteShape} from 'shapes/spriteShap'
 import {ImagePainter} from 'shapes/imagePainter'
 import {globalData} from '../global'
-import {game} from '../game'
 import ballSrc from 'images/ball.png'
-
 const {ACTUATOR_LEFT, FLIPPER_BOTTOM} = globalData
 
 const ballMover = {
   execute(sprite, context, time) {
-    const {loading, lastBallPosition, lauching} = globalData
+    const {loading, lastBallPosition, lauching, game} = globalData
     if (game.paused || loading) return
     lastBallPosition.x = sprite.left
     lastBallPosition.y = sprite.top
@@ -27,5 +25,10 @@ const ballMover = {
   }
 }
 
-const ballSprite = new Sprite('ball', new ImagePainter(ballSrc), [ ballMover ])
+export const ballSprite = new Sprite('ball', new ImagePainter(ballSrc), [ballMover])
+
+ballSprite.velocityX = 0
+ballSprite.velocityY = 0
+ballSprite.height = ballSprite.width = 33
+
 export const ballShape = new SpriteShape(ballSprite, ballSprite.width, ballSprite.height)

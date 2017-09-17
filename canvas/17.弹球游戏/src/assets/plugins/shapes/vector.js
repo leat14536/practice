@@ -55,4 +55,17 @@ export class Vector {
   dotProduct(vector) {
     return this.x * vector.x + this.y * vector.y
   }
+
+  // 反弹
+  reflect(axis) {
+    const v = new Vector()
+    const vdotl = this.dotProduct(axis)
+    const ldotl = axis.dotProduct(axis)
+    const dotProductRatio = vdotl / ldotl
+
+    v.x = 2 * dotProductRatio * axis.x - this.x
+    v.y = 2 * dotProductRatio * axis.y - this.y
+
+    return v
+  }
 }

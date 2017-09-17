@@ -3,6 +3,7 @@
  */
 import {ballShape} from '../sprites/ballShape'
 import {globalData} from '../global'
+import {domePolygons} from '../sprites/domePolygons'
 
 import {
   leftBoundary,
@@ -62,4 +63,33 @@ export function pushShape() {
   shapes.push(leftFlipperShape)
 
   shapes.push(actuatorPlatformShape)
+
+  shapes.push(...domePolygons)
+}
+
+export function getBounceCoefficient(shape) {
+  let ret
+  if (shape === twoXBumperLeft ||
+    shape === twoXBumperRight ||
+    shape === fiveXBumperRight ||
+    shape === fiveXBumperLeft ||
+    shape === fiftyBumper ||
+    shape === oneHundredBumperLeft ||
+    shape === oneHundredBumperRight ||
+    shape === fiveHundredBumper) {
+    ret = 'bumper'
+  } else if (shape === rightFlipperShape) {
+    ret = 'rightFlipperShape'
+  } else if (shape === leftFlipperShape) {
+    ret = 'leftFlipperShape'
+  } else if (shape === actuatorPlatformShape) {
+    ret = 'actuatorPlatformShape'
+  } else {
+    ret = 'default'
+  }
+  return ret
+}
+
+export function drawLitBumper(bumperLit) {
+  console.log(1)
 }

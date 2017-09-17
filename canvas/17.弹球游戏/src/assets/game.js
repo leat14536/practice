@@ -53,6 +53,10 @@ export class Game {
     this.PAUSE_TIMEOUT = 100
   }
 
+  addSprite(sprite) {
+    this.sprites.push(sprite)
+  }
+
   start() {
     requestNextAnimationFrame(time => {
       this.startTime = time

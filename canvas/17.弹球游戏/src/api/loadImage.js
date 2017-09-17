@@ -1,7 +1,6 @@
 /**
  * Created by Administrator on 2017/9/16 0016.
  */
-import {game} from '../game'
 import rightFlipper from 'images/rightFlipper.png'
 import leftFlipper from 'images/leftFlipper.png'
 import ball from 'images/ball.png'
@@ -21,7 +20,7 @@ import {LAUNCH_STEPS} from '../global'
 
 let isLoaded = false
 
-export function loadImage() {
+export function loadImage(game) {
   if (isLoaded) return
   isLoaded = true
 
