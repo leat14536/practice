@@ -14,11 +14,13 @@
  *   高分榜 setHightScore() getHightScores() clearHightScores()
  * */
 import Canvas from './plugins/canvas'
+import {EventBus} from './plugins/eventBus'
 import {$, loadImage} from './plugins/util'
 import {requestNextAnimationFrame} from './plugins/requestNextAnimationFrame'
 
-export class Game {
+export class Game extends EventBus {
   constructor(name, el) {
+    super()
     this.gameName = name
     this.canvas = new Canvas({canvas: $(el)})
     this.context = this.canvas.context

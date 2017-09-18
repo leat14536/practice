@@ -120,3 +120,22 @@ leftFlipperBaselineShape.points.push(new Point(142, 743))
 leftFlipperBaselineShape.points.push(new Point(239, 837))
 leftFlipperBaselineShape.points.push(new Point(218, 855))
 leftFlipperBaselineShape.points.push(new Point(116, 783))
+
+export const rightFlipperBaselineShape = new Polygon()
+
+rightFlipperBaselineShape.points.push(new Point(365, 745))
+rightFlipperBaselineShape.points.push(new Point(272, 836))
+rightFlipperBaselineShape.points.push(new Point(293, 857))
+rightFlipperBaselineShape.points.push(new Point(398, 781))
+
+export const oneXBumperLeft = new Polygon()
+
+oneXBumperLeft.points.push(new Point(80, 780))
+oneXBumperLeft.points.push(new Point(215, 875))
+oneXBumperLeft.points.push(new Point(80, 875))
+
+export const oneXBumperRight = new Polygon()
+
+oneXBumperRight.points.push(new Point(300, 875))
+oneXBumperRight.points.push(new Point(435, 775))
+oneXBumperRight.points.push(new Point(435, 875))

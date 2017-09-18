@@ -2,21 +2,20 @@
  * Created by Administrator on 2017/9/15 0015.
  */
 import {Point} from 'shapes/point'
-
 export const globalData = {
-  score: 0,
-  loading: true,
-  lauching: false,
-  lastBallPosition: {x: 0, y: 0},
-  launchImages: [],
-  shapes: [],
-  ballOutOfPlay: false,
-  showPolygonsOnly: true,
-  showingHighScores: false,
-  launchStep: 1,
-  game: null,
-  gameOver: false,
-  liveLeft: 3,
+  score: 0, // 分数
+  loading: true, // 正在加载
+  lauching: false, // 发射
+  lastBallPosition: {x: 0, y: 0}, // 球的位置 用于计算切线
+  launchImages: [], // 弹射板图片
+  shapes: [], // 存储shape
+  ballOutOfPlay: false, // 球出界
+  showPolygonsOnly: false, // 显示图形
+  showingHighScores: false, // 最高分
+  launchStep: 1, // 当前弹板状态
+  game: null, // game实例
+  gameOver: false, // 游戏结束
+  liveLeft: 3, // 生命值
   showTryAgain: false
 }
 
@@ -53,3 +52,7 @@ export const GAME_HEIGHT_IN_METERS = 2
 
 export const LEFT_FLIPPER_ROTATION_POINT = new Point(145, 775)
 export const RIGHT_FLIPPER_ROTATION_POINT = new Point(370, 775)
+
+export const TRY_AGAIN_X = 255
+export const TRY_AGAIN_Y = 865
+export const TRY_AGAIN_RADIUS = 35

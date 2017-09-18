@@ -4,9 +4,8 @@
 import {Sprite} from 'plugins/sprite'
 import {SpriteShape} from 'shapes/spriteShap'
 import {ImagePainter} from 'shapes/imagePainter'
-import {globalData} from '../global'
+import {globalData, ACTUATOR_LEFT, FLIPPER_BOTTOM} from '../global'
 import ballSrc from 'images/ball.png'
-const {ACTUATOR_LEFT, FLIPPER_BOTTOM} = globalData
 
 const ballMover = {
   execute(sprite, context, time) {

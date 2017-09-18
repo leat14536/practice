@@ -19,9 +19,11 @@ import {
   MAX_BALL_VELOCITY,
   MAX_FLIPPER_ANGLE,
   FLIPPER_RISE_DURATION,
-  LEFT_FLIPPER_ROTATION_POINT
+  LEFT_FLIPPER_ROTATION_POINT,
+  RIGHT_FLIPPER_ROTATION_POINT,
+  FLIPPER_FALL_DURATION
 } from './global'
-
+import {showTryAgainImage, drawBackground, drawLeftFlipperRiseTimer, drawRightFlipperRiseTimer} from './api/loadImage'
 import {
   leftFlipperFallTimer,
   leftFlipperRiseTimer,
@@ -30,11 +32,18 @@ import {
 } from './sprites/animationTimer'
 import {actuatorSprite} from './sprites/actuatorSprite'
 import {ballShape, ballSprite} from './sprites/ballShape'
-import {actuatorPlatformShape, leftFlipperBaselineShape, leftFlipperShape} from './sprites/polygonBumper'
+import {
+  actuatorPlatformShape,
+  leftFlipperBaselineShape,
+  leftFlipperShape,
+  rightFlipperShape,
+  rightFlipperBaselineShape
+} from './sprites/polygonBumper'
 import {rightBoundary} from './sprites/boundary'
 import {Vector} from 'shapes/vector'
+import {Line} from 'shapes/line'
+import {Point} from 'shapes/point'
 import {getBounceCoefficient, drawLitBumper} from './api/pushShape'
-import {pausedToast} from './index'
 
 let lastKeyListenerTime = 0
 let applyGravityAndFriction = false
@@ -46,18 +55,23 @@ let leftFlipperAngle = 0
 
 export const startAnimate = function (time) {
   const {loading, launching, gameOver, liveLeft, ballOutOfPlay} = globalData
-  if (loading || this.paused || launching) return
   // 弹射出
   // gameOver
   if (!gameOver && liveLeft === 0) {
-    console.log('over')
+    over()
+    return
   }
+  if (loading || this.paused || launching) return
 
   if (ballOutOfPlay) {
-    console.log('ballOutOfPlay')
+    globalData.ballOutOfPlay = false
+    prepareForLaunch() // 重置小球 和挡板
+    liveLeft > 1 && brieflyShowTryAgainImage(2000) // tryagain
+    globalData.liveLeft--
+    return
   }
 
-  // 左右挡板
+  // 旋转左右挡板
   adjustRightFlipperCollisionPolygon()
   adjustLeftFlipperCollisionPolygon()
 
@@ -80,11 +94,11 @@ export const paintUnderSprites = function () {
   if (showPolygonsOnly) {
     drawCollisionShapes(this)
   } else if (!showingHighScores) {
-    this.context.drawImage(this.getImage('background'), 0, 0)
-    drawLitBumper(bumperLit)
+    drawBackground(this)
+    drawLitBumper(this, bumperLit)
 
     if (showTryAgain) {
-      console.log('+------------')
+      showTryAgainImage(this)
     }
 
     // 左右挡板
@@ -101,11 +115,8 @@ export const keyListeners = [
   {
     key: 'space',
     listener() {
-      const {launching, launchImages, launchStep} = globalData
-      if (!launching && ballSprite.left === BALL_LAUNCH_LEFT &&
-        ballSprite.velocityY === 0) {
-        console.log('--------------')
-      }
+      const {launching, launchImages, launchStep, gameOver, game} = globalData
+      if (gameOver || game.paused) return
       if (launching) {
         ballSprite.velocityY = -300 * launchStep
         globalData.launching = false
@@ -173,15 +184,39 @@ export const keyListeners = [
   {
     key: 'left arrow',
     listener() {
-      leftFlipperRiseTimer.start()
-      leftFlipperAngle = 0
+      if (!globalData.lauching && !globalData.gameOver) {
+        leftFlipperRiseTimer.start()
+        leftFlipperAngle = 0
+      }
     }
   }
 ]
 
+function over() {
+  globalData.gameOver = true
+  globalData.game.emit('gameover')
+}
+
+function prepareForLaunch() {
+  ballSprite.left = BALL_LAUNCH_LEFT
+  ballSprite.top = BALL_LAUNCH_TOP
+  ballSprite.velocityX = 0
+  ballSprite.velocityY = 0
+
+  applyGravityAndFriction = false
+  adjustRightBoundaryAfterLostBall()
+  globalData.launching = true
+}
+
+function brieflyShowTryAgainImage() {
+  globalData.showTryAgain = true
+  setTimeout(() => (globalData.showTryAgain = false), 2000)
+}
+
 function togglePaused() {
-  globalData.game.togglePaused()
-  pausedToast.style.display = globalData.game.paused ? 'inline' : 'none'
+  const {game} = globalData
+  game.togglePaused()
+  game.emit('togglePause', game.paused)
 }
 
 function applyFrictionAndGravity(time) {
@@ -208,7 +243,7 @@ function drawExtraBall(game, index) {
 
 function paintLeftFlipper(game) {
   if (leftFlipperRiseTimer.isRunning() || leftFlipperFallTimer.isRunning()) {
-    console.log('================')
+    drawLeftFlipperRiseTimer(game, -leftFlipperAngle)
   } else {
     game.context.drawImage(game.getImage('leftFlipper'), 115, 745)
   }
@@ -216,14 +251,25 @@ function paintLeftFlipper(game) {
 
 function paintRightFlipper(game) {
   if (rightFlipperRiseTimer.isRunning() || rightFlipperFallTimer.isRunning()) {
-    console.log('================')
+    drawRightFlipperRiseTimer(game, rightFlipperAngle)
   } else {
     game.context.drawImage(game.getImage('rightFlipper'), 272, 745)
   }
 }
 
 function adjustRightFlipperCollisionPolygon() {
+  if (rightFlipperRiseTimer.isRunning() || rightFlipperFallTimer.isRunning()) {
+    for (let i = 0; i < rightFlipperShape.points.length; ++i) {
+      const rp = rightFlipperBaselineShape.points[i].rotate(
+        RIGHT_FLIPPER_ROTATION_POINT,
+        -rightFlipperAngle)
+
+      rightFlipperShape.points[i].x = rp.x
+      rightFlipperShape.points[i].y = rp.y
+    }
+  }
 }
+
 function adjustLeftFlipperCollisionPolygon() {
   if (leftFlipperRiseTimer.isRunning() || leftFlipperFallTimer.isRunning()) {
     for (let i = 0; i < leftFlipperShape.points.length; ++i) {
@@ -246,33 +292,72 @@ function adjustActuatorPlatformShape() {
 }
 
 function adjustRightBoundaryAfterLaunch() {
-  rightBoundary.points[1].x = 460
+  rightBoundary.points[1].x = 470
+}
+
+function adjustRightBoundaryAfterLostBall() {
+  rightBoundary.points[1].x = 508
 }
 
 function updateLeftFlipper() {
   if (leftFlipperRiseTimer.isRunning()) {
     if (leftFlipperRiseTimer.isOver()) {
-
+      leftFlipperRiseTimer.stop()
+      leftFlipperAngle = MAX_FLIPPER_ANGLE
+      leftFlipperFallTimer.start()
     } else {
       leftFlipperAngle = MAX_FLIPPER_ANGLE / FLIPPER_RISE_DURATION *
         leftFlipperRiseTimer.getElapsedTime()
     }
   } else if (leftFlipperFallTimer.isRunning()) {
-    console.log('-----------------')
+    if (leftFlipperFallTimer.isOver()) {
+      leftFlipperFallTimer.stop()
+      leftFlipperAngle = 0
+      resetLeftFlipperCollisionPolygon()
+    } else {
+      leftFlipperAngle = MAX_FLIPPER_ANGLE - MAX_FLIPPER_ANGLE /
+        FLIPPER_FALL_DURATION * leftFlipperFallTimer.getElapsedTime()
+    }
+  }
+}
+
+function resetLeftFlipperCollisionPolygon() {
+  for (let i = 0; i < leftFlipperShape.points.length; ++i) {
+    leftFlipperShape.points[i].x = leftFlipperBaselineShape.points[i].x
+    leftFlipperShape.points[i].y = leftFlipperBaselineShape.points[i].y
   }
 }
 
 function updateRightFlipper() {
   if (rightFlipperRiseTimer.isRunning()) {
-    console.log('-----------------')
+    if (rightFlipperRiseTimer.isOver()) {
+      rightFlipperRiseTimer.stop()
+      rightFlipperAngle = MAX_FLIPPER_ANGLE
+      rightFlipperFallTimer.start()
+    } else {
+      rightFlipperAngle = MAX_FLIPPER_ANGLE / FLIPPER_RISE_DURATION *
+        rightFlipperRiseTimer.getElapsedTime()
+    }
   } else if (rightFlipperFallTimer.isRunning()) {
-    console.log('-----------------')
+    rightFlipperAngle = MAX_FLIPPER_ANGLE - MAX_FLIPPER_ANGLE /
+      FLIPPER_FALL_DURATION * rightFlipperFallTimer.getElapsedTime()
+    if (rightFlipperFallTimer.isOver()) {
+      rightFlipperFallTimer.stop()
+      rightFlipperAngle = 0
+      resetRightFlipperCollisionPolygon()
+    }
+  }
+}
+
+function resetRightFlipperCollisionPolygon() {
+  for (let i = 0; i < rightFlipperShape.points.length; ++i) {
+    rightFlipperShape.points[i].x = rightFlipperBaselineShape.points[i].x
+    rightFlipperShape.points[i].y = rightFlipperBaselineShape.points[i].y
   }
 }
 
 function drawCollisionShapes(game) {
-  const {shapes} = globalData
-  shapes.forEach(shape => {
+  globalData.shapes.forEach(shape => {
     shape.stroke(game.context)
     game.context.beginPath()
     const centroid = shape.centroid()
@@ -284,8 +369,64 @@ function drawCollisionShapes(game) {
 function collisionDetected(mtv) {
   return mtv.axis !== undefined && mtv.overlap !== 0
 }
-function detectFlipperCollision() {
-  return false
+
+function detectFlipperCollision(flipper) {
+  const bbox = {top: 725, bottom: 850}
+  let v1, v2, riseTimer
+  if (flipper === LEFT_FLIPPER) {
+    v1 = new Vector(leftFlipperBaselineShape.points[0].rotate(
+      LEFT_FLIPPER_ROTATION_POINT,
+      leftFlipperAngle))
+    v2 = new Vector(leftFlipperBaselineShape.points[1].rotate(
+      LEFT_FLIPPER_ROTATION_POINT,
+      leftFlipperAngle))
+
+    bbox.left = 170
+    bbox.right = 265
+    riseTimer = leftFlipperRiseTimer
+  } else {
+    v1 = new Vector(rightFlipperBaselineShape.points[0].rotate(
+      RIGHT_FLIPPER_ROTATION_POINT,
+      rightFlipperAngle))
+
+    v2 = new Vector(rightFlipperBaselineShape.points[1].rotate(
+      RIGHT_FLIPPER_ROTATION_POINT,
+      rightFlipperAngle))
+
+    bbox.left = 245
+    bbox.right = 400
+    riseTimer = rightFlipperRiseTimer
+  }
+  if (!flipperCollisionDetected && riseTimer.isRunning() &&
+    ballSprite.top + ballSprite.height > bbox.top && ballSprite.left < bbox.right) {
+    const l1 = new Line(new Point(ballSprite.left, ballSprite.top), globalData.lastBallPosition)
+    const l2 = new Line(new Point(v2.x, v2.y), new Point(v1.x, v1.y))
+    const ip = l1.intersectionPoint(l2)
+    const surface = v2.subtract(v1)
+
+    if (ip.x > bbox.left && ip.x < bbox.right) {
+      // 设置反弹速度
+      reflectVelocityAroundVector(surface.perpendicular())
+
+      // ballSprite.velocityX = ballSprite.velocityX * 3.5
+      // ballSprite.velocityY = ballSprite.velocityY * 3.5
+
+      if (ballSprite.velocityY > 0) ballSprite.velocityY = -ballSprite.velocityY
+
+      if (flipper === LEFT_FLIPPER && ballSprite.velocityX < 0) ballSprite.velocityX = -ballSprite.velocityX
+      else if (flipper === RIGHT_FLIPPER && ballSprite.velocityX > 0) ballSprite.velocityX = -ballSprite.velocityX
+    }
+  }
+}
+
+function reflectVelocityAroundVector(v) {
+  const velocityVector = new Vector(ballSprite.velocityX, ballSprite.velocityY)
+  const velocityUnitVector = velocityVector.normalize()
+  const velocityVectorMagnitude = velocityVector.getMagnitude()
+  const point = velocityUnitVector.reflect(v)
+
+  ballSprite.velocityX = point.x * velocityVectorMagnitude
+  ballSprite.velocityY = point.y * velocityVectorMagnitude
 }
 
 function updateScore(game, shape) {
@@ -403,12 +544,12 @@ function detectCollisions(game) {
 
     flipperCollisionDetected = false
 
-    // 挡板更新
+    // 挡板二次检测
+    // 光线投射法 这里还需要修改
     detectFlipperCollision(LEFT_FLIPPER)
     detectFlipperCollision(RIGHT_FLIPPER)
 
     return flipperCollisionDetected
   }
-
   return false
 }

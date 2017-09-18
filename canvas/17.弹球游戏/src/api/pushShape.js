@@ -32,7 +32,9 @@ import {
   lowerRightBarRight,
   rightFlipperShape,
   leftFlipperShape,
-  actuatorPlatformShape
+  actuatorPlatformShape,
+  oneXBumperLeft,
+  oneXBumperRight
 } from '../sprites/polygonBumper'
 
 const {shapes} = globalData
@@ -54,6 +56,8 @@ export function pushShape() {
   shapes.push(upperLeftBarRight)
   shapes.push(upperRightBarLeft)
   shapes.push(upperRightBarRight)
+  shapes.push(oneXBumperLeft)
+  shapes.push(oneXBumperRight)
   shapes.push(lowerLeftBarLeft)
   shapes.push(lowerLeftBarRight)
   shapes.push(lowerRightBarLeft)
@@ -90,6 +94,55 @@ export function getBounceCoefficient(shape) {
   return ret
 }
 
-export function drawLitBumper(bumperLit) {
-  console.log(1)
+const bumperLits = [
+  {
+    test: bumperLit => bumperLit === fiveHundredBumper,
+    draw: game => game.context.drawImage(game.getImage('fiveHundredBumperBright'), 216, 147)
+  },
+  {
+    test: bumperLit => bumperLit === oneHundredBumperLeft,
+    draw: game => game.context.drawImage(game.getImage('oneHundredBumperBright'), 77, 288)
+  },
+  {
+    test: bumperLit => bumperLit === oneHundredBumperRight,
+    draw: game => game.context.drawImage(game.getImage('oneHundredBumperBright'), 355, 288)
+  },
+  {
+    test: bumperLit => bumperLit === fiftyBumper,
+    draw: game => game.context.drawImage(game.getImage('fiftyBumperBright'), 215, 434)
+  },
+  {
+    test: bumperLit => bumperLit === oneXBumperLeft,
+    draw: game => game.context.drawImage(game.getImage('oneXBumperLeftBright'), 71, 776)
+  },
+  {
+    test: bumperLit => bumperLit === oneXBumperRight,
+    draw: game => game.context.drawImage(game.getImage('oneXBumperRightBright'), 305, 775)
+  },
+  {
+    test: bumperLit => bumperLit === twoXBumperLeft,
+    draw: game => game.context.drawImage(game.getImage('twoXBumperLeftBright'), 93, 632)
+  },
+  {
+    test: bumperLit => bumperLit === twoXBumperRight,
+    draw: game => game.context.drawImage(game.getImage('twoXBumperRightBright'), 333, 631)
+  },
+  {
+    test: bumperLit => bumperLit === fiveXBumperLeft,
+    draw: game => game.context.drawImage(game.getImage('fiveXBumperLeftBright'), 95, 450)
+  },
+  {
+    test: bumperLit => bumperLit === fiveXBumperRight,
+    draw: game => game.context.drawImage(game.getImage('fiveXBumperRightBright'), 350, 450)
+  }
+]
+
+export function drawLitBumper(game, bumperLit) {
+  if (!bumperLit) return
+  for (let i = 0; i < bumperLits.length; i++) {
+    if (bumperLits[i].test(bumperLit)) {
+      bumperLits[i].draw(game)
+      return
+    }
+  }
 }

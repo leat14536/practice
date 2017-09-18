@@ -16,7 +16,7 @@ import fiveXBumperRightBright from 'images/fiveXBumperRightBright.png'
 import fiveXBumperLeftBright from 'images/fiveXBumperLeftBright.png'
 import background from 'images/background.png'
 
-import {LAUNCH_STEPS} from '../global'
+import {LAUNCH_STEPS, TRY_AGAIN_X, TRY_AGAIN_Y, TRY_AGAIN_RADIUS} from '../global'
 
 let isLoaded = false
 
@@ -46,4 +46,36 @@ export function loadImage(game) {
   for (let i = 0; i < LAUNCH_STEPS; i++) {
     game.queueImage(import(`images/actuator-${i}.png`), `images/actuator-${i}.png`)
   }
+}
+
+export function showTryAgainImage(game) {
+  game.context.save()
+  game.context.arc(TRY_AGAIN_X, TRY_AGAIN_Y, TRY_AGAIN_RADIUS,
+    0, Math.PI * 2, false)
+
+  game.context.clip()
+
+  game.context.drawImage(game.getImage('tryAgain'), 0,
+    game.canvas.height - 200)
+  game.context.restore()
+}
+
+export function drawBackground(game) {
+  game.context.drawImage(game.getImage('background'), 0, 0)
+}
+
+export function drawLeftFlipperRiseTimer(game, angle) {
+  game.context.save()
+  game.context.translate(143, 774)
+  game.context.rotate(angle)
+  game.context.drawImage(game.getImage('leftFlipper'), -28, -29)
+  game.context.restore()
+}
+
+export function drawRightFlipperRiseTimer(game, angle) {
+  game.context.save()
+  game.context.translate(370, 776)
+  game.context.rotate(angle)
+  game.context.drawImage(game.getImage('rightFlipper'), -99, -29)
+  game.context.restore()
 }

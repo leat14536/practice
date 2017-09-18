@@ -58,31 +58,31 @@
       position: absolute;
       left: 0px;
       top: 0px;
-      -webkit-box-shadow: rgba(100,100,100,0.5) 4px 4px 8px;
-      -moz-box-shadow: rgba(100,140,230,0.5) 2px 2px 6px;
-      box-shadow: rgba(100,140,230,0.5) 2px 2px 6px;
-      -o-box-shadow: rgba(100,140,230,0.5) 2px 2px 6px;
+      -webkit-box-shadow: rgba(100, 100, 100, 0.5) 4px 4px 8px;
+      -moz-box-shadow: rgba(100, 140, 230, 0.5) 2px 2px 6px;
+      box-shadow: rgba(100, 140, 230, 0.5) 2px 2px 6px;
+      -o-box-shadow: rgba(100, 140, 230, 0.5) 2px 2px 6px;
       border: thin solid cornflowerblue;
     }
 
     .floatingControls {
       background: rgba(0, 0, 0, 0.1);
       border: thin solid skyblue;
-      -webkit-box-shadow: rgba(0,0,0,0.3) 2px 2px 4px;
-      -moz-box-shadow: rgba(100,140,230,0.5) 2px 2px 6px;
-      box-shadow: rgba(100,140,230,0.5) 2px 2px 6px;
-      -o-box-shadow: rgba(100,140,230,0.5) 2px 2px 6px;
+      -webkit-box-shadow: rgba(0, 0, 0, 0.3) 2px 2px 4px;
+      -moz-box-shadow: rgba(100, 140, 230, 0.5) 2px 2px 6px;
+      box-shadow: rgba(100, 140, 230, 0.5) 2px 2px 6px;
+      -o-box-shadow: rgba(100, 140, 230, 0.5) 2px 2px 6px;
       position: absolute;
     }
 
     .floatingControls a {
       font-size: 1.5em;
       text-decoration: none;
-      color: rgba(255,255,0,0.6);
+      color: rgba(255, 255, 0, 0.6);
     }
 
     .floatingControls a:hover {
-      color: rgba(255,255,0,1.0);
+      color: rgba(255, 255, 0, 1.0);
     }
 
     #instructionsLink {
@@ -91,7 +91,7 @@
     }
 
     #instructionsLink:hover {
-      color: rgba(255,255,0,1.0);
+      color: rgba(255, 255, 0, 1.0);
     }
 
     #instructions p.title {
@@ -106,10 +106,10 @@
       padding-right: 20px;
       width: 700px;
       height: 370px;
-      -webkit-box-shadow: rgba(0,0,0,0.3) 4px 4px 8px;
-      -moz-box-shadow: rgba(100,140,230,0.5) 2px 2px 6px;
-      box-shadow: rgba(100,140,230,0.5) 2px 2px 6px;
-      -o-box-shadow: rgba(100,140,230,0.5) 2px 2px 6px;
+      -webkit-box-shadow: rgba(0, 0, 0, 0.3) 4px 4px 8px;
+      -moz-box-shadow: rgba(100, 140, 230, 0.5) 2px 2px 6px;
+      box-shadow: rgba(100, 140, 230, 0.5) 2px 2px 6px;
+      -o-box-shadow: rgba(100, 140, 230, 0.5) 2px 2px 6px;
       color: rgba(0, 0, 255, 0.8);
       background: rgba(255, 255, 255, 0.8);
     }
@@ -127,10 +127,10 @@
     .toast {
       background: rgba(255, 255, 255, 0.7);
       border: thin solid skyblue;
-      -webkit-box-shadow: rgba(0,0,0,0.3) 2px 2px 4px;
-      -moz-box-shadow: rgba(100,140,230,0.5) 2px 2px 6px;
-      box-shadow: rgba(100,140,230,0.5) 2px 2px 6px;
-      -o-box-shadow: rgba(100,140,230,0.5) 2px 2px 6px;
+      -webkit-box-shadow: rgba(0, 0, 0, 0.3) 2px 2px 4px;
+      -moz-box-shadow: rgba(100, 140, 230, 0.5) 2px 2px 6px;
+      box-shadow: rgba(100, 140, 230, 0.5) 2px 2px 6px;
+      -o-box-shadow: rgba(100, 140, 230, 0.5) 2px 2px 6px;
       position: absolute;
       display: none;
     }
@@ -161,7 +161,7 @@
       color: yellow;
       width: 3em;
       text-align: center;
-      border: thin solid rgba(255,255,0,0.5);
+      border: thin solid rgba(255, 255, 0, 0.5);
     }
 
     div .title {
@@ -192,7 +192,7 @@
     }
 
     #highScoreList {
-      color: rgba(0,0,255,0.6);
+      color: rgba(0, 0, 255, 0.6);
     }
 
     #previousHighScoresTitle {
@@ -224,9 +224,9 @@
     }
 
     #showPolygonsOnlyToast {
-      background: rgba(255,255,255,0.5);
+      background: rgba(255, 255, 255, 0.5);
       padding: 3px;
-      color: rgba(255,250,0,1.0);
+      color: rgba(255, 250, 0, 1.0);
       text-align: center;
       left: 423px;
       top: 25px;
@@ -255,6 +255,12 @@
 <div id='pausedToast' class='toast'>
   <p class='title'>Paused</p>
   <p>Click here to start</p>
+</div>
+
+<div id='gameOverToast' class='toast'>
+  <p class='title'>Game Over</p><br/>
+  <p><input id='clearHighScoresCheckbox' type='checkbox'/> clear high scores</p>
+  <input id='newGameButton' type='button' value='new game' autofocus='true'/>
 </div>
 </body>
 </html>
