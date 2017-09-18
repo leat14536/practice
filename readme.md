@@ -16,6 +16,15 @@
 1. [Promise的简单实现](https://github.com/leat14536/practice/tree/gh-pages/promise)
 1. [vue.js watcher的实现](https://github.com/leat14536/practice/tree/gh-pages/watcher)
 
+
+## canvas
+1. [弹球游戏](https://github.com/leat14536/practice/tree/gh-pages/canvas/17.%E5%BC%B9%E7%90%83%E6%B8%B8%E6%88%8F) [[demo]](https://leat14536.github.io/practice/canvas/17.%E5%BC%B9%E7%90%83%E6%B8%B8%E6%88%8F/dist/)
+1. [分离轴碰撞检测](https://github.com/leat14536/practice/tree/gh-pages/canvas/16.%E5%9B%BE%E5%BD%A2%E7%A2%B0%E6%92%9E%E5%8F%8D%E5%BC%B9) [[demo]](https://leat14536.github.io/practice/canvas/16.%E5%9B%BE%E5%BD%A2%E7%A2%B0%E6%92%9E%E5%8F%8D%E5%BC%B9/dist/)
+3. [光线投射碰撞检测](https://github.com/leat14536/practice/tree/gh-pages/canvas/13.%E5%85%89%E7%BA%BF%E6%8A%95%E5%B0%84%E6%B3%95) [[demo]](https://leat14536.github.io/practice/canvas/13.%E5%85%89%E7%BA%BF%E6%8A%95%E5%B0%84%E6%B3%95/dist/)
+4. [缓动动画](https://github.com/leat14536/practice/tree/gh-pages/canvas/12.%E7%BC%93%E5%8A%A8%E5%8A%A8%E7%94%BB) [[demo]](https://leat14536.github.io/practice/canvas/12.%E7%BC%93%E5%8A%A8%E5%8A%A8%E7%94%BB/dist/)
+5. [图片处理(web worker)](https://github.com/leat14536/practice/tree/gh-pages/canvas/9.%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86) [[demo]](https://leat14536.github.io/practice/canvas/9.%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86/dist3.%E6%B7%A1%E5%85%A5%E6%B7%A1%E5%87%BA/)
+6. [更多](https://github.com/leat14536/practice/tree/gh-pages/canvas)
+
 ## vue.js基础模块
 1. [MyVue](https://github.com/leat14536/MyVue)
 
@@ -34,7 +43,6 @@
 ## H5
 1. [数据可视化(imooc)](https://github.com/leat14536/practice/tree/gh-pages/imooc-%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96)
 1. [websocket](https://github.com/leat14536/practice/tree/gh-pages/websocket)
-1. [canvas](https://github.com/leat14536/practice/tree/gh-pages/canvas)
 
 ## 仿站
 1 [仿李宁官网](https://github.com/leat14536/practice/tree/gh-pages/%E4%BB%BF%E6%9D%8E%E5%AE%81%E5%AE%98%E7%BD%91)
