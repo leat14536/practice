@@ -18,7 +18,7 @@
 
 
 ## canvas
-1. [弹球游戏](https://github.com/leat14536/practice/tree/gh-pages/canvas/17.%E5%BC%B9%E7%90%83%E6%B8%B8%E6%88%8F) [[demo]](https://leat14536.github.io/practice/canvas/17.%E5%BC%B9%E7%90%83%E6%B8%B8%E6%88%8F/dist/)
+1. [弹球游戏](https://github.com/leat14536/practice/tree/gh-pages/canvas/17.%E5%BC%B9%E7%90%83%E6%B8%B8%E6%88%8F) [[demo]](https://leat14536.github.io/practice/canvas/17.%E5%BC%B9%E7%90%83%E6%B8%B8%E6%88%8F/dist/) [[polygon]](https://leat14536.github.io/practice/canvas/17.%E5%BC%B9%E7%90%83%E6%B8%B8%E6%88%8F/dist2/)
 1. [分离轴碰撞检测](https://github.com/leat14536/practice/tree/gh-pages/canvas/16.%E5%9B%BE%E5%BD%A2%E7%A2%B0%E6%92%9E%E5%8F%8D%E5%BC%B9) [[demo]](https://leat14536.github.io/practice/canvas/16.%E5%9B%BE%E5%BD%A2%E7%A2%B0%E6%92%9E%E5%8F%8D%E5%BC%B9/dist/)
 3. [光线投射碰撞检测](https://github.com/leat14536/practice/tree/gh-pages/canvas/13.%E5%85%89%E7%BA%BF%E6%8A%95%E5%B0%84%E6%B3%95) [[demo]](https://leat14536.github.io/practice/canvas/13.%E5%85%89%E7%BA%BF%E6%8A%95%E5%B0%84%E6%B3%95/dist/)
 4. [缓动动画](https://github.com/leat14536/practice/tree/gh-pages/canvas/12.%E7%BC%93%E5%8A%A8%E5%8A%A8%E7%94%BB) [[demo]](https://leat14536.github.io/practice/canvas/12.%E7%BC%93%E5%8A%A8%E5%8A%A8%E7%94%BB/dist/)
