@@ -1,1 +1,4 @@
-# react-文档示例
+# React-app
+
+    npm install
+    npm run dev

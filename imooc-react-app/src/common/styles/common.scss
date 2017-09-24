@@ -1,0 +1,18 @@
+body {
+  background-color: #f1f1f1;
+  font-family: "微软雅黑", "Times New Roman", Georgia, Serif;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.clear-fix:after {
+  display: table;
+  content: '';
+  clear: both;
+}

@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = () => {
   return {
     entry: {
-      index: './src/index'
+      index: './src/index.jsx'
     },
     output: {
       path: resolve(__dirname, 'dist'),
