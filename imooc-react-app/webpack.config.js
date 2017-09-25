@@ -1,6 +1,7 @@
 /**
  * Created by Administrator on 2017/8/4 0004.
  */
+/* eslint-disable */
 const {resolve} = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
@@ -14,8 +15,11 @@ module.exports = () => {
       filename:'[name][hash].js',
     },
     resolve: {
-      extensions: ['\.js', '\.jsx'],
-      alias: {}
+      extensions: ['.js', '.jsx'],
+      alias: {
+        components: resolve('./src/components'),
+        fetch: resolve('./src/fetch')
+      }
     },
     module: {
       rules: [
@@ -68,6 +72,12 @@ module.exports = () => {
       })
     ],
     devServer: {
+      proxy:{
+        '/api':{
+          target: 'http://localhost:8080',
+          secure: false
+        }
+      },
       port: 8100,
       historyApiFallback: true
     }

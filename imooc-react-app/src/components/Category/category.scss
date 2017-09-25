@@ -17,7 +17,96 @@
         padding-top: 50px;
         color: #666;
         font-size: 14px;
-        background-image: url(./th.jpg);
+        &.jingdian {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224203170-1528315005.png);
+        }
+        &.ktv {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224309185-1519181081.png);
+        }
+        &.gouwu {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224150045-30962603.png);
+        }
+        &.shenghuofuwu {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224237513-176380794.png);
+        }
+        &.jianshenyundong {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224256732-145714491.png);
+        }
+        &.meifa {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224222123-643915682.png);
+        }
+        &.qinzi {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224229451-475201730.png);
+        }
+        &.xiaochikuaican {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224244545-1583700011.png);
+        }
+        &.zizhucan {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224113560-1012968440.png);
+        }
+        &.jiuba {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224210732-490953965.png);
+        }
+        &.meishi {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224409107-2018112337.png);
+        }
+        &.dianying {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224033873-290248113.png);
+        }
+        &.jiudian {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224051513-2057698989.png);
+        }
+        &.xuixianyule {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224129076-2058206915.png);
+        }
+        &.waimai {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224121920-424129491.png);
+        }
+        &.huoguo {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224046342-1896393176.png);
+        }
+        &.liren {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224057670-257626875.png);
+        }
+        &.dujiachuxing {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224040842-2050913385.png);
+        }
+        &.zuliaoanmo {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224144060-1009120401.png);
+        }
+        &.zhoubianyou {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224138123-197921773.png);
+        }
+        &.ribencai {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224354951-1102565687.png);
+        }
+        &.SPA {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224419998-1442330810.png);
+        }
+        &.jiehun {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224340545-213074048.png);
+        }
+        &.xuexipeixun {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224415013-114294334.png);
+        }
+        &.xican {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224409107-2018112337.png);
+        }
+        &.huochejipiao {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224323467-1926976043.png);
+        }
+        &.shaokao {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224402576-1611337354.png);
+        }
+        &.jiazhuang {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224333185-1082315113.png);
+        }
+        &.chongwu {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224315779-157132725.png);
+        }
+        &.quanbufenlei {
+          background-image: url(http://images2015.cnblogs.com/blog/138012/201610/138012-20161022224348467-646596364.png);
+        }
       }
     }
   }
@@ -38,9 +127,9 @@
       border-radius: 4px;
       background-color: #ccc;
       margin: 0 3px;
-    }
-    li.selected {
-      background-color: rgb(233, 32, 61);
+      &.selected {
+        background-color: rgb(233, 32, 61);
+      }
     }
   }
 }
