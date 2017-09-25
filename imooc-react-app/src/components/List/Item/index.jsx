@@ -21,10 +21,10 @@ export default class Item extends React.Component {
             <h3 className="float-left">{data.title}</h3>
             <span className="float-right">{data.distance}</span>
           </div>
-          <p className="item-sub-right">
+          <p className="item-sub-title">
             {data.subTitle}
           </p>
-          <div className="item-price-conteainer clear-fix">
+          <div className="item-price-container clear-fix">
             <span className="price float-left">￥{data.price}</span>
             <span className="mumber float-right">已售{data.mumber}</span>
           </div>
