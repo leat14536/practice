@@ -21,7 +21,8 @@ module.exports = {
     alias: {
       components: resolve('./src/components'),
       fetchDir: resolve('./src/fetch'),
-      common: resolve('./src/common')
+      common: resolve('./src/common'),
+      reduxDir: resolve('./src/redux')
     }
   },
   module: {

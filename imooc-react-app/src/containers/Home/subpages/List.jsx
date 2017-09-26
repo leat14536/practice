@@ -36,6 +36,11 @@ export default class List extends React.Component {
     )
   }
 
+  componentDidMount() {
+    if(!this.props.cityName) return
+    this.loadFirstPageData(this.props.cityName)
+  }
+
   componentWillReceiveProps(newProps) {
     this.loadFirstPageData(newProps.cityName)
   }

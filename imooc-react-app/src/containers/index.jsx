@@ -1,5 +1,11 @@
 import React from 'react'
 import Home from './Home'
+import City from './City'
+import User from './User'
+import Search from './Search'
+import Detail from './Detail'
+import Template from './template'
+import {HashRouter as Router, Route, Switch, Link} from 'react-router-dom'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import * as userInfoActionsFromOtherFile from '../redux/actions/userinfo'
@@ -14,7 +20,16 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Home/>
+        <Router>
+          <Switch>
+            <Route path="/" exact component={Home}/>
+            <Route path="/city" component={City}/>
+            <Route path="/user" component={User}/>
+            <Route path="/search" component={Search}/>
+            <Route path="/detail/:id" component={Detail}/>
+            <Route path="*" component={Template}/>
+          </Switch>
+        </Router>
       </div>
     )
   }
@@ -29,8 +44,7 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {
-  }
+  return {}
 }
 
 function mapDispatchToProps(dispatch) {

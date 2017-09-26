@@ -1,4 +1,5 @@
 .DS_Store
+currentCode/
 node_modules/
 codes/
 npm-debug.log*
