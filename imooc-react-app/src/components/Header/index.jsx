@@ -4,9 +4,10 @@ import {withRouter} from 'react-router-dom'
 import './header.scss'
 
 class Header extends React.Component {
-  constructor() {
+  constructor(props) {
     super(...arguments)
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
+    props.clickHandle && (this.clickHandle = props.clickHandle)
   }
 
   render() {

@@ -26,7 +26,9 @@ class HomeHeader extends React.Component {
           </Link>
         </div>
         <div className="home-header-right float-right">
-          <i className="icon-user"></i>
+          <Link to="login">
+            <i className="icon-user"></i>
+          </Link>
         </div>
         <div className="home-header-middle">
           <div className="search-container">
@@ -39,7 +41,7 @@ class HomeHeader extends React.Component {
   }
 
   enterHandle(value) {
-    if(value === '') return
+    if (value === '') return
     this.props.history.push('/search?key=' + encodeURIComponent(value))
   }
 }

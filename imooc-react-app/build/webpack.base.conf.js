@@ -14,7 +14,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename:'[name].js'
+    filename:'[name].js',
+    chunkFilename: '[name].js'
   },
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -22,7 +23,8 @@ module.exports = {
       components: resolve('./src/components'),
       fetchDir: resolve('./src/fetch'),
       common: resolve('./src/common'),
-      reduxDir: resolve('./src/redux')
+      reduxDir: resolve('./src/redux'),
+      containers: resolve('./src/containers')
     }
   },
   module: {
