@@ -7,7 +7,6 @@ class Header extends React.Component {
   constructor(props) {
     super(...arguments)
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
-    props.clickHandle && (this.clickHandle = props.clickHandle)
   }
 
   render() {
@@ -22,7 +21,12 @@ class Header extends React.Component {
   }
 
   clickHandle() {
-    this.props.history.goBack()
+    const backRouter = this.props.backRouter
+    if (backRouter) {
+      this.props.history.push(backRouter)
+    } else {
+      this.props.history.goBack()
+    }
   }
 }
 

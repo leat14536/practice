@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom'
 
 import Header from 'components/Header'
 import Info from './subpage/Info'
+import Buy from './subpage/Buy'
 import Common from './subpage/Common'
 
 class Detail extends React.Component {
@@ -18,6 +19,7 @@ class Detail extends React.Component {
       <div className="wrap">
         <Header title="商户详情"/>
         <Info id={id}/>
+        <Buy id={id}/>
         <Common id={id}/>
       </div>
     )

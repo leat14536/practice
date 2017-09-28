@@ -41,7 +41,7 @@ class Login extends React.Component {
     const {router} = params
 
     if (router) {
-      this.props.history.push('/' + router)
+      this.props.history.push(decodeURIComponent(router))
     } else {
       // 跳转到用户主页
       this.goUserPage()
@@ -49,7 +49,7 @@ class Login extends React.Component {
   }
 
   goUserPage() {
-    this.props.history.push('/User')
+    this.props.history.push('/user')
   }
 
   componentDidMount() {

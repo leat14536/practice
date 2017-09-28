@@ -32,6 +32,7 @@ class App extends React.Component {
             <Route path='/login' component={Login}/>
             <Route path="/search" component={Search}/>
             <Route path="/detail/:id" component={Detail}/>
+            <Route path="/detail" component={Detail}/>
             <Route path="*" component={Template}/>
           </Switch>
         </Router>

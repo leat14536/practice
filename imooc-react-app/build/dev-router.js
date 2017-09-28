@@ -61,12 +61,12 @@ apiRoute.get('/search/:page/:city/:category', (req, res) => {
 
 const detailInfo = require('../mockData/detailInfo.js')
 apiRoute.get('/detail/info/:id', (req, res) => {
-  console.log('详情页 - 商户信息')
+  // console.log('详情页 - 商户信息')
 
-  const params = req.params
-  const id = params.id
+  // const params = req.params
+  // const id = params.id
 
-  console.log('商户id: ' + id)
+  // console.log('商户id: ' + id)
 
   res.json({
     code: 0,
@@ -76,14 +76,14 @@ apiRoute.get('/detail/info/:id', (req, res) => {
 
 const detailComment = require('../mockData/detailComment.js')
 apiRoute.get('/detail/comment/:page/:id', (req, res) => {
-  console.log('详情页 - 用户点评')
+  // console.log('详情页 - 用户点评')
 
-  const params = req.params
-  const page = params.page
-  const id = params.id
+  // const params = req.params
+  // const page = params.page
+  // const id = params.id
 
-  console.log('商户id: ' + id)
-  console.log('当前页数: ' + page)
+  // console.log('商户id: ' + id)
+  // console.log('当前页数: ' + page)
 
   res.json({
     code: 0,
@@ -91,4 +91,28 @@ apiRoute.get('/detail/comment/:page/:id', (req, res) => {
   })
 })
 
+const orderList = require('../mockData/orderList')
+apiRoute.get('/orderlist/:username', (req,res) => {
+  // console.log('订单列表')
+
+  // const params = req.params
+  // const username = params.username
+  // console.log('用户名：' + username)
+
+  res.json({
+    code: 0,
+    data: orderList
+  })
+})
+
+
+apiRoute.post('/submitComment', (req, res) => {
+  // console.log('提交评论')
+  // console.log(req)
+
+  res.json({
+    code: 0,
+    msg: 'ok'
+  })
+})
 module.exports = apiRoute

@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title> 内容选中事件 </title>
+</head>
+<body>
+<form>
+    个人简介：<br>
+    <textarea name="summary" cols="60" rows="5" onselect="message(event)">请写入个人简介，不少于200字！</textarea>
+
+</form>
+
+<script>
+    function message(e) {
+        const target = e.target
+
+        // 选取的起止位置
+        const staIndex = target.selectionStart
+        const endIndex = target.selectionEnd
+        console.log(staIndex)
+        console.log(endIndex)
+    }
+</script>
+</body>
+</html>
