@@ -12,13 +12,16 @@ module.exports = () => {
     },
     output: {
       path: resolve(__dirname, 'dist'),
-      filename:'[name][hash].js',
+      filename: '[name][hash].js',
     },
     resolve: {
       extensions: ['.js', '.jsx'],
       alias: {
         components: resolve('./src/components'),
-        fetch: resolve('./src/fetch')
+        fetchDir: resolve('./src/fetch'),
+        common: resolve('./src/common'),
+        reduxDir: resolve('./src/redux'),
+        containers: resolve('./src/containers')
       }
     },
     module: {
@@ -48,11 +51,11 @@ module.exports = () => {
         },
         {
           test: /\.scss$/,
-          use: ['style-loader','css-loader','postcss-loader', 'sass-loader']
+          use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
         },
         {
           test: /\.css$/,
-          use: ['style-loader','css-loader','postcss-loader']
+          use: ['style-loader', 'css-loader', 'postcss-loader']
         },
         {
           test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
@@ -72,9 +75,10 @@ module.exports = () => {
       })
     ],
     devServer: {
-      proxy:{
-        '/api':{
-          target: 'http://localhost:8080',
+      proxy: {
+        '/api/*': {
+          target: 'http://localhost:8888',
+          changeOrigin: true,
           secure: false
         }
       },

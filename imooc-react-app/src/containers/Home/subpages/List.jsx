@@ -63,7 +63,7 @@ export default class List extends React.Component {
       .catch(err => {
         /* eslint-disable */
         if (process.env.NODE_ENV === 'development') {
-          console.err('List 出错' + err)
+          console.error('List 出错' + err)
         }
       })
   }

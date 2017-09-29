@@ -12,7 +12,6 @@ const express = require('express')
 const webpack = require('webpack')
 const proxyMiddleware = require('http-proxy-middleware')
 const webpackConfig = require('./wabpack.dev.conf')
-
 const port = process.env.PORT || 8010
 const autoOpenBrowser = true
 const app = express()

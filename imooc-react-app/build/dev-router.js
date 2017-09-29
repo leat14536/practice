@@ -105,10 +105,9 @@ apiRoute.get('/orderlist/:username', (req,res) => {
   })
 })
 
-
 apiRoute.post('/submitComment', (req, res) => {
   // console.log('提交评论')
-  // console.log(req)
+  console.log(req.body)
 
   res.json({
     code: 0,

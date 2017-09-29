@@ -9,7 +9,7 @@ export default class Template extends React.Component {
 
   render() {
     return (
-      <div>template</div>
+      <div>404 NOT FOUND</div>
     )
   }
 }

@@ -10,7 +10,7 @@ import User from './User'
 import Login from './Login'
 import Search from './Search'
 import Detail from './Detail'
-import Template from './template'
+import NotFound from './404'
 
 import * as userInfoActionsFromOtherFile from 'reduxDir/actions/userinfo'
 
@@ -33,7 +33,7 @@ class App extends React.Component {
             <Route path="/search" component={Search}/>
             <Route path="/detail/:id" component={Detail}/>
             <Route path="/detail" component={Detail}/>
-            <Route path="*" component={Template}/>
+            <Route path="*" component={NotFound}/>
           </Switch>
         </Router>
       </div>
