@@ -21,3 +21,7 @@ export function getNames(){
       }
     })
 }
+
+export function getUntitled() {
+  return get('/api/gexf/Untitled.gexf')
+}
